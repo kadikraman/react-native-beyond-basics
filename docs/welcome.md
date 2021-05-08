@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Welcome
 
-Hello, and thank you for your interest in this intermediate React Native course! 🎉
+Hi there! Thank you for your interest in this intermediate React Native course! 🎉
 
 ## About Me
 
@@ -27,3 +27,5 @@ course. You don't _have_ to take that course course, but we will assume familiar
 In this course, we will _not_ be using Expo. That's right, we're going fully native! This means that if you want to build an iOS app, you _must_ use a Mac since iOS apps cannot be built on Windows or Linux.
 
 Aside from that restriction, feel free to follow this on Android or iOS (or both of course!) - instruction and examples will be provided for both platforms.
+
+I will be using [VSCode](https://code.visualstudio.com/) code editor, iPhone 12 simulator and an Android Nexus Emulator throughout.
