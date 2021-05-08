@@ -1,33 +1,13 @@
-# Website
+# Intermediate React Native Course
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+Welcome to my Intermediate React Native course, I hope you'll enjoy it! See the course website [here](https://kadikraman.github.io/react-native-beyond-basics/).
 
-## Installation
+## About the course
 
-```console
-yarn install
-```
+The material in the course follows on from the material from the [Intro to React Native](https://kadikraman.github.io/react-native-v2/)
+course. You don't _have_ to take that course course, but we will assume familiarity with some of the core concepts:
 
-## Local Development
-
-```console
-yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
-
-```console
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-```console
-GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- the basic components: `View`, `Text`, `TouchableOpacity`, `FlatList`, `ScrollView`
+- styling your components using `StyleSheet`
+- navigation using `react-navigation`
+- `useState`, `useEffect` and `useCallback` hooks
