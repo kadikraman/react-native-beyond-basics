@@ -19,9 +19,9 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'intro',
+          docId: 'welcome',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Course',
         },
         {
           href: 'https://github.com/kadikraman/react-native-beyond-basics',
@@ -32,7 +32,7 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} Kadi Kraman. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Kadi Kraman. Built with Docusaurus. Icons from Flaticon.`,
     },
   },
   presets: [
