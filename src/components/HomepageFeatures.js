@@ -4,32 +4,56 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Pressable',
+    Svg: require('../../static/img/teamwork.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Using the the Pressable component in place of Touchable
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Animations',
+    Svg: require('../../static/img/success.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Explore full page animations with LayoutAnimation and more targeted animations with Reanimated 2
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
+    title: 'Splash screens, App Icons, custom fonts',
+    Svg: require('../../static/img/prize.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Make your app stand out with your own custom splash screens, app icons and custom fonts
+      </>
+    ),
+  },
+  {
+    title: 'Data persistance',
+    Svg: require('../../static/img/winner.svg').default,
+    description: (
+      <>
+        Learn how to persist data across sessions
+      </>
+    ),
+  },
+  {
+    title: 'Push notifications',
+    Svg: require('../../static/img/clover.svg').default,
+    description: (
+      <>
+        Learn how to configure local and remote push notifications
+      </>
+    ),
+  },
+  {
+    title: 'CI/CD and store deployments',
+    Svg: require('../../static/img/idea.svg').default,
+    description: (
+      <>
+        Read about how to prepare your app for store deployments
       </>
     ),
   },
