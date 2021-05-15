@@ -1,10 +1,12 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# TypeScript
+# Into to TypeScript
 
 You would have noticed that when creating the new project, we used the React Native TypeScript template. That's because we will indeed be building our app in TypeScript.
+
+https://www.typescriptlang.org/play
 
 ## What is TypeScript
 
