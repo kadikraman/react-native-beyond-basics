@@ -2,7 +2,7 @@
 sidebar_position: 8
 ---
 
-# Icons
+# Vector Icons
 
 The main advantage of using `svg` - Scalable Vector Graphics - is that they are scalable as the name suggests. This means that the same vector image will look absolutely crisp on any size display. This is extremely appealing when building mobile applications, because we need to consider support for devices with all kinds of pixel density. You will also be able to change the color of the icon dynamically, without needing to create several versions of the icon.
 
