@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 10
 ---
 
 # Images
@@ -8,7 +8,17 @@ Good sources for finding free images for your app: [Unsplash](https://unsplash.c
 
 ## Local images
 
+Use https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80 as background https://unsplash.com/photos/LS0CWcXo1dw
+
+Use https://www.flaticon.com/free-icon/ying-yang_1390877?related_id=1390877 for the icon
+
 Let's add the image of this happy cactus from [FlatIcon](https://www.flaticon.com/free-icon/cactus_874928) into our app using the React Native [Image](https://reactnative.dev/docs/image) component.
+
+<img src="/img/icon-example.png" alt="Icon example" width="500" />
+
+## Commit
+
+**59f28cae194822eae62a29e6cdd01a5f77dbadee**
 
 <img src="/img/cactus.png" alt="Cactus" width="200" />
 
