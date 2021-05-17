@@ -32,6 +32,20 @@ It is generally a good practice to do this even if you never plan to share your 
 
 Note that it is common to use a Git GUI as in addition to the cli is common practice. This makes tracking changes a whole lot easier. Two of the most popular Git GUIs out there at the time of writing are [SourceTree](https://www.sourcetreeapp.com/) and [Fork](https://git-fork.com/).
 
+## Running the iOS app (via the terminal)
+
+In one tab, start the metro bundler
+
+```sh
+yarn start
+```
+
+In another tab, build the native app
+
+```sh
+yarn ios
+```
+
 ## Running the iOS app (via Xcode)
 
 While you can run your app from the cli, it is often better to build using Xcode as you get more control over the build. It is also very handy when changing native code or debugging build errors.
@@ -46,9 +60,7 @@ yarn
 
 Note: Because our project was created from a template, the dependencies are already installed.
 
-For iOS, the build dependencies are managed using [CocoaPods](https://cocoapods.org/) (or "Pods" for short). You can think of this as the iOS version of `npm`. Now because we created our new app from template, the dependencies are already installed. However if you cloned a new project, you'd need to also:
-
-Install iOS native dependencies:
+For iOS, the build dependencies are managed using [CocoaPods](https://cocoapods.org/) (or "Pods" for short). You can think of this as the iOS version of `npm`. Now because we created our new app from template, the dependencies are already installed. However if you cloned a new project, you'd need to also install the iOS native dependencies:
 
 ```sh
 cd ios
@@ -98,8 +110,6 @@ Open Xcode, choose "Open a project or file" and open the `ios/MoodTracker.xcwork
 
 Now at the very top of the `cli` you will see `MoodTracker > [some device name]`. Click on the "MoodTracker" to choose which simulator to run the project on. After you've chosen your preferred target, click on the "Play" icon to run your app. This will take a little while the first time.
 
-<img src="/img/new-project-ios.png" alt="New Project iOS" width="500px"/>
-
 ## Running the Android app (via Android Studio)
 
 As with the iOS app, it's possible to do this via the cli, but let's look how to do this using Android Studio.
@@ -134,4 +144,9 @@ If you haven't configured a virtual device yet, you can do so now: click on the 
 
 Now choose which device you want to run your app on at the top of the IDE, to the left of the "play" icon. Once you're happy, click on the "play" icon to build the project.
 
-<img src="/img/new-project-android.png" alt="New Project Android" width="500px"/>
+## Checkpoint 🔗
+
+[**Initial Commit** 6050f9243310497cbfb82c324f8ee10b1bafa686](https://github.com/kadikraman/mood-tracker/commit/6050f9243310497cbfb82c324f8ee10b1bafa686)
+
+<img src="/img/new-project/ios.png" alt="New Project iOS" width="50%"/>
+<img src="/img/new-project/android.png" alt="New Project Android" width="50%"/>
