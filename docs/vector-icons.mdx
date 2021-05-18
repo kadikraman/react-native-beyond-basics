@@ -2,6 +2,8 @@
 sidebar_position: 9
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # Vector Icons
 
 The main advantage of using `svg` - Scalable Vector Graphics - is that they are scalable as the name suggests. This means that the same vector image will look absolutely crisp on any size display. This is extremely appealing when building mobile applications, because we need to consider support for devices with all kinds of pixel density. You will also be able to change the color of the icon dynamically, without needing to create several versions of the icon.
@@ -264,5 +266,13 @@ While we're here, let's also update the titles of the tabs:
 
 [**Use vector icons for bottom tabs** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/985a0801f485ed9a8f4e711ca8bad55cef6d51b6)
 
-<img src="/img/vector-icons/ios.png" alt="iOS bottom tabs" width="50%" />
-<img src="/img/vector-icons/android.png" alt="Android bottom tabs" width="50%"  />
+<img
+  src={useBaseUrl("/img/vector-icons/ios.png")}
+  alt="iOS bottom tabs"
+  width="50%"
+/>
+<img
+  src={useBaseUrl("/img/vector-icons/android.png")}
+  alt="Android bottom tabs"
+  width="50%"
+/>

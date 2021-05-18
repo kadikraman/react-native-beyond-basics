@@ -2,6 +2,8 @@
 sidebar_position: 13
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # Layout Animation
 
 In our app, the user is able to record their current mood multiple times a day. Let's group these records by day.
@@ -126,5 +128,13 @@ const handleToggleOpen = React.useCallback(() => {
 
 [**Add an animated drawer** 9f4a5333e0b479d91b29c4f8a106a671242f7039](https://github.com/kadikraman/mood-tracker/commit/9f4a5333e0b479d91b29c4f8a106a671242f7039)
 
-<img src="/img/animated-drawer/ios.png" alt="iOS animated drawer" width="50%" />
-<img src="/img/animated-drawer/android.png" alt="Android animated drawer" width="50%"  />
+<img
+  src={useBaseUrl("/img/animated-drawer/ios.png")}
+  alt="iOS animated drawer"
+  width="50%"
+/>
+<img
+  src={useBaseUrl("/img/animated-drawer/android.png")}
+  alt="Android animated drawer"
+  width="50%"
+/>

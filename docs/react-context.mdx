@@ -2,6 +2,8 @@
 sidebar_position: 6
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # React Context
 
 Next up, we'd like to input the data on the first screen, but show the past moods on the second screen.
@@ -109,5 +111,13 @@ By moving the data to the App Context, move the list of `MoodItemsRow`s to the h
 
 [**Move mood list to AppContext** f0b4ca4cba8299faee8ee23fd3852129cf1556c5](https://github.com/kadikraman/mood-tracker/commit/f0b4ca4cba8299faee8ee23fd3852129cf1556c5)
 
-<img src="/img/react-context/ios.png" alt="React Context iOS" width="50%"/>
-<img src="/img/react-context/android.png" alt="React Context Android" width="50%"/>
+<img
+  src={useBaseUrl("/img/react-context/ios.png")}
+  alt="React Context iOS"
+  width="50%"
+/>
+<img
+  src={useBaseUrl("/img/react-context/android.png")}
+  alt="React Context Android"
+  width="50%"
+/>

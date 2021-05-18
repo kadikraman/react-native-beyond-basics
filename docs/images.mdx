@@ -2,6 +2,8 @@
 sidebar_position: 8
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # Images
 
 Let's spice up our app with some images!
@@ -14,7 +16,7 @@ Then add an `/images` folder inside `/assets` to store all your app images.
 
 Right click -> "Save Image As", and save the image in your `/images` folder.
 
-<img src="/img/images/ying-yang.png" alt="Ying Yang image" />
+<img src={useBaseUrl("/img/images/ying-yang.png")} alt="Ying Yang image" />
 
 Open `HomeTab.screen.tsx` and at the top of the file, add the image source. In React Native, you need to use `require` to get the path for a local image.
 
@@ -67,8 +69,8 @@ As a result, when including `.png` or `.jpeg` images in mobile application, it i
 
 Here are the 2x and 3x versions of the same ying yang image. Download and add them to the same `/assets` directory.
 
-<img src="/img/images/ying-yang@2x.png" alt="Ying Yang image" />
-<img src="/img/images/ying-yang@3x.png" alt="Ying Yang image" />
+<img src={useBaseUrl("/img/images/ying-yang@2x.png")} alt="Ying Yang image" />
+<img src={useBaseUrl("/img/images/ying-yang@3x.png")} alt="Ying Yang image" />
 
 That's it! You don't actually have to do anything else here. React Native will determine the how large to make the image from the `cactus.png` and will automatically select the `2x` and `3x` files based on the pixel density of the current device.
 
@@ -94,14 +96,14 @@ In this case you'll notice that the image gets cropped which may or may not what
 
 [**Add local image** 442cf524f2c41a6f839875d2cf6d9b32ee5cb138](https://github.com/kadikraman/mood-tracker/commit/442cf524f2c41a6f839875d2cf6d9b32ee5cb138)
 
-<img src="/img/images/ios-local-image.png" alt="iOS local image" width="50%" />
-<img src="/img/images/android-local-image.png" alt="Android local image" width="50%"  />
+<img src={useBaseUrl("/img/images/ios-local-image.png")} alt="iOS local image" width="50%" />
+<img src={useBaseUrl("/img/images/android-local-image.png")} alt="Android local image" width="50%" />
 
 ## Images from url
 
 In order to render images from a url, let's display this peaceful smokey background for our ying yang:
 
-<img src="https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" width="500"/>
+<img src={useBaseUrl("https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80")} width="500"/>
 
 Open the `HomeTab.screen.tsx` fine again, and add a constant at the top of the file for the image url:
 
@@ -167,8 +169,8 @@ For production apps, it is recommended to use [react-native-fast-image](https://
 
 [**Use ImageBackground for the background image** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/07908e87de8a1951e0eec12c9d676e4c8463eed7)
 
-<img src="/img/images/ios-bg-image.png" alt="iOS bg image" width="50%" />
-<img src="/img/images/android-bg-image.png" alt="Android bg image" width="50%"  />
+<img src={useBaseUrl("/img/images/ios-bg-image.png")} alt="iOS bg image" width="50%" />
+<img src={useBaseUrl("/img/images/android-bg-image.png")} alt="Android bg image" width="50%" />
 
 ## Sources
 

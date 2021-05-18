@@ -2,6 +2,8 @@
 sidebar_position: 16
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # Gestures and Animation
 
 One of the ways native mobile apps can be so much more powerful than mobile web is that you can use gestures.
@@ -115,7 +117,11 @@ const { handleRemoveMood } = useAppContext();
 
 [**Install react-native-reanimated and add a delete button to moods** 617a3ea75972f0f0a434f8df31ce07bd425cd748](https://github.com/kadikraman/mood-tracker/commit/617a3ea75972f0f0a434f8df31ce07bd425cd748)
 
-<img src="/img/gestures/delete-mood.png" alt="Delete mood" width="500px"/>
+<img
+  src={useBaseUrl("/img/gestures/delete-mood.png")}
+  alt="Delete mood"
+  width="500px"
+/>
 
 ## Add swipe to delete
 

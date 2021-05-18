@@ -2,14 +2,24 @@
 sidebar_position: 5
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 # Mood Picker
 
 Let's recap everything you should already know about building React Native apps by setting up the User Interface for our Mood Picker app.
 
 We will be building a mood picker interface where the user can pick from 5 emoji options and see the past selections under the picker.
 
-<img src="/img/mood-picker/exercise-5.png" alt="Mood Picker iOS" width="50%"/>
-<img src="/img/mood-picker/exercise-5-android.png" alt="Mood Picker Android" width="50%"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-5.png")}
+  alt="Mood Picker iOS"
+  width="50%"
+/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-5-android.png")}
+  alt="Mood Picker Android"
+  width="50%"
+/>
 
 ## Exercise 1 - View and Text
 
@@ -25,7 +35,11 @@ const moodOptions = [
 ];
 ```
 
-<img src="/img/mood-picker/exercise-1.png" alt="Mood Picker" width="500px"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-1.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
 
 ## Checkpoint 🔗
 
@@ -37,7 +51,11 @@ Allow the user to select an emoji and store the currently selected option in a `
 
 The colors used in the example are `#A0CFD3`, `#454C73` and `#8D94BA`.
 
-<img src="/img/mood-picker/exercise-2.png" alt="Mood Picker" width="500px"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-2.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
 
 ## Checkpoint 🔗
 
@@ -47,7 +65,11 @@ The colors used in the example are `#A0CFD3`, `#454C73` and `#8D94BA`.
 
 Wrap the emoji list in a container with a title saying "How are you right now?" and a call to action to "Choose" and emoji.
 
-<img src="/img/mood-picker/exercise-3.png" alt="Mood Picker" width="500px"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-3.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
 
 ## Checkpoint 🔗
 
@@ -59,7 +81,11 @@ Store the list of selected emoji in the `HomeTab.screen.tsx` component including
 
 Display a "Thank You" page when the user has selected an option. The "Add Another" button should let the use choose again.
 
-<img src="/img/mood-picker/exercise-4.png" alt="Mood Picker" width="500px"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-4.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
 
 ## Checkpoint 🔗
 
@@ -77,7 +103,11 @@ yarn add date-fns
 
 And use the [format](https://date-fns.org/v2.21.3/docs/format) method format the timestamp on the emoji list.
 
-<img src="/img/mood-picker/exercise-5.png" alt="Mood Picker" width="500px"/>
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-5.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
 
 ## Checkpoint 🔗
 
