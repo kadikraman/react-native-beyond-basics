@@ -4,20 +4,20 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Pressable',
+    title: 'Review',
     Svg: require('../../static/img/teamwork.svg').default,
     description: (
       <>
-        Using the the Pressable component in place of Touchable
+        A review of the basic building blocks
       </>
     ),
   },
   {
-    title: 'Animations',
+    title: 'TypeScript',
     Svg: require('../../static/img/success.svg').default,
     description: (
       <>
-        Explore full page animations with LayoutAnimation and more targeted animations with Reanimated 2
+        Using TypeScript to add types to JavaScript
       </>
     ),
   },
@@ -31,29 +31,29 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Data persistance',
+    title: 'Images',
     Svg: require('../../static/img/winner.svg').default,
     description: (
       <>
-        Learn how to persist data across sessions
+        Persist data across sessions using AsyncStorage
       </>
     ),
   },
   {
-    title: 'Push notifications',
+    title: 'Vector Icons',
     Svg: require('../../static/img/clover.svg').default,
     description: (
       <>
-        Learn how to configure local and remote push notifications
+        Spice up your app with vector icons
       </>
     ),
   },
   {
-    title: 'CI/CD and store deployments',
+    title: 'Gestures and Animation',
     Svg: require('../../static/img/idea.svg').default,
     description: (
       <>
-        Read about how to prepare your app for store deployments
+        Learn to use gestures and animation
       </>
     ),
   },

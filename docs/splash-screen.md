@@ -1,11 +1,111 @@
 ---
-sidebar_position: 12
+sidebar_position: 17
 ---
 
 # Splash Screen
 
-## Design your splash screen
+A splash screen is the screen we show tousers while the app is getting loaded. This can either be a full page image, or an image with a background.
 
-## Add to iOS
+## iOS Splash Screen
 
-## Add to Android
+Open Xcode and find `LaunchScreen.storyboard` from the sidebar. This is the current launch screen. Let's update this to include our own image and background.
+
+<img src="/img/splash-screen/xcode-start.png" alt="XCode Storyboard" />
+
+Open `Images.xcassets` and add a new Image Set called `SplashImage`.
+
+Notice we need to add 3 versions of the image. Let's use the Ying Yang image from before:
+
+<img src="/img/images/ying-yang@3x.png" alt="Ying Yang image" />
+<img src="/img/images/ying-yang@2x.png" alt="Ying Yang image" />
+<img src="/img/images/ying-yang.png" alt="Ying Yang image" />
+
+To add this to the Splash Screen, open the `LaunchScreen.storyboard` again and click on + on the top right corner of Xcode.
+
+Search for `ImageView` and drag it to the center of your splash screen page.
+
+Click on the `ImageView` and choose the Image asset you just creates from the right menu.
+
+Click on the `View` on the left, and set the background to the blue of our main background image using the colour picker tool.
+
+To ensure that the image is always centered in our container, choose the SplashImage from the tree view and click on the little bar chart icon on the bottom right of the toolbar, check "Center Horizontally in container" and "Center Vertically in container", and add both constraints.
+
+Rebuild the app from Xcode.
+
+<img src="/img/splash-screen/xcode-end.png" alt="XCode Storyboard" />
+
+## Checkpoint 🔗
+
+[**Add iOS splash screen** 86a64cabe2c604714034a9314dd3392eaafc222f](https://github.com/kadikraman/mood-tracker/commit/86a64cabe2c604714034a9314dd3392eaafc222f)
+
+## React Native Splash Screen
+
+Despite our beautiful splash screen, you probably noticed that there is still a flash of white then the app first loads.
+
+This is because the splash screen is hidden by the native code before React Native had finished loading the JavaScript code.
+
+To prevent this flash, we can use [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen) to programmatically hide the splash screen when the app is actually ready.
+
+Install the library with
+
+```sh
+yarn add react-native-splash-screen
+```
+
+Use the linking command to link the native dependencies:
+
+```sh
+npx react-native link react-native-splash-screen
+```
+
+Install native dependencies:
+
+```sh
+cd ios
+pod install
+```
+
+Now, open `AppDelegate.m` in Xcode and add the the code to display the splash screen:
+
+```objective-c
+#import "AppDelegate.h"
+
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+#import "RNSplashScreen.h"  // here
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // ...other code
+
+    [RNSplashScreen show];  // here
+
+    return YES;
+}
+
+@end
+```
+
+In `App.tsx`, hide the Splash Screen once the component has mounted:
+
+```js
+import SplashScreen from "react-native-splash-screen";
+
+export const App: React.FC = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+ ...
+};
+
+```
+
+Rebuild the app from XCode to see the new splash screen in action.
+
+## Checkpoint 🔗
+
+[**Configure react-native-splash-screen for iOS** 59454ef0cca111ca6b475e0cb49326e5ae6ce242](https://github.com/kadikraman/mood-tracker/commit/59454ef0cca111ca6b475e0cb49326e5ae6ce242)
+
+<img src="/img/splash-screen/ios.png" alt="iOS splash screen" width="500" />

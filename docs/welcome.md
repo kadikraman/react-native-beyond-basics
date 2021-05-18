@@ -29,3 +29,15 @@ In this course, we will _not_ be using Expo. That's right, we're going fully nat
 Aside from that restriction, feel free to follow this on Android or iOS (or both of course!) - instruction and examples will be provided for both platforms.
 
 I will be using [VSCode](https://code.visualstudio.com/) code editor, iPhone 12 simulator and an Android Nexus Emulator throughout.
+
+## What we'll build
+
+By the end of this course, you will have built your own mood picker app.
+
+The full step-by-step code examples can be found [here](https://github.com/kadikraman/mood-tracker).
+
+<div>
+  <video width="500" controls>
+    <source src="/img/demo.mp4" type="video/mp4"/>
+  </video>
+</div>
