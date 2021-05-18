@@ -11,3 +11,9 @@ course. You don't _have_ to take that course course, but we will assume familiar
 - styling your components using `StyleSheet`
 - navigation using `react-navigation`
 - `useState`, `useEffect` and `useCallback` hooks
+
+## Deployment
+
+```sh
+GIT_USER=kadikraman yarn deploy
+```

@@ -2,8 +2,8 @@
 module.exports = {
   title: 'React Native: Beyond Basics',
   tagline: 'An intermediate React Native course by Kadi Kraman',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://kadikraman.github.io',
+  baseUrl: '/react-native-beyond-basics/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
