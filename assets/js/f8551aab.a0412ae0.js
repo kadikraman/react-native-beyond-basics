@@ -1,0 +1,1 @@
+(self.webpackChunkreact_native_beyond_basics=self.webpackChunkreact_native_beyond_basics||[]).push([[743],{7574:function(e,n,t){"use strict";t.r(n),t.d(n,{default:function(){return u}});var a=t(7294),c=t(2611);function u(){return a.createElement(c.Z,null,a.createElement("h1",null,"My React page"),a.createElement("p",null,"This is a React page"))}}}]);
