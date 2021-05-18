@@ -1,14 +1,14 @@
 ---
-sidebar_position: 11
+sidebar_position: 9
 ---
 
 # Vector Icons
 
 The main advantage of using `svg` - Scalable Vector Graphics - is that they are scalable as the name suggests. This means that the same vector image will look absolutely crisp on any size display. This is extremely appealing when building mobile applications, because we need to consider support for devices with all kinds of pixel density. You will also be able to change the color of the icon dynamically, without needing to create several versions of the icon.
 
-Currently our `Home` and `Other` tabs don't have icons. Let's use `svg` icons for these tabs.
+Let's use vector icons for our home, history and analytics tabs.
 
-I've chosen the [Home](https://www.flaticon.com/free-icon/home_1946488) and [List](https://www.flaticon.com/free-icon/list_151917) icons from FlatIcon.
+I've chosen the [Home](https://www.flaticon.com/free-icon/home_1946488) and [List](https://www.flaticon.com/free-icon/list_151917) and [Analytics](https://www.flaticon.com/free-icon/analytics_633606) icons from FlatIcon.
 
 ## Install react-native-svg
 
@@ -35,8 +35,10 @@ First, create a `Home.icon.tsx` component in your `/components` directory.
 Take this `svg` file:
 
 ```svg
-<svg height="511pt" viewBox="0 1 511 511.999" width="511pt" xmlns="http://www.w3.org/2000/svg">
-  <path d="m498.699219 222.695312c-.015625-.011718-.027344-.027343-.039063-.039062l-208.855468-208.847656c-8.902344-8.90625-20.738282-13.808594-33.328126-13.808594-12.589843 0-24.425781 4.902344-33.332031 13.808594l-208.746093 208.742187c-.070313.070313-.144532.144531-.210938.214844-18.28125 18.386719-18.25 48.21875.089844 66.558594 8.378906 8.382812 19.441406 13.234375 31.273437 13.746093.484375.046876.96875.070313 1.457031.070313h8.320313v153.695313c0 30.417968 24.75 55.164062 55.167969 55.164062h81.710937c8.285157 0 15-6.71875 15-15v-120.5c0-13.878906 11.292969-25.167969 25.171875-25.167969h48.195313c13.878906 0 25.167969 11.289063 25.167969 25.167969v120.5c0 8.28125 6.714843 15 15 15h81.710937c30.421875 0 55.167969-24.746094 55.167969-55.164062v-153.695313h7.71875c12.585937 0 24.421875-4.902344 33.332031-13.8125 18.359375-18.367187 18.367187-48.253906.027344-66.632813zm-21.242188 45.421876c-3.238281 3.238281-7.542969 5.023437-12.117187 5.023437h-22.71875c-8.285156 0-15 6.714844-15 15v168.695313c0 13.875-11.289063 25.164062-25.167969 25.164062h-66.710937v-105.5c0-30.417969-24.746094-55.167969-55.167969-55.167969h-48.195313c-30.421875 0-55.171875 24.75-55.171875 55.167969v105.5h-66.710937c-13.875 0-25.167969-11.289062-25.167969-25.164062v-168.695313c0-8.285156-6.714844-15-15-15h-22.328125c-.234375-.015625-.464844-.027344-.703125-.03125-4.46875-.078125-8.660156-1.851563-11.800781-4.996094-6.679688-6.679687-6.679688-17.550781 0-24.234375.003906 0 .003906-.003906.007812-.007812l.011719-.011719 208.847656-208.839844c3.234375-3.238281 7.535157-5.019531 12.113281-5.019531 4.574219 0 8.875 1.78125 12.113282 5.019531l208.800781 208.796875c.03125.03125.066406.0625.097656.09375 6.644531 6.691406 6.632813 17.539063-.03125 24.207032zm0 0"/>
+<svg width="511pt" height="511pt" viewBox="0 1 511 511.999">
+  <path
+    d="m498.699219 222.695312c-.015625-.011718-.027344-.027343-.039063-.039062l-208.855468-208.847656c-8.902344-8.90625-20.738282-13.808594-33.328126-13.808594-12.589843 0-24.425781 4.902344-33.332031 13.808594l-208.746093 208.742187c-.070313.070313-.144532.144531-.210938.214844-18.28125 18.386719-18.25 48.21875.089844 66.558594 8.378906 8.382812 19.441406 13.234375 31.273437 13.746093.484375.046876.96875.070313 1.457031.070313h8.320313v153.695313c0 30.417968 24.75 55.164062 55.167969 55.164062h81.710937c8.285157 0 15-6.71875 15-15v-120.5c0-13.878906 11.292969-25.167969 25.171875-25.167969h48.195313c13.878906 0 25.167969 11.289063 25.167969 25.167969v120.5c0 8.28125 6.714843 15 15 15h81.710937c30.421875 0 55.167969-24.746094 55.167969-55.164062v-153.695313h7.71875c12.585937 0 24.421875-4.902344 33.332031-13.8125 18.359375-18.367187 18.367187-48.253906.027344-66.632813zm-21.242188 45.421876c-3.238281 3.238281-7.542969 5.023437-12.117187 5.023437h-22.71875c-8.285156 0-15 6.714844-15 15v168.695313c0 13.875-11.289063 25.164062-25.167969 25.164062h-66.710937v-105.5c0-30.417969-24.746094-55.167969-55.167969-55.167969h-48.195313c-30.421875 0-55.171875 24.75-55.171875 55.167969v105.5h-66.710937c-13.875 0-25.167969-11.289062-25.167969-25.164062v-168.695313c0-8.285156-6.714844-15-15-15h-22.328125c-.234375-.015625-.464844-.027344-.703125-.03125-4.46875-.078125-8.660156-1.851563-11.800781-4.996094-6.679688-6.679687-6.679688-17.550781 0-24.234375.003906 0 .003906-.003906.007812-.007812l.011719-.011719 208.847656-208.839844c3.234375-3.238281 7.535157-5.019531 12.113281-5.019531 4.574219 0 8.875 1.78125 12.113282 5.019531l208.800781 208.796875c.03125.03125.066406.0625.097656.09375 6.644531 6.691406 6.632813 17.539063-.03125 24.207032zm0 0"
+  />
 </svg>
 ```
 
@@ -78,135 +80,91 @@ export const HomeIcon: React.FC<HomeIconProps> = ({
 }
 ```
 
-Now let's do the same with the List icon. The svg files can often look kind of messy like this.
+Repeat the process with the List and Analytics icons:
 
-```svg
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 60.123 60.123" style="enable-background:new 0 0 60.123 60.123;" xml:space="preserve">
-<g>
-	<path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z"/>
-	<path d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3
-		C60.124,31.719,58.781,33.062,57.124,33.062z"/>
-	<path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"/>
-	<circle cx="4.029" cy="11.463" r="4.029"/>
-	<circle cx="4.029" cy="30.062" r="4.029"/>
-	<circle cx="4.029" cy="48.661" r="4.029"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+```svg title="list.svg"
+<svg viewBox="0 0 60.123 60.123">
+  <g>
+    <path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z" />
+    <path
+      d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3
+    C60.124,31.719,58.781,33.062,57.124,33.062z"
+    />
+    <path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z" />
+    <circle cx="4.029" cy="11.463" r="4.029" />
+    <circle cx="4.029" cy="30.062" r="4.029" />
+    <circle cx="4.029" cy="48.661" r="4.029" />
+  </g>
 </svg>
 ```
 
-That is no problem though, we can tidy this up!
-
-First, we keep only the `<svg>` element and remove the empty `<g>` elements.
-
-```svg
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 60.123 60.123" style="enable-background:new 0 0 60.123 60.123;" xml:space="preserve">
-<g>
-	<path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z"/>
-	<path d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3
-		C60.124,31.719,58.781,33.062,57.124,33.062z"/>
-	<path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"/>
-	<circle cx="4.029" cy="11.463" r="4.029"/>
-	<circle cx="4.029" cy="30.062" r="4.029"/>
-	<circle cx="4.029" cy="48.661" r="4.029"/>
-</g>
+```svg title="analytics.svg"
+<svg viewBox="0 0 512 512">
+  <path
+    d="M501.333,490.667H10.667C4.779,490.667,0,495.445,0,501.333C0,507.221,4.779,512,10.667,512h490.667
+  c5.888,0,10.667-4.779,10.667-10.667C512,495.445,507.221,490.667,501.333,490.667z"
+  />
+  <path
+    d="M96,362.667H32c-5.888,0-10.667,4.779-10.667,10.667v128C21.333,507.221,26.112,512,32,512h64
+  c5.888,0,10.667-4.779,10.667-10.667v-128C106.667,367.445,101.888,362.667,96,362.667z M85.333,490.667H42.667V384h42.667
+  V490.667z"
+  />
+  <path
+    d="M224,256h-64c-5.888,0-10.667,4.779-10.667,10.667v234.667c0,5.888,4.779,10.667,10.667,10.667h64
+  c5.888,0,10.667-4.779,10.667-10.667V266.667C234.667,260.779,229.888,256,224,256z M213.333,490.667h-42.667V277.333h42.667
+  V490.667z"
+  />
+  <path
+    d="M352,298.667h-64c-5.888,0-10.667,4.779-10.667,10.667v192c0,5.888,4.779,10.667,10.667,10.667h64
+  c5.888,0,10.667-4.779,10.667-10.667v-192C362.667,303.445,357.888,298.667,352,298.667z M341.333,490.667h-42.667V320h42.667
+  V490.667z"
+  />
+  <path
+    d="M480,170.667h-64c-5.888,0-10.667,4.779-10.667,10.667v320c0,5.888,4.779,10.667,10.667,10.667h64
+  c5.888,0,10.667-4.779,10.667-10.667v-320C490.667,175.445,485.888,170.667,480,170.667z M469.333,490.667h-42.667V192h42.667
+  V490.667z"
+  />
+  <path
+    d="M64,192c-23.531,0-42.667,19.136-42.667,42.667c0,23.531,19.136,42.667,42.667,42.667
+  c23.531,0,42.667-19.136,42.667-42.667C106.667,211.136,87.531,192,64,192z M64,256c-11.776,0-21.333-9.579-21.333-21.333
+  c0-11.755,9.557-21.333,21.333-21.333s21.333,9.579,21.333,21.333C85.333,246.421,75.776,256,64,256z"
+  />
+  <path
+    d="M192,85.333c-23.531,0-42.667,19.136-42.667,42.667c0,23.531,19.136,42.667,42.667,42.667s42.667-19.136,42.667-42.667
+  C234.667,104.469,215.531,85.333,192,85.333z M192,149.333c-11.776,0-21.333-9.579-21.333-21.333
+  c0-11.755,9.557-21.333,21.333-21.333s21.333,9.579,21.333,21.333C213.333,139.755,203.776,149.333,192,149.333z"
+  />
+  <path
+    d="M320,128c-23.531,0-42.667,19.136-42.667,42.667c0,23.531,19.136,42.667,42.667,42.667
+  c23.531,0,42.667-19.136,42.667-42.667C362.667,147.136,343.531,128,320,128z M320,192c-11.776,0-21.333-9.579-21.333-21.333
+  c0-11.755,9.557-21.333,21.333-21.333s21.333,9.579,21.333,21.333C341.333,182.421,331.776,192,320,192z"
+  />
+  <path
+    d="M448,0c-23.531,0-42.667,19.136-42.667,42.667c0,23.531,19.136,42.667,42.667,42.667
+  c23.531,0,42.667-19.136,42.667-42.667C490.667,19.136,471.531,0,448,0z M448,64c-11.776,0-21.333-9.579-21.333-21.333
+  c0-11.755,9.557-21.333,21.333-21.333s21.333,9.579,21.333,21.333C469.333,54.421,459.776,64,448,64z"
+  />
+  <path
+    d="M432.939,57.728c-4.16-4.16-10.923-4.16-15.083,0l-82.773,82.773c-4.16,4.16-4.16,10.923,0,15.083
+  c2.091,2.069,4.821,3.115,7.552,3.115c2.709,0,5.44-1.024,7.531-3.115l82.773-82.773
+  C437.099,68.651,437.099,61.888,432.939,57.728z"
+  />
+  <path
+    d="M294.208,146.048l-68.523-19.541c-5.739-1.664-11.563,1.664-13.163,7.339c-1.621,5.675,1.664,11.563,7.317,13.184
+  l68.523,19.541c0.981,0.277,1.963,0.405,2.923,0.405c4.651,0,8.917-3.051,10.261-7.744
+  C303.168,153.579,299.883,147.669,294.208,146.048z"
+  />
+  <path
+    d="M175.36,141.291c-3.669-4.608-10.368-5.355-14.976-1.707l-80.427,64.128c-4.608,3.691-5.376,10.389-1.685,14.997
+  c2.112,2.645,5.227,4.011,8.341,4.011c2.325,0,4.672-0.768,6.635-2.304l80.427-64.128
+  C178.283,152.597,179.051,145.899,175.36,141.291z"
+  />
 </svg>
-```
-
-Next, convert it to a react-native-svg component by replacing `svg`, `g`, `path` and `circle` with imports from `react-native-svg`:
-
-```js
-import React from "react";
-import { Svg, Path, G, Circle } from "react-native-svg";
-
-export const ListIcon: React.FC = () => {
-  return (
-    <Svg viewBox="0 0 60.123 60.123">
-      <G>
-        <Path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z" />
-        <Path
-          d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3
-        C60.124,31.719,58.781,33.062,57.124,33.062z"
-        />
-        <Path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z" />
-        <Circle cx="4.029" cy="11.463" r="4.029" />
-        <Circle cx="4.029" cy="30.062" r="4.029" />
-        <Circle cx="4.029" cy="48.661" r="4.029" />
-      </G>
-    </Svg>
-  );
-};
-```
-
-Finally add the `color` and `sixe props and you should end up with something like this:
-
-```js
-import React from "react";
-import { Svg, Path, G, Circle } from "react-native-svg";
-
-type ListIconProps = {
-  color: string,
-  size: number,
-};
-
-export const ListIcon: React.FC<ListIconProps> = ({
-  color = "teal",
-  size = 40,
-}) => {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 60.123 60.123" fill={color}>
-      <G>
-        <Path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z" />
-        <Path
-          d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3
-		C60.124,31.719,58.781,33.062,57.124,33.062z"
-        />
-        <Path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z" />
-        <Circle cx="4.029" cy="11.463" r="4.029" />
-        <Circle cx="4.029" cy="30.062" r="4.029" />
-        <Circle cx="4.029" cy="48.661" r="4.029" />
-      </G>
-    </Svg>
-  );
-};
 ```
 
 ## Use the icons in the bottom tab
 
-We can customise the style of the bottom tab - including the name and icons - using the [`screenOptions` and `tabBarOptions`](https://reactnavigation.org/docs/6.x/tab-based-navigation#customizing-the-appearance) props on the Tab Navigator.
+We can customise the style of the bottom tab - including the name and icons - using the [`screenOptions`](https://reactnavigation.org/docs/6.x/tab-based-navigation#customizing-the-appearance) prop on the Tab Navigator.
 
 Open `BottomTabs.navigator.tsx` and use the `screenOptions` prop to return the HomeIcon on the first tab, and the ListIcon on the second tab.
 
@@ -215,7 +173,7 @@ Start by just rendering out the route name:
 ```js
 <BottomTabs.Navigator
   screenOptions={({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ color, size }) => {
       return <Text>{route.name}</Text>;
     },
   })}>
@@ -226,14 +184,20 @@ Next, render the correct icon based on the route selected:
 ```js
 <BottomTabs.Navigator
   screenOptions={({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ color, size }) => {
       if (route.name === 'HomeTab') {
-        return <HomeIcon color="teal" />;
+        return <HomeIcon />;
       }
 
-      if (route.name === 'OtherTab') {
-        return <ListIcon color="teal" />;
+      if (route.name === 'HistoryTab') {
+        return <ListIcon />;
       }
+
+      if (route.name === 'AnalyticsTab') {
+        return <AnalyticsIcon />;
+      }
+
+      return null;
     },
   })}>
 ```
@@ -243,14 +207,20 @@ Finally, pass through the `color` and `size` args to the icon:
 ```js
 <BottomTabs.Navigator
   screenOptions={({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ color, size }) => {
       if (route.name === 'HomeTab') {
         return <HomeIcon color={color} size={size} />;
       }
 
-      if (route.name === 'OtherTab') {
+      if (route.name === 'HistoryTab') {
         return <ListIcon color={color} size={size} />;
       }
+
+      if (route.name === 'AnalyticsTab') {
+        return <AnalyticsIcon color={color} size={size} />;
+      }
+
+      return null;
     },
   })}>
 ```
@@ -262,4 +232,37 @@ tabBarActiveTintColor: '#1D84B5',
 tabBarInactiveTintColor: '#8E9AAF',
 ```
 
-Note that you could do this in the `tabBarIcon` function using the `focused` props, but configuring them this was ensures that the tab text is the same color as the icon.
+Let's hide the tab bar label with:
+
+```js
+tabBarShowLabel: false,
+```
+
+## Updating tab title
+
+While we're here, let's also update the titles of the tabs:
+
+```diff
+<BottomTabs.Screen
+  name="HomeTab"
+  component={HomeTab}
++  options={{ title: "Today's Mood" }}
+/>
+<BottomTabs.Screen
+  name="HistoryTab"
+  component={HistoryTab}
++  options={{ title: 'Past Moods' }}
+/>
+<BottomTabs.Screen
+  name="AnalyticsTab"
+  component={AnalyticsTab}
++  options={{ title: 'Analytics' }}
+/>
+```
+
+## Checkpoint 🔗
+
+[**Use vector icons for bottom tabs** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/985a0801f485ed9a8f4e711ca8bad55cef6d51b6)
+
+<img src="/img/vector-icons/ios.png" alt="iOS bottom tabs" width="50%" />
+<img src="/img/vector-icons/android.png" alt="Android bottom tabs" width="50%"  />

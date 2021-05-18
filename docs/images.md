@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
 
 For production apps, it is recommended to use [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image) for images that are loaded via url - it's a drop-in replacement for the React Native image component, and it adds a lot of performance optimisations the `Image` and `ImageBackground` component are missing.
 
-## Checkpoint
+## Checkpoint 🔗
 
 [**Use ImageBackground for the background image** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/07908e87de8a1951e0eec12c9d676e4c8463eed7)
 
