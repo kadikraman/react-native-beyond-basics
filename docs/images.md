@@ -1,56 +1,54 @@
 ---
-sidebar_position: 10
+sidebar_position: 8
 ---
 
 # Images
 
-Good sources for finding free images for your app: [Unsplash](https://unsplash.com/) and [Adobe Stock](https://stock.adobe.com/uk/search/free).
+Let's spice up our app with some images!
 
 ## Local images
 
-Use https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80 as background https://unsplash.com/photos/LS0CWcXo1dw
+Create an `/assets` folder inside your project's `/src` directory. This is a place to keep all your non-code files (images, icons, fonts etc).
 
-Use https://www.flaticon.com/free-icon/ying-yang_1390877?related_id=1390877 for the icon
+Then add an `/images` folder inside `/assets` to store all your app images.
 
-Let's add the image of this happy cactus from [FlatIcon](https://www.flaticon.com/free-icon/cactus_874928) into our app using the React Native [Image](https://reactnative.dev/docs/image) component.
+Right click -> "Save Image As", and save the image in your `/images` folder.
 
-<img src="/img/icon-example.png" alt="Icon example" width="500" />
+<img src="/img/images/ying-yang.png" alt="Ying Yang image" />
 
-## Commit
+Open `HomeTab.screen.tsx` and at the top of the file, add the image source. In React Native, you need to use `require` to get the path for a local image.
 
-**59f28cae194822eae62a29e6cdd01a5f77dbadee**
+```diff
+import React from 'react';
+-import { StyleSheet, View } from 'react-native';
++import { StyleSheet, View, Image } from 'react-native';
+import { useAppContext } from '~src/App.provider';
+import { MoodPicker } from '~src/components/MoodPicker';
 
-<img src="/img/cactus.png" alt="Cactus" width="200" />
++const imageSrc = require('~src/assets/images/ying-yang.png');
 
-First create an `/assets` folder inside your project's `/src` directory. This is a place to keep all your non-code files (images, icons, fonts etc).
+export const HomeTab = () => {
+  const { handleAddMood } = useAppContext();
 
-Thank, right click & "Save Image As" to save the image in your new assets folder.
-
-Now open `/src/components/Greeting.tsx`
-
-At the top of the file, add the image source. In React Native, you need to use `require` to get the path for a local image.
-
-```jsx
-const imageSrc = require("~src/assets/cactus.png");
-```
-
-Then import `Image` from `react-native` and render it:
-
-```jsx title="Greeting.jsx"
-import React from "react";
-import { StyleSheet, Image } from "react-native";
-
-const imageSrc = require("~src/assets/cactus.png");
-
-export const Greeting = () => {
-  return <Image source={imageSrc} style={styles.image} />;
+  return (
+    <View style={styles.container}>
++      <Image source={imageSrc} style={styles.image} />
+      <MoodPicker onAddMood={handleAddMood} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    marginBottom: 10,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
   },
++  image: {
++    alignSelf: 'center',
++    marginBottom: 20,
++  },
 });
+
 ```
 
 And voila, you have rendered an image!
@@ -67,21 +65,10 @@ To make things more complicated, in the mobile world you need to support all kin
 
 As a result, when including `.png` or `.jpeg` images in mobile application, it is standard practice to include the same image in 3 sizes to account for the different screen resolutions.
 
-[Download](https://www.flaticon.com/free-icon/cactus_874928) the `.svg` of the cactus [](https://www.flaticon.com/free-icon/cactus_874928) image and add it to a new Figma project. Resize the cactus to be 256 x 256.
+Here are the 2x and 3x versions of the same ying yang image. Download and add them to the same `/assets` directory.
 
-Now drag to select the whole cactus and on the right menu choose "export".
-
-You should see "1x" and ".png" pre-selected.
-
-Click the + button twice more to get "2x" and "3x".
-
-<img src="/img/cactus-export.png" alt="Cactus Export" />
-
-Hit the "export" button.
-
-This will download a `.zip` archive with 3 files: `cactus.png`, `cactus@2.png` and `cactus@3.png`.
-
-Add the `cactus@2x.png` and `cactus@3x.png` images to your `/assets` directory and refresh your app.
+<img src="/img/images/ying-yang@2x.png" alt="Ying Yang image" />
+<img src="/img/images/ying-yang@3x.png" alt="Ying Yang image" />
 
 That's it! You don't actually have to do anything else here. React Native will determine the how large to make the image from the `cactus.png` and will automatically select the `2x` and `3x` files based on the pixel density of the current device.
 
@@ -103,17 +90,24 @@ width: 300,
 
 In this case you'll notice that the image gets cropped which may or may not what you want. In our case, cropping doesn't look the best. We can use the [resizeMode](https://reactnative.dev/docs/image#resizemode) prop on the image component to tell React Native how we want to handle image sizing. In the above case, `resizeMode="contain"` comes in handy, as it ensures that given the `300x100pt` window we have for the image, we maintain the aspect ratio of the image and keep it "contained" within it.
 
+## Checkpoint
+
+[**Add local image** 442cf524f2c41a6f839875d2cf6d9b32ee5cb138](https://github.com/kadikraman/mood-tracker/commit/442cf524f2c41a6f839875d2cf6d9b32ee5cb138)
+
+<img src="/img/images/ios-local-image.png" alt="iOS local image" width="50%" />
+<img src="/img/images/android-local-image.png" alt="Android local image" width="50%"  />
+
 ## Images from url
 
-In order to render images from a url, let's render this lovely desert for our cactus:
+In order to render images from a url, let's display this peaceful smokey background for our ying yang:
 
-<img src="https://images.unsplash.com/photo-1527261460248-b0abfd14c0da?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"/>
+<img src="https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" width="500"/>
 
-Open the `Greeting` component again, and add a constant at the top of the file for the image url:
+Open the `HomeTab.screen.tsx` fine again, and add a constant at the top of the file for the image url:
 
 ```js
 const networkImageUrl =
-  "https://images.unsplash.com/photo-1527261460248-b0abfd14c0da?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80";
+  "https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80";
 ```
 
 Now let's add an image component on top of the existing one
@@ -122,52 +116,62 @@ Now let's add an image component on top of the existing one
 <Image source={{ uri: networkImageUrl }} />
 ```
 
-And... nothing renders! That's because for network images, we also need to explicitly tell it how large to make the image. In out case, let's make it 200pt, and the full width of the screen:
+And... nothing renders! That's because for network images, we also need to explicitly tell it how large to make the image. In out case, let's make it 200 pt high:
 
 ```js
 networkImage: {
   height: 200,
-  width: Dimensions.get('screen').width,
-  marginBottom: 10,
 },
 ```
 
-Voila! Finally, let's move the cactus so that it is inside the image. Unfortunately the `Image` component doesn't allow child components. So in order to do that we must replace it with the `ImageBackground` component.
+Voila! Finally, let's move the image to the back of the page so that the whole page is wrapped in the image. Unfortunately the `Image` component doesn't allow child components. So in order to do that we must replace it with the `ImageBackground` component.
 
-```jsx title="Greeting.jsx"
+```js
 import React from "react";
-import { StyleSheet, Image, ImageBackground, Dimensions } from "react-native";
+import { StyleSheet, Image, ImageBackground } from "react-native";
+import { useAppContext } from "~src/App.provider";
+import { MoodPicker } from "~src/components/MoodPicker";
 
-const imageSrc = require("~src/assets/cactus.png");
+const imageSrc = require("~src/assets/images/ying-yang.png");
 const networkImageUrl =
-  "https://images.unsplash.com/photo-1527261460248-b0abfd14c0da?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80";
+  "https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80";
 
-export const Greeting = () => {
+export const HomeTab = () => {
+  const { handleAddMood } = useAppContext();
+
   return (
-    <ImageBackground
-      source={{ uri: networkImageUrl }}
-      style={styles.networkImage}
-    >
-      <Image source={imageSrc} style={styles.image} resizeMode="contain" />
+    <ImageBackground style={styles.container} source={{ uri: networkImageUrl }}>
+      <Image source={imageSrc} style={styles.image} />
+      <MoodPicker onAddMood={handleAddMood} />
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    marginBottom: 10,
-    height: 100,
+  container: {
+    flex: 1,
   },
-  networkImage: {
-    height: 200,
-    width: Dimensions.get("screen").width,
-    marginBottom: 10,
-    justifyContent: "flex-end",
-    alignItems: "center",
+  image: {
+    alignSelf: "center",
+    marginTop: 50,
+    marginBottom: 20,
   },
 });
 ```
 
 ### Note on production usage
 
-For production apps, it is recommended to use [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image) - it's a drop-in replacement for the React Native image component, and it adds a lot of performance optimisations the `Image` and `ImageBackground` component are missing.
+For production apps, it is recommended to use [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image) for images that are loaded via url - it's a drop-in replacement for the React Native image component, and it adds a lot of performance optimisations the `Image` and `ImageBackground` component are missing.
+
+## Checkpoint
+
+[**Use ImageBackground for the background image** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/07908e87de8a1951e0eec12c9d676e4c8463eed7)
+
+<img src="/img/images/ios-bg-image.png" alt="iOS bg image" width="50%" />
+<img src="/img/images/android-bg-image.png" alt="Android bg image" width="50%"  />
+
+## Sources
+
+The Ying Yang image is from [FlatIcon](https://www.flaticon.com/free-icon/ying-yang_1390877?related_id=1390877).
+
+The smoky background image if rom [Unsplash](https://unsplash.com/photos/LS0CWcXo1dw)
