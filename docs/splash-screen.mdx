@@ -12,7 +12,10 @@ A splash screen is the screen we show tousers while the app is getting loaded. T
 
 Open Xcode and find `LaunchScreen.storyboard` from the sidebar. This is the current launch screen. Let's update this to include our own image and background.
 
-<img src={useBaseUrl("/img/splash-screen/xcode-start.png")} alt="XCode Storyboard" />
+<img
+  src={useBaseUrl("/img/splash-screen/xcode-start.png")}
+  alt="XCode Storyboard"
+/>
 
 Open `Images.xcassets` and add a new Image Set called `SplashImage`.
 
@@ -34,7 +37,10 @@ To ensure that the image is always centered in our container, choose the SplashI
 
 Rebuild the app from Xcode.
 
-<img src={useBaseUrl("/img/splash-screen/xcode-end.png")} alt="XCode Storyboard" />
+<img
+  src={useBaseUrl("/img/splash-screen/xcode-end.png")}
+  alt="XCode Storyboard"
+/>
 
 ## Checkpoint 🔗
 
@@ -52,6 +58,12 @@ Install the library with
 
 ```sh
 yarn add react-native-splash-screen
+```
+
+or if using npm:
+
+```sh
+npm install react-native-splash-screen
 ```
 
 Use the linking command to link the native dependencies:
@@ -110,4 +122,8 @@ Rebuild the app from XCode to see the new splash screen in action.
 
 [**Configure react-native-splash-screen for iOS** 59454ef0cca111ca6b475e0cb49326e5ae6ce242](https://github.com/kadikraman/mood-tracker/commit/59454ef0cca111ca6b475e0cb49326e5ae6ce242)
 
-<img src={useBaseUrl("/img/splash-screen/ios.png")} alt="iOS splash screen" width="500" />
+<img
+  src={useBaseUrl("/img/splash-screen/ios.png")}
+  alt="iOS splash screen"
+  width="500"
+/>

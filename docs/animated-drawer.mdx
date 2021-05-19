@@ -20,10 +20,22 @@ Let's start by getting the data in order and group the entries by day.
 yarn add lodash
 ```
 
+or if using npm:
+
+```sh
+npm install lodash
+```
+
 For lodash, we'll also need to add the types separately:
 
 ```sh
 yarn add @types/lodash --dev
+```
+
+or if using npm:
+
+```sh
+npm install @types/lodash --save-dev
 ```
 
 In the `HistoryTab.screen.tsx` component, let's convert our days array into the appropriate format. First, ensure the days are in the right order:
