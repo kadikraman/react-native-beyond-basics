@@ -1,8 +1,8 @@
 ---
-sidebar_position: 13
+sidebar_position: 1
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Layout Animation
 
@@ -41,18 +41,18 @@ npm install @types/lodash --save-dev
 In the `HistoryTab.screen.tsx` component, let's convert our days array into the appropriate format. First, ensure the days are in the right order:
 
 ```js
-import orderBy from "lodash/orderBy";
+import orderBy from 'lodash/orderBy';
 
-const ordered = orderBy(moodList, "timestamp", "desc");
+const ordered = orderBy(moodList, 'timestamp', 'desc');
 ```
 
 Next, let's use `groupBy` to group the items by day:
 
 ```js
-import groupBy from "lodash/groupBy";
+import groupBy from 'lodash/groupBy';
 
 const grouped = groupBy(ordered, (item) =>
-  format(new Date(item.timestamp), "dd MMM, yyyy")
+  format(new Date(item.timestamp), 'dd MMM, yyyy')
 );
 ```
 
@@ -69,10 +69,10 @@ Finally, we can wrap the whole thing in `useMemo` to ensure the calculation in o
 
 ```js
 const days = useMemo(() => {
-  const ordered = orderBy(moodList, "timestamp", "desc");
+  const ordered = orderBy(moodList, 'timestamp', 'desc');
 
   const grouped = groupBy(ordered, (item) =>
-    format(new Date(item.timestamp), "dd MMM, yyyy")
+    format(new Date(item.timestamp), 'dd MMM, yyyy')
   );
 
   return Object.entries(grouped).map(([day, moodsInDay]) => ({
@@ -116,9 +116,9 @@ LayoutAnimation is incredibly powerful, although not very flexible - essentially
 For Android, we need to first enable LayoutAnimation, since it's still an experimental feature. In open `App.tsx` and add:
 
 ```js
-import { Platform, UIManager } from "react-native";
+import { Platform, UIManager } from 'react-native';
 
-if (Platform.OS === "android") {
+if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
@@ -141,12 +141,12 @@ const handleToggleOpen = React.useCallback(() => {
 [**Add an animated drawer** 9f4a5333e0b479d91b29c4f8a106a671242f7039](https://github.com/kadikraman/mood-tracker/commit/9f4a5333e0b479d91b29c4f8a106a671242f7039)
 
 <img
-  src={useBaseUrl("/img/animated-drawer/ios.png")}
+  src={useBaseUrl('/img/animated-drawer/ios.png')}
   alt="iOS animated drawer"
   width="50%"
 />
 <img
-  src={useBaseUrl("/img/animated-drawer/android.png")}
+  src={useBaseUrl('/img/animated-drawer/android.png')}
   alt="Android animated drawer"
   width="50%"
 />

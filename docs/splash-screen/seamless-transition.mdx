@@ -1,0 +1,124 @@
+---
+sidebar_position: 3
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Seamless Transition
+
+Despite our beautiful splash screen, you probably noticed that there is still a flash of white then the app first loads.
+
+This is because the splash screen is hidden by the native code before React Native had finished loading the JavaScript code.
+
+To prevent this flash, we can use [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen) to programmatically hide the splash screen when the app is actually ready.
+
+Install the library with
+
+```bash
+yarn add react-native-splash-screen
+```
+
+or if using npm:
+
+```bash
+npm install react-native-splash-screen
+```
+
+Use the linking command to link the native dependencies:
+
+```bash
+npx react-native link react-native-splash-screen
+```
+
+Install native dependencies:
+
+```bash
+cd ios
+pod install
+```
+
+## iOS
+
+Open `AppDelegate.m` in Xcode and add the the code to display the splash screen:
+
+```objective-c
+#import "AppDelegate.h"
+
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+#import "RNSplashScreen.h"  // here
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // ...other code
+
+    [RNSplashScreen show];  // here
+
+    return YES;
+}
+
+@end
+```
+
+In `App.tsx`, hide the Splash Screen once the component has mounted:
+
+```js
+import SplashScreen from "react-native-splash-screen";
+
+export const App: React.FC = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+ ...
+};
+
+```
+
+Rebuild the app from XCode to see the new splash screen in action.
+
+## Android
+
+```bash
+yarn add react-native-splash-screen
+```
+
+or if using npm:
+
+```bash
+npm install react-native-splash-screen
+```
+
+and the linking command to link the native dependencies:
+
+```bash
+npx react-native link react-native-splash-screen
+```
+
+Update the `MainActivity.java` to use `react-native-splash-screen` via the following changes:
+
+```diff
++import android.os.Bundle;
++import org.devio.rn.splashscreen.SplashScreen;
+
+public class MainActivity extends ReactActivity {
++   @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        SplashScreen.show(this);  // here
++        super.onCreate(savedInstanceState);
++    }
+}
+```
+
+Finally, rebuild the app from Android Studio.
+
+<img
+  src={useBaseUrl('/img/splash-screen/android.png')}
+  alt="Android splash screen"
+  width="500"
+/>
+
+## Checkpoint 🔗
+
+[**Add Android splash screen** fbaa373ca0ff99e7966df629d2fb040e36a1ec16](https://github.com/kadikraman/mood-tracker/commit/fbaa373ca0ff99e7966df629d2fb040e36a1ec16)

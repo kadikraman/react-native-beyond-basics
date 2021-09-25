@@ -1,10 +1,10 @@
 ---
-sidebar_position: 7
+sidebar_position: 1
 ---
 
-# Persisting Data
+# Async Storage
 
-Now we have have a nice way to input and store moods. However right now, all our data is stored in-memory - meaning that when we refresh the app, all the data will disappear. This is not ideal in the long run - we'd like to have all our past mood to be saved locally.
+Now we have have a nice way to input and store the log of our past moods. However, all our data is stored in-memory. As a result when we refresh the app, all the data will disappear. That's not going to work for a real app. We'll need a way to have all out past moods saved on the device.
 
 ## Async Storage
 
@@ -16,30 +16,30 @@ To install Async Storage, run:
 
 ```bash
 yarn add @react-native-async-storage/async-storage
-```
-
-or if using npm:
-
-```bash
+# or
 npm install @react-native-async-storage/async-storage
 ```
 
 For iOS, install the native dependencies:
 
 ```bash
-cd ios && pod install
+cd ios && pod install && cd ..
 ```
 
-And rebuild your app from Xcode / Android Studio.
+And rebuild your app from Xcode / Android Studio / cli command.
 
-The [api](https://react-native-async-storage.github.io/async-storage/docs/api) for AsyncStorage is pretty straightforward = you can get, set and delete items from the store based on an ID that can be any string value.
+The [api](https://react-native-async-storage.github.io/async-storage/docs/api) for AsyncStorage is pretty straightforward: you can **get**, **set** and **delete** items from the store based on an ID that can be any string value.
 
 One thing to note is that we can only store things in async storage that are _serializable_ - in short this means that we can't store functions, classes or references.
 
-Let's get functions to get our app data from storage on launch, and save it when it gets updated. In `App.provider.tsx`, add functions to `set` and `get` data from Async Storage:
+For starters we'll need to create functions to fetch our app data from storage on launch, and save it when it gets updated.
+
+Open `App.provider.tsx`, add functions to `set` and `get` data from Async Storage:
 
 ```js
-const storageKey = "my-app-data";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const storageKey = 'my-app-data';
 
 type AppData = {
   moods: MoodOptionWithTimestamp[],
@@ -65,7 +65,7 @@ const setAppData = async (newData: AppData) => {
 };
 ```
 
-In our provider, we want to get the data from storage on launch:
+Now we want to fetch the initial data _once_ when the app is first launched. To do this, we can use a `useEffect` with an empty dependency array:
 
 ```js
 React.useEffect(() => {
@@ -80,12 +80,15 @@ React.useEffect(() => {
 }, []);
 ```
 
-And finally, whenever a mood is updated, we want to also sync this in out Async Storage
+And finally, whenever a mood is updated, we want to also sync this in out Async Storage. For this, let's update our `handleAddMood` callback to also save the new value to async storage.
 
 ```js
-const handleSelect = React.useCallback((moodItem: MoodItem) => {
-  setMoods((current) => {
-    const newValue = [...current, { timestamp: Date.now(), mood: moodItem }];
+const handleAddMood = React.useCallback((newMood: MoodOption) => {
+  setMoodList((current) => {
+    const newValue = [
+      ...current,
+      { timestamp: Date.now(), moodOption: newMood },
+    ];
     setAppData({ moods: newValue });
     return newValue;
   });
@@ -94,6 +97,6 @@ const handleSelect = React.useCallback((moodItem: MoodItem) => {
 
 Now when you add new moods to your list and refresh the app, you'll see that the data is persisted across the app launch.
 
-## Checkpoint 🔗
-
+:::info Checkpoint 🔗
 [**Persist data across app launches** 7e534d255db4be7aea75de5b7afb2cf0391b31ab](https://github.com/kadikraman/mood-tracker/commit/7e534d255db4be7aea75de5b7afb2cf0391b31ab)
+:::

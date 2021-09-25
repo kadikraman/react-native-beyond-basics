@@ -1,0 +1,45 @@
+---
+sidebar_position: 1
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# iOS Splash Screen
+
+A splash screen is what we show to users while the app is getting loaded. This can either be a full page image, or an image with a background.
+
+Open Xcode and find `LaunchScreen.storyboard` from the sidebar. This is the current launch screen. Let's update this to include our own image and background.
+
+<img
+  src={useBaseUrl('/img/splash-screen/xcode-start.png')}
+  alt="XCode Storyboard"
+/>
+
+Open `Images.xcassets` and add a new Image Set called `SplashImage`.
+
+Notice we need to add 3 versions of the image. Let's use the Ying Yang image from before:
+
+<img src={useBaseUrl('/img/images/ying-yang@3x.png')} alt="Ying Yang image" />
+<img src={useBaseUrl('/img/images/ying-yang@2x.png')} alt="Ying Yang image" />
+<img src={useBaseUrl('/img/images/ying-yang.png')} alt="Ying Yang image" />
+
+To add this to the Splash Screen, open the `LaunchScreen.storyboard` again and click on + on the top right corner of Xcode.
+
+Search for `ImageView` and drag it to the center of your splash screen page.
+
+Click on the `ImageView` and choose the Image asset you just creates from the right menu.
+
+Click on the `View` on the left, and set the background to the blue of our main background image using the colour picker tool.
+
+To ensure that the image is always centered in our container, choose the SplashImage from the tree view and click on the little bar chart icon on the bottom right of the toolbar, check "Center Horizontally in container" and "Center Vertically in container", and add both constraints.
+
+Rebuild the app from Xcode.
+
+<img
+  src={useBaseUrl('/img/splash-screen/xcode-end.png')}
+  alt="XCode Storyboard"
+/>
+
+## Checkpoint 🔗
+
+[**Add iOS splash screen** 86a64cabe2c604714034a9314dd3392eaafc222f](https://github.com/kadikraman/mood-tracker/commit/86a64cabe2c604714034a9314dd3392eaafc222f)

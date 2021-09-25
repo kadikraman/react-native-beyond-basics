@@ -1,0 +1,57 @@
+---
+sidebar_position: 2
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Android Splash Screen
+
+A splash screen is what we show to users while the app is getting loaded. This can either be a full page image, or an image with a background.
+
+First we need to create the splash image layout. Create an `android/app/src/main/res/layout` folder, and inside it a file called `launch_screen.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:background="@color/splash_blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/launch_screen" />
+</RelativeLayout>
+```
+
+To add the image, create a `android/app/src/main/res/drawable-xxhdpi` and save the Ying Yang image there with the name `launch_screen.png`.
+
+<img src={useBaseUrl('/img/images/ying-yang@3x.png')} alt="Ying Yang image" />
+
+Create a `app/src/main/res/values/colors.xml` file and add `primary_dark` and `splash_blue` colors:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_dark">#000000</color>
+    <color name="splash_blue">#57C3EE</color>
+</resources>
+```
+
+You can also preview the look and feel of the launch screen in Android Studio by opening the `launch_screen.xml` file
+
+<img
+  src={useBaseUrl('/img/splash-screen/android-studio-layout.png')}
+  alt="Android studio screen"
+/>
+
+<img
+  src={useBaseUrl('/img/splash-screen/android.png')}
+  alt="Android splash screen"
+  width="500"
+/>
+
+## Checkpoint 🔗
+
+[**Add Android splash screen** fbaa373ca0ff99e7966df629d2fb040e36a1ec16](https://github.com/kadikraman/mood-tracker/commit/fbaa373ca0ff99e7966df629d2fb040e36a1ec16)

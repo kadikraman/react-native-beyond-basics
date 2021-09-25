@@ -1,0 +1,99 @@
+---
+sidebar_position: 2
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Network Images
+
+By network images, we mean images that are loaded from a url. Usually, most of the images you'll be using in your app are loaded in this way rather than packaged within the app.
+
+In order to render images from a url, let's display this peaceful smokey background for our ying yang:
+
+<img
+  src={useBaseUrl(
+    'https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80'
+  )}
+  width="500"
+/>
+
+Open the `HomeTab.screen.tsx` fine again, and add a constant at the top of the file for the image url:
+
+```js
+const networkImageUrl =
+  'https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80';
+```
+
+Now let's add an image component on top of the existing one
+
+```js
+<Image source={{ uri: networkImageUrl }} />
+```
+
+And... nothing renders! That's because for network images, we also need to explicitly tell it how large to make the image. In out case, let's make it 200 pt high:
+
+```js
+networkImage: {
+  height: 200,
+},
+```
+
+Voila! Finally, let's move the image to the back of the page so that the whole page is wrapped in the image. Unfortunately the `Image` component doesn't allow child components. So in order to do that we must replace it with the `ImageBackground` component.
+
+```js
+import React from 'react';
+import { StyleSheet, Image, ImageBackground } from 'react-native';
+import { useAppContext } from '~src/App.provider';
+import { MoodPicker } from '~src/components/MoodPicker';
+
+const imageSrc = require('~src/assets/images/ying-yang.png');
+const networkImageUrl =
+  'https://images.unsplash.com/photo-1621193677201-096db5e45734?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80';
+
+export const HomeTab = () => {
+  const { handleAddMood } = useAppContext();
+
+  return (
+    <ImageBackground style={styles.container} source={{ uri: networkImageUrl }}>
+      <Image source={imageSrc} style={styles.image} />
+      <MoodPicker onAddMood={handleAddMood} />
+    </ImageBackground>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  image: {
+    alignSelf: 'center',
+    marginTop: 50,
+    marginBottom: 20,
+  },
+});
+```
+
+### Note on production usage
+
+For production apps, it is recommended to use [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image) for images that are loaded via url - it's a drop-in replacement for the React Native image component, and it adds a lot of performance optimisations the `Image` and `ImageBackground` component are missing.
+
+## Checkpoint 🔗
+
+[**Use ImageBackground for the background image** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/07908e87de8a1951e0eec12c9d676e4c8463eed7)
+
+<img
+  src={useBaseUrl('/img/images/ios-bg-image.png')}
+  alt="iOS bg image"
+  width="50%"
+/>
+<img
+  src={useBaseUrl('/img/images/android-bg-image.png')}
+  alt="Android bg image"
+  width="50%"
+/>
+
+## Sources
+
+The Ying Yang image is from [FlatIcon](https://www.flaticon.com/free-icon/ying-yang_1390877?related_id=1390877).
+
+The smoky background image if rom [Unsplash](https://unsplash.com/photos/LS0CWcXo1dw)
