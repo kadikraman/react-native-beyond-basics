@@ -1,10 +1,18 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
+title: 'Intro to TypeScript'
+description: 'Why we use TypeScript for this project'
 ---
 
 # Into to TypeScript
 
 For this course, we will be using TypeScript instead of plain JavaScript.
+
+TypeScript is becoming the tool of choice for JavaScript developers using modern tooling, and you are more than likely going to encounter it on your developer journey. So if you've never used TypeScript before, there's no time like the present to get stuck in!
+
+:::note
+Because of the way the React Native project is set up, if you are not interested in learning TypeScript, you can simply choose not to use it. Your React Native project will still run and build if you use plain JavaScript or if your types aren't correct.
+:::
 
 You can use the [TypeScript Playground](https://www.typescriptlang.org/play) to explore and try out TypeScript and the examples below.
 
@@ -55,96 +63,21 @@ TypeScript is the most useful during development if you use an IDE that supports
 
 I would recommend use [Visual Studio Code](https://code.visualstudio.com/) which comes with TypeScript support out of the box. VSCode and TypeScript are both built by Microsoft so they generally work very well together.
 
-# TypeScript for React Native
+If you don't want to use VSCode, I'd recommend installing a TypeScript plugin to your favourite code editor.
 
-Let's consider manually typing the following object:
-
-```js
-const MyItems: MyItemsType = {
-  justString: "Hello",
-  justNumber: 5,
-  stringArray: ["one", "two", "three"],
-  numberArray: [1, 2, 3],
-  objectArray: [{ val: 1 }, { val: 2 }, { val: 3 }],
-  mixedArray: [1, "hello"],
-  funcReturningNothing: () => {},
-  funcWithArgs: (arg1, arg2) => arg1 + arg2,
-};
-
-type MyItemsType = {
-  justString: string,
-  justNumber: number,
-  stringArray: string[], // or Array<string>
-  numberArray: number[], // or Array<number>
-  objectArray: { val: number }[], // or Array<{ val: number }>
-  mixedArray: (number | string)[], // or Array<number | string>
-  funcReturningNothing: () => void,
-  funcWithArgs: (arg1: number, arg2: number) => number,
-  mightNotExist?: string,
-};
+:::tip
+To check for TypeScript errors on the terminal, you can run, add
+```json
+"scripts": {
+  "ts:check": "tsc"
+},
+```
+to your `package.json` and run
+```bash
+yarn ts:check
+# or
+npm run ts:check
 ```
 
-- you can use `?` to denote an optional type. That means the arg is either as typed or `undefined`
-- `void` means that no return type is set
-- when the type can one of many things, you can use `|` as an "or" between the options
-
-## Typing React Components
-
-When typing React components, add `React.FC` after the function name to declare that the return type is a function component.
-
-### In JavaScript:
-
-```jsx title="Greeting.jsx"
-import React from "react";
-import { Text } from "react-native";
-
-export const Greeting = () => {
-  return <Text>Hello</Text>;
-};
-```
-
-### In TypeScript:
-
-```tsx title="Greeting.tsx"
-import React from "react";
-import { Text } from "react-native";
-
-export const Greeting: React.FC = () => {
-  return <Text>Hello</Text>;
-};
-```
-
-## Typing React Component Props
-
-You can type the properties of a component by passing in the type in `React.FC<{}>`:
-
-```jsx title="User.jsx"
-import React from "react";
-import { Text } from "react-native";
-
-export const User = ({ firstName, lastName }) => {
-  return (
-    <Text>
-      {firstName} {lastName}
-    </Text>
-  );
-};
-```
-
-```tsx title="User.tsx"
-import React from "react";
-import { Text } from "react-native";
-
-type UserProps = {
-  firstName: string;
-  lastName: string;
-};
-
-export const User: React.FC<UserProps> = ({ firstName, lastName }) => {
-  return (
-    <Text>
-      {firstName} {lastName}
-    </Text>
-  );
-};
-```
+This is handy for checking for TypeScript errors on CI!
+:::

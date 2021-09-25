@@ -1,0 +1,169 @@
+---
+sidebar_position: 2
+title: 'TypeScript for React Native'
+description: 'How we use TypeScript on React Native project'
+---
+
+# TypeScript for React Native
+
+This isn't a course about TypeScript, but you'll need to know a little bit in order to follow along.
+
+We will just do a quick intro to to what you'll need to know for this workshop.
+
+## Configuration with tsconfig.ts
+
+Because we used a TypeScript template for building our project, all the setup is already done for us.
+
+The main point of interest for us is the `tsconfig.json` which you can find at the root of your project. It allows you choose how strict you want to make your type checking to be, setting up module aliases and much more! The project template comes with sensible defaults, but you can read more about the available options and how to change them [here](https://www.typescriptlang.org/tsconfig).
+
+## Declaring types
+
+Suppose you had a user object that looked like this:
+
+```js
+const user = {
+  name: 'Mary',
+  age: 25,
+  hobbies: ['running', 'coding', 'singing']
+};
+```
+
+To declare a type for this object we can use the `type` keyword:
+
+```ts
+type User = {
+  name: string;
+  age: number;
+  hobbies: string[];
+}
+```
+
+Then we can explicitly set the type of the object to be `User`:
+
+```ts
+const user: User = {
+  name: 'Mary',
+  age: 25,
+  hobbies: ['running', 'coding', 'singing']
+};
+```
+
+## Optional types
+
+You can use `?` to denote an optional type. That means the arg is either as typed, or `undefined`.
+
+```ts
+type User = {
+  name: string;
+  age: number;
+  hobbies?: string[];
+}
+
+const user1: User = {
+  name: 'Mary',
+  age: 25,
+  hobbies: ['running', 'coding', 'singing']
+};
+
+const user2: User = {
+  name: 'Paul',
+  age: 32,
+};
+```
+
+## The "or" type
+
+When the type can one of many things, you can use `|` which acts as an "or" between the options
+
+```ts
+type User = {
+  name: string;
+  age: number;
+  hobbies?: string[];
+  nationality: 'British' | 'American' | 'Estonian';
+}
+
+const user1: User = {
+  name: 'Mary',
+  age: 25,
+  hobbies: ['running', 'coding', 'singing'],
+  nationality: 'British',
+};
+
+const user2: User = {
+  name: 'Paul',
+  age: 32,
+  nationality: 'American',
+};
+```
+
+## No return type
+
+`void` use used to denote the lack of return type that no return type is set.
+
+```ts
+const logger = (message: string): void => {
+  console.log(message)
+};
+```
+
+## Typing React Components
+
+When typing React components, add `React.FC` after the function name to declare that the return type is a function component.
+
+### In JavaScript:
+
+```jsx title="Greeting.jsx"
+import React from "react";
+import { Text } from "react-native";
+
+export const Greeting = () => {
+  return <Text>Hello</Text>;
+};
+```
+
+### In TypeScript:
+
+```tsx title="Greeting.tsx"
+import React from "react";
+import { Text } from "react-native";
+
+export const Greeting: React.FC = () => {
+  return <Text>Hello</Text>;
+};
+```
+
+## Typing React Component Props
+
+You can type the properties of a component by passing in the type in `React.FC<{}>`:
+
+```jsx title="User.jsx"
+import React from "react";
+import { Text } from "react-native";
+
+export const User = ({ firstName, lastName }) => {
+  return (
+    <Text>
+      {firstName} {lastName}
+    </Text>
+  );
+};
+```
+
+```tsx title="User.tsx"
+import React from "react";
+import { Text } from "react-native";
+
+type UserProps = {
+  firstName: string;
+  lastName: string;
+};
+
+export const User: React.FC<UserProps> = ({ firstName, lastName }) => {
+  return (
+    <Text>
+      {firstName} {lastName}
+    </Text>
+  );
+};
+```

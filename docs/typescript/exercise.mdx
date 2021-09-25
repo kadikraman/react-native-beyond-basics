@@ -1,0 +1,55 @@
+---
+sidebar_position: 3
+title: 'Exercise'
+description: 'TypeScript Exercise'
+---
+
+# TypeScript Exercise
+
+Let's do a quick TypeScript exercise to put in practice what we've learned.
+
+Open the [TypeScript Playground](https://www.typescriptlang.org/play?ssl=39&ssc=2&pln=1&pc=1#code/C4TwDgpgBAChxQLxQN4Cgqagem1AKgPIAihAXFAJYC2YANhNRAHYLAAW0AThAM4IB7AGZQOlXqPAQMWZgEMmFfl0rMA5gG40AXzRoAxgOb8okYLwpxgAbQC6SKNZmZ0WN1HmKoAcgBidAFchIRBvABpndwBrVQATCm99OWBwyLc5NQgKAEYABgj3LCE5ADcBAJVgCF8BAViLR28hcXZwn312Sn0olm9bAsKoXkg5KIoACgBKJAA+KENjAQYAOjoBNXGAImYIAQB3TcmBwv2drgpXQbdPLJ8AZTkuOVbjq6gM2+yADle3XT-XpdCjcEvgILFYqFflgYsx4j5YutUlcPhQAEzQzDFMoVShVGp1BrWbxyZggMTqKDCEQgcpcURyABGDD6mKGIzGUCms3mRl4Swgq3WWz2tSEhzZpwg51QaUGIJ8AFlHlC5YVUVA0QAWNn-LDaQFqjwKW7eABCAUZzL4yMGsPhTRatvVmRybOxdLx1Vq9QoxLkdDUcggrKNUplQLeCu8dyqJRDbPSrqgAGZ8ka9ZhdLYgA) where you should already see the following code (if not, copy and paste this in):
+
+```ts
+type Pet = {
+  // TODO: implement the rest of this type
+  name: string;
+}
+
+const pets: Pet[] = [
+  {
+    name: 'Fluffy',
+    kind: 'cat',
+    age: 10,
+    favouriteFoods: ['fish', 'chicken'],
+    speak: () => console.log("meow"),
+    owner: {
+        name: 'Sarah',
+        age: 18,
+    }
+  },
+  {
+    name: 'Teddy',
+    kind: 'dog',
+    age: 2,
+    favouriteFoods: ['anything off your table'],
+    speak: () => console.log("woof"),
+    owner: {
+        name: 'Mary',
+        age: 24,
+    }
+  },
+  {
+    name: 'Bubbles',
+    kind: 'fish',
+    age: 1,
+    favouriteFoods: ['algae'],
+    owner: {
+        name: 'Steve',
+        age: 30,
+    }
+  }
+]
+```
+
+Implement the Pet type based on the pets array it's applied to. The playground will help you spot the errors via the red underlines, and you can hover over the underlines to read the error messages.
