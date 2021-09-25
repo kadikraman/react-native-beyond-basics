@@ -24,7 +24,7 @@ Suppose you had a user object that looked like this:
 const user = {
   name: 'Mary',
   age: 25,
-  hobbies: ['running', 'coding', 'singing']
+  hobbies: ['running', 'coding', 'singing'],
 };
 ```
 
@@ -35,7 +35,7 @@ type User = {
   name: string;
   age: number;
   hobbies: string[];
-}
+};
 ```
 
 Then we can explicitly set the type of the object to be `User`:
@@ -44,7 +44,7 @@ Then we can explicitly set the type of the object to be `User`:
 const user: User = {
   name: 'Mary',
   age: 25,
-  hobbies: ['running', 'coding', 'singing']
+  hobbies: ['running', 'coding', 'singing'],
 };
 ```
 
@@ -57,12 +57,12 @@ type User = {
   name: string;
   age: number;
   hobbies?: string[];
-}
+};
 
 const user1: User = {
   name: 'Mary',
   age: 25,
-  hobbies: ['running', 'coding', 'singing']
+  hobbies: ['running', 'coding', 'singing'],
 };
 
 const user2: User = {
@@ -81,7 +81,7 @@ type User = {
   age: number;
   hobbies?: string[];
   nationality: 'British' | 'American' | 'Estonian';
-}
+};
 
 const user1: User = {
   name: 'Mary',
@@ -103,7 +103,7 @@ const user2: User = {
 
 ```ts
 const logger = (message: string): void => {
-  console.log(message)
+  console.log(message);
 };
 ```
 
@@ -114,8 +114,8 @@ When typing React components, add `React.FC` after the function name to declare 
 ### In JavaScript:
 
 ```jsx title="Greeting.jsx"
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 export const Greeting = () => {
   return <Text>Hello</Text>;
@@ -125,8 +125,8 @@ export const Greeting = () => {
 ### In TypeScript:
 
 ```tsx title="Greeting.tsx"
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 export const Greeting: React.FC = () => {
   return <Text>Hello</Text>;
@@ -138,8 +138,8 @@ export const Greeting: React.FC = () => {
 You can type the properties of a component by passing in the type in `React.FC<{}>`:
 
 ```jsx title="User.jsx"
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 export const User = ({ firstName, lastName }) => {
   return (
@@ -151,8 +151,8 @@ export const User = ({ firstName, lastName }) => {
 ```
 
 ```tsx title="User.tsx"
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 type UserProps = {
   firstName: string;

@@ -2,15 +2,15 @@
 sidebar_position: 3
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-# Navigation Exercise Solution
+# Solution
 
 Add another screen for the Analytics tab:
 
 ```tsx title="src/screens/Analytics.screen.tsx"
-import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import * as React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 export const Analytics: React.FC = () => {
   return (
@@ -23,8 +23,8 @@ export const Analytics: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 ```
@@ -58,12 +58,12 @@ TODO!
 :::
 
 <img
-  src={useBaseUrl("/img/navigation/ios.png")}
+  src={useBaseUrl('/img/navigation/ios.png')}
   alt="iOS navigation"
   width="50%"
 />
 <img
-  src={useBaseUrl("/img/navigation/android.png")}
+  src={useBaseUrl('/img/navigation/android.png')}
   alt="Android navigation"
   width="50%"
 />

@@ -1,0 +1,107 @@
+---
+sidebar_position: 3
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Solution
+
+```ts title="src/App/provider.tsx"
+import React from 'react';
+import { MoodOption, MoodOptionWithTimestamp } from './types';
+
+type AppContextType = {
+  moodList: MoodOptionWithTimestamp[];
+  handleAddMood: (mood: MoodOption) => void;
+};
+
+const defaultValue = {
+  moodList: [] as MoodOptionWithTimestamp[],
+  handleAddMood: () => {},
+};
+
+const AppContext = React.createContext<AppContextType>(defaultValue);
+
+export const AppProvider: React.FC = ({ children }) => {
+  const [moodList, setMoodList] = React.useState<MoodOptionWithTimestamp[]>([]);
+
+  const handleAddMood = React.useCallback((newMood) => {
+    setMoodList((current) => [
+      ...current,
+      { moodOption: newMood, timestamp: Date.now() },
+    ]);
+  }, []);
+
+  return (
+    <AppContext.Provider value={{ moodList, handleAddMood }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+export const useAppContext = () => React.useContext(AppContext);
+```
+
+```ts title="src/screens/Home.tsx"
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { MoodPicker } from '../components/MoodPicker';
+import { useAppContext } from '../App.provider';
+
+export const Home = () => {
+  const appContext = useAppContext();
+
+  return (
+    <View style={styles.container}>
+      <MoodPicker onAddMood={appContext.handleAddMood} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  emoji: {
+    textAlign: 'center',
+  },
+});
+```
+
+```ts title="src/screens/History.tsx"
+import * as React from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { useAppContext } from '../App.provider';
+import { MoodItemRow } from '../components/MoodItemRow';
+
+export const History: React.FC = () => {
+  const appContext = useAppContext();
+  return (
+    <ScrollView style={styles.container}>
+      {appContext.moodList.map((mood) => (
+        <MoodItemRow item={mood} key={mood.timestamp} />
+      ))}
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+```
+
+[**Move mood list to AppContext** f0b4ca4cba8299faee8ee23fd3852129cf1556c5](https://github.com/kadikraman/mood-tracker/commit/f0b4ca4cba8299faee8ee23fd3852129cf1556c5)
+
+<img
+  src={useBaseUrl('/img/react-context/ios.png')}
+  alt="React Context iOS"
+  width="50%"
+/>
+<img
+  src={useBaseUrl('/img/react-context/android.png')}
+  alt="React Context Android"
+  width="50%"
+/>

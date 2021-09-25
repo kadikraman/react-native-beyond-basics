@@ -1,10 +1,8 @@
 ---
 sidebar_position: 3
-title: 'Exercise'
-description: 'TypeScript Exercise'
 ---
 
-# TypeScript Exercise
+# Exercise
 
 Let's do a quick TypeScript exercise to put in practice what we've learned.
 
@@ -14,7 +12,7 @@ Open the [TypeScript Playground](https://www.typescriptlang.org/play?ssl=39&ssc=
 type Pet = {
   // TODO: implement the rest of this type
   name: string;
-}
+};
 
 const pets: Pet[] = [
   {
@@ -22,22 +20,22 @@ const pets: Pet[] = [
     kind: 'cat',
     age: 10,
     favouriteFoods: ['fish', 'chicken'],
-    speak: () => console.log("meow"),
+    speak: () => console.log('meow'),
     owner: {
-        name: 'Sarah',
-        age: 18,
-    }
+      name: 'Sarah',
+      age: 18,
+    },
   },
   {
     name: 'Teddy',
     kind: 'dog',
     age: 2,
     favouriteFoods: ['anything off your table'],
-    speak: () => console.log("woof"),
+    speak: () => console.log('woof'),
     owner: {
-        name: 'Mary',
-        age: 24,
-    }
+      name: 'Mary',
+      age: 24,
+    },
   },
   {
     name: 'Bubbles',
@@ -45,11 +43,11 @@ const pets: Pet[] = [
     age: 1,
     favouriteFoods: ['algae'],
     owner: {
-        name: 'Steve',
-        age: 30,
-    }
-  }
-]
+      name: 'Steve',
+      age: 30,
+    },
+  },
+];
 ```
 
 Implement the Pet type based on the pets array it's applied to. The playground will help you spot the errors via the red underlines, and you can hover over the underlines to read the error messages.

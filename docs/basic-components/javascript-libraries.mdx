@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # JavaScript Libraries
 
@@ -31,7 +31,7 @@ Let's make our dates follow the following format: `29 Sep, 2021 at 9:45am`.
 You can use the [format docs](https://date-fns.org/v2.24.0/docs/format) as a reference.
 
 ```ts
-import format from "date-fns/format";
+import format from 'date-fns/format';
 
 //
 
@@ -43,10 +43,10 @@ format(new Date(item.timestamp), "dd MMM, yyyy 'at' h:mmaaa");
 Finally, let's pull the `MoodItemRow` into a separate component and style it accordingly:
 
 ```jsx title="src/components/MoodItemRow.tsx"
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import format from "date-fns/format";
-import { MoodOptionWithTimestamp } from "../types";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import format from 'date-fns/format';
+import { MoodOptionWithTimestamp } from '../types';
 
 type MoodItemRowProps = {
   item: MoodOptionWithTimestamp,
@@ -70,36 +70,36 @@ export const MoodItemRow: React.FC<MoodItemRowProps> = ({ item }) => {
 
 const styles = StyleSheet.create({
   moodValue: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 40,
     marginRight: 10,
   },
   moodDate: {
-    textAlign: "center",
-    color: "#87677B",
+    textAlign: 'center',
+    color: '#87677B',
   },
   moodItem: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginBottom: 10,
     padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   moodDescription: {
     fontSize: 18,
-    color: "#454C73",
-    fontWeight: "bold",
+    color: '#454C73',
+    fontWeight: 'bold',
   },
   iconAndDescription: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 ```
 
 <img
-  src={useBaseUrl("/img/mood-picker/exercise-5.png")}
+  src={useBaseUrl('/img/mood-picker/exercise-5.png')}
   alt="Mood Picker"
   width="500px"
 />

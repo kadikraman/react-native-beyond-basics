@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Styling
 
@@ -11,15 +11,15 @@ Styling in React Native is done using inline styles.
 Use the `StyleSheet` from `react-native` to wrap the emoji list in a container with a title saying "How are you right now?" and a call to action to "Choose" and emoji.
 
 ```tsx title="src/components/PressableArea.tsx"
-import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 const moodOptions = [
-  { emoji: "😄", description: "amazing" },
-  { emoji: "😊", description: "great" },
-  { emoji: "🙂", description: "alright" },
-  { emoji: "🙁", description: "sad" },
-  { emoji: "😔", description: "miserable" },
+  { emoji: '😄', description: 'amazing' },
+  { emoji: '😊', description: 'great' },
+  { emoji: '🙂', description: 'alright' },
+  { emoji: '🙁', description: 'sad' },
+  { emoji: '😔', description: 'miserable' },
 ];
 
 type MoodOptionType = typeof moodOptions[number];
@@ -62,51 +62,51 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   container: {
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: 'rgba(0,0,0,0.2)',
     margin: 10,
     borderRadius: 10,
     padding: 20,
   },
   emojiList: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
   moodItem: {
     width: 50,
     height: 50,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   selected: {
     borderWidth: 2,
-    backgroundColor: "rgba(0,0,0,0.6)",
-    borderColor: "#fff",
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderColor: '#fff',
     borderRadius: 25,
   },
   descriptionText: {
-    color: "#000",
-    fontWeight: "bold",
+    color: '#000',
+    fontWeight: 'bold',
     fontSize: 10,
-    textAlign: "center",
+    textAlign: 'center',
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
   },
   button: {
-    alignSelf: "center",
+    alignSelf: 'center',
     borderRadius: 100,
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: 'rgba(0,0,0,0.6)',
     padding: 10,
     minWidth: 150,
   },
   buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 ```
@@ -117,7 +117,7 @@ TODO!
 :::
 
 <img
-  src={useBaseUrl("/img/mood-picker/exercise-3.png")}
+  src={useBaseUrl('/img/mood-picker/exercise-3.png')}
   alt="Mood Picker iOS"
   width="50%"
 />

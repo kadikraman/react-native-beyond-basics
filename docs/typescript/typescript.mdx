@@ -30,7 +30,7 @@ For example, consider the following code:
 
 ```ts
 const myNum = 5;
-myNum.split("");
+myNum.split('');
 ```
 
 If you try this in a TypeScript file in your code editor, you should get a red underline under `split` with the following message:
@@ -67,12 +67,15 @@ If you don't want to use VSCode, I'd recommend installing a TypeScript plugin to
 
 :::tip
 To check for TypeScript errors on the terminal, you can run, add
+
 ```json
 "scripts": {
   "ts:check": "tsc"
 },
 ```
+
 to your `package.json` and run
+
 ```bash
 yarn ts:check
 # or

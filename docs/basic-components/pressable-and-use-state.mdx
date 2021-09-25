@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Pressable and useState
 
@@ -11,8 +11,8 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 The [Pressable](https://reactnative.dev/docs/pressable) component gives you fine grained control over the pressed state. Unlike `TouchableOpacity`, `Pressable` does not have any styles applied for the pressed state, but if you wanted, you could achieve the same effect by applying the pressed style yourself:
 
 ```tsx title="src/components/PressableArea.tsx"
-import * as React from "react";
-import { Pressable, PressableProps } from "react-native";
+import * as React from 'react';
+import { Pressable, PressableProps } from 'react-native';
 
 export const PressableArea: React.FC<PressableProps> = ({
   children,
@@ -23,7 +23,7 @@ export const PressableArea: React.FC<PressableProps> = ({
     <Pressable
       {...rest}
       style={(args) => {
-        const appliedStyle = typeof style === "function" ? style(args) : style;
+        const appliedStyle = typeof style === 'function' ? style(args) : style;
         if (args.pressed) {
           return [appliedStyle, { opacity: 0.9 }];
         }
@@ -113,7 +113,7 @@ TODO!
 :::
 
 <img
-  src={useBaseUrl("/img/mood-picker/exercise-2.png")}
+  src={useBaseUrl('/img/mood-picker/exercise-2.png')}
   alt="Mood Picker iOS"
   width="50%"
 />

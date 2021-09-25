@@ -1,25 +1,23 @@
 ---
 sidebar_position: 3
-title: 'Solution'
-description: 'TypeScript Exercise Solution'
 ---
 
-# TypeScript Exercise Solution
+# Solution
 
 The [solution](https://www.typescriptlang.org/play?#code/C4TwDgpgBAChxQLxQN4CgqagOwIYFsIAuKAZ2ACcBLbAcwBoMsBrGgExIHIBjXYTqAB8onNgHtaA4ZwBmVUgAtOjLFFy1iOAK74ARhAoqsM3ADcxW6sAgAxMWLakS5anQDaAXSOZSkXMwB+EgAKAEokAD4ocyo2bygxAHdsAxJ0VVU8QmdKGgYmDLUNEmwdfQoCqABfNBq0bjFscihIYCdYeE8kKDdK9MKcAk1OGwAbLRkZEGVK1VZsDhFefnjVdU0ARgAGVeMzCytbe0cSN1l5JXolhSpuZghsTi9ZrF8IfxDwxCiGprFRiAAOlGEmCACIUkkwaFdpgkikKGkXoUssMAMq4Ci4S7IjLrEgbAAcsOqlSq8X6KKGXAAKhA2GxpiT5otRBIZgMipoAEwkkzmSxUax2BztM64bAgYA3OgJSZQEAHKDAXC6AFPElvD5QMKRKC-Uj-IEg2jgxL2GTQknw1KoXGZakiACymKZ9qw+Kg3IALCSaqpyX1caiuAAhLS6NUQUgcgYsrhyRSxwqejZ8-aC4XHMWcXCjWi4CAa3E2xF2zkO7IiNHWUxFklrYpQADMO1x-qwNQ8QA) to the TypeScript exercise is as follows:
 
 ```ts
 type Pet = {
-  name: string,
-  kind: 'cat' | 'dog' | 'fish',
-  age: number,
-  favouriteFoods: string[],
-  speak?: () => void,
+  name: string;
+  kind: 'cat' | 'dog' | 'fish';
+  age: number;
+  favouriteFoods: string[];
+  speak?: () => void;
   owner: {
-    name: string,
-    age: number
-  }
-}
+    name: string;
+    age: number;
+  };
+};
 
 const pets: Pet[] = [
   {
@@ -27,22 +25,22 @@ const pets: Pet[] = [
     kind: 'cat',
     age: 10,
     favouriteFoods: ['fish', 'chicken'],
-    speak: () => console.log("meow"),
+    speak: () => console.log('meow'),
     owner: {
       name: 'Sarah',
       age: 18,
-    }
+    },
   },
   {
     name: 'Teddy',
     kind: 'dog',
     age: 2,
     favouriteFoods: ['anything off your table'],
-    speak: () => console.log("woof"),
+    speak: () => console.log('woof'),
     owner: {
       name: 'Mary',
       age: 24,
-    }
+    },
   },
   {
     name: 'Bubbles',
@@ -52,7 +50,7 @@ const pets: Pet[] = [
     owner: {
       name: 'Steve',
       age: 30,
-    }
-  }
-]
+    },
+  },
+];
 ```

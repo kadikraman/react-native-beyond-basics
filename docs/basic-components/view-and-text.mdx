@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # View and Text
 
@@ -15,11 +15,11 @@ Let's use these components to display a emoji in a horizontal list.
 
 ```js
 const moodOptions = [
-  { emoji: "😄", description: "amazing" },
-  { emoji: "😊", description: "great" },
-  { emoji: "🙂", description: "alright" },
-  { emoji: "🙁", description: "sad" },
-  { emoji: "😔", description: "miserable" },
+  { emoji: '😄', description: 'amazing' },
+  { emoji: '😊', description: 'great' },
+  { emoji: '🙂', description: 'alright' },
+  { emoji: '🙁', description: 'sad' },
+  { emoji: '😔', description: 'miserable' },
 ];
 ```
 
@@ -28,8 +28,8 @@ To do this, let's create a `components` directory in `src`, next to `screens`. T
 Let's create a new file called `MoodPicker.tsx`.
 
 ```tsx title="src/components/MoodPicker.tsx"
-import * as React from "react";
-import { View, Text } from "react-native";
+import * as React from 'react';
+import { View, Text } from 'react-native';
 
 export const MoodPicker: React.FC = () => {
   return (
@@ -117,7 +117,7 @@ TODO!
 :::
 
 <img
-  src={useBaseUrl("/img/mood-picker/exercise-1.png")}
+  src={useBaseUrl('/img/mood-picker/exercise-1.png')}
   alt="Mood Picker iOS"
   width="50%"
 />
