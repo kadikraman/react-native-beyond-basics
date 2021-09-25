@@ -1,0 +1,69 @@
+---
+sidebar_position: 3
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Navigation Exercise Solution
+
+Add another screen for the Analytics tab:
+
+```tsx title="src/screens/Analytics.screen.tsx"
+import * as React from "react";
+import { StyleSheet, View, Text } from "react-native";
+
+export const Analytics: React.FC = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Analytics</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+```
+
+Update the `BottomTabs.navigator` to include the new screen:
+
+```diff title="src/screens/BottomTabs.navigator.tsx"
+import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Home } from './Home.screen';
+import { History } from './History.screen';
++import { Analytics } from './Analytics.screen';
+
+
+const BottomTabs = createBottomTabNavigator();
+
+export const BottomTabsNavigator: React.FC = () => {
+  return (
+    <BottomTabs.Navigator>
+      <BottomTabs.Screen name="Home" component={Home} />
+      <BottomTabs.Screen name="History" component={History} />
++      <BottomTabs.Screen name="Analytics" component={Analytics} />
+    </BottomTabs.Navigator>
+  );
+};
+
+```
+
+:::info Checkpoint 🔗
+TODO!
+:::
+
+<img
+  src={useBaseUrl("/img/navigation/ios.png")}
+  alt="iOS navigation"
+  width="50%"
+/>
+<img
+  src={useBaseUrl("/img/navigation/android.png")}
+  alt="Android navigation"
+  width="50%"
+/>

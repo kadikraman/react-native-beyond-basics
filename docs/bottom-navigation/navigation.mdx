@@ -1,0 +1,172 @@
+---
+sidebar_position: 1
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Navigation
+
+Since React Native does not have navigation built in, we'll need to install a navigation library for ourselves. For this project, we'll be using [React Navigation v6](https://reactnavigation.org/docs/getting-started/).
+
+## Install the navigation library
+
+```bash
+yarn add @react-navigation/native react-native-screens react-native-safe-area-context @react-navigation/bottom-tabs
+# or
+npm install @react-navigation/native react-native-screens react-native-safe-area-context @react-navigation/bottom-tabs
+```
+
+### Android Only - additional native code
+
+The react-native-screens package requires one additional configuration step to properly work on Android devices. Edit `MainActivity.java` file which is located in `android/app/src/main/java/moodtracker/MainActivity.java`
+
+Add the following code to the body of MainActivity class:
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
+```
+
+and make sure to add an import statement at the top of this file:
+
+```java
+import android.os.Bundle;
+```
+
+### iOS Only - install dependencies
+
+Since this library includes native code, we'll also need to install the native dependencies:
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+Finally, rebuild your iOS or android app:
+
+```bash
+yarn ios
+# or
+npm run ios
+
+
+yarn android
+# or
+npm run android
+```
+
+## Add a bottom tab navigator
+
+If you completed the into React Native course, then you should already be familiar with the Stack Navigator. In this project, we want to use tab-based navigation, so we're going to use the [Bottom Tab Navigator](https://reactnavigation.org/docs/bottom-tab-navigator) instead. We already installed `@react-navigation/bottom-tabs` in the install step above, so we can already use it in our project.
+
+The layout we're looking for looks like this:
+
+<img src={useBaseUrl("/img/navigation/navigation.png")} alt="Navigation" />
+
+First, let's create a new `src` directory at the root of your project. This is where all our code is going to live.
+
+Next, let's create a `screens` directory inside `src`. This is for all of out screens.
+
+In the `screens` directory, let's create two files for the `Home` and `History` tabs:
+
+```tsx title="src/screens/Home.screen.tsx"
+import * as React from "react";
+import { StyleSheet, View, Text } from "react-native";
+
+export const Home: React.FC = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Home</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+```
+
+```tsx title="src/screens/History.screen.tsx"
+import * as React from "react";
+import { StyleSheet, View, Text } from "react-native";
+
+export const History: React.FC = () => {
+  return (
+    <View style={styles.container}>
+      <Text>History</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+```
+
+Note that we're calling giving these files a filename with `screen.tsx` at the end. The `tsx` is the file extension for TypeScript, and the `screen` is just a convention to indicate that this is a screen file.
+
+Next, let's create the Bottom Tabs Navigator. Add a new file to the `screens` directory:
+
+```tsx title="src/screens/BottomTabs.navigator.tsx"
+import * as React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Home } from "./Home.screen";
+import { History } from "./History.screen";
+
+const BottomTabs = createBottomTabNavigator();
+
+export const BottomTabsNavigator: React.FC = () => {
+  return (
+    <BottomTabs.Navigator>
+      <BottomTabs.Screen name="Home" component={Home} />
+      <BottomTabs.Screen name="History" component={History} />
+    </BottomTabs.Navigator>
+  );
+};
+```
+
+Now we'll need to wrap this in a navigation container. Let's create another file in the `screen` directory called `Root.navigator.tsx` and use it to wrap the `BottomTabsNavigator` in a `NavigationContainer`.
+
+```tsx title="src/screens/Root.navigator.tsx"
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { BottomTabsNavigator } from "./BottomTabs.navigator";
+
+export const RootNavigator: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <BottomTabsNavigator />
+    </NavigationContainer>
+  );
+};
+```
+
+This might seems excessive at first, but as you start adding more screens and navigators to your project, you'll usually end up with a similar structure.
+
+Finally we'll need to use use this navigator in out `App.tsx`. Open `App.tsx` and replace the contents with this:
+
+```tsx title="App.tsx"
+import * as React from "react";
+import { RootNavigator } from "./src/screens/Root.navigator";
+
+const App: React.FC = () => {
+  return <RootNavigator />;
+};
+
+export default App;
+```
+
+:::info Checkpoint 🔗
+TODO!
+:::
