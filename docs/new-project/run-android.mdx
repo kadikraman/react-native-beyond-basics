@@ -1,0 +1,70 @@
+---
+sidebar_position: 3
+title: 'Build the Android app'
+description: 'Build your Android app using the React Native cli or Android Studio'
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+There are two ways to build an Android app - you can use the react native cli on the terminal, or you can build it using [Android Studio](https://developer.android.com/studio): the go-to integrated development environment (IDE) for building Android apps. We are now really venturing into native development in that these are the tools that native Android developers would use.
+
+## Installing dependencies
+
+Unlike with iOS where we have to install our native dependencies ourselves, the Android build and dependencies are managed using [Gradle](https://gradle.org/) and they are installed automatically, so there is no equivalent `yarn install` / `pod install` step for Android.
+
+## Running the Android app (via the terminal)
+
+### Start packager
+
+In one tab, start the metro bundler
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+### Run the app via the cli
+
+In another tab, build the native app
+
+```bash
+yarn android
+# or
+npm run android
+```
+
+## Running the Android app (via Android Studio)
+
+### Start packager
+
+First open the terminal and start the metro bundler:
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+
+### Run the App via Android Studio
+
+Open Android Studio, choose "Open Existing project" and open the `/android` folder.
+
+If you haven't configured a virtual device yet, you can do so now: click on the ADV Manager icon at the top of the IDE (it's a prone with the Android logo on it) and choose "Create Virtual Device". From here you can configure the exact device you want to use.
+
+Now choose which device you want to run your app on at the top of the IDE, to the left of the "play" icon. Once you're happy, click on the "play" icon to build the project.
+
+:::info Checkpoint 🔗
+[**Initial Commit** 6050f9243310497cbfb82c324f8ee10b1bafa686](https://github.com/kadikraman/mood-tracker/commit/6050f9243310497cbfb82c324f8ee10b1bafa686)
+:::
+
+<img
+  src={useBaseUrl("/img/new-project/android.png")}
+  alt="New Project Android"
+  width="50%"
+/>

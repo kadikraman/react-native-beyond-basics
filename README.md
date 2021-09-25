@@ -14,6 +14,6 @@ course. You don't _have_ to take that course course, but we will assume familiar
 
 ## Deployment
 
-```sh
+```bash
 GIT_USER=kadikraman yarn deploy
 ```

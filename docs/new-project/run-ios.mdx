@@ -1,0 +1,107 @@
+---
+sidebar_position: 2
+title: 'Build the iOS app'
+description: 'Build your iOS app using the React Native cli or Xcode'
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+:::note
+To build the iOS app, you will need to use an Apple Mac. Unfortunately there is no way around it. This is because the Xcode and its build tools are only available on computers running macOS.
+:::
+
+There are two ways to build an iOS app - you can use the react native cli on the terminal, or you can build it using [Xcode](https://developer.apple.com/xcode/): Apple's integrated development environment (IDE) for building iOS apps. We are now really venturing into native development in that these are the tools that native iOS developers would use.
+
+## Installing dependencies (FYI, but you can skip this)
+
+Because we initialized our project using a template, the React Native CLI has kindly installed all the dependencies for us (which is why the init command tends to take so long). However you should still know how to install dependencies, e.g. if you were working within a team and cloning the project from GitHub.
+
+First, we'll need to install the JavaScript dependencies:
+
+```bash
+yarn
+# or
+npm install
+```
+
+Next, because we are now building a native app, not just the JavaScript bundle, we'll also need to install the native dependencies.
+
+For iOS, the build dependencies are managed using [CocoaPods](https://cocoapods.org/) (or "Pods" for short). You can think of this as the iOS version of `npm`. To install the iOS native dependencies we'll need to run the install command in our project's ios directory:
+
+```bash
+cd ios
+pod install
+```
+
+The Pods dependencies work similarly to JavaScript dependencies that you are already familiar with. In the case of JavaScript dependencies, we have:
+
+- `package.json` - list of dependencies
+- `yarn.lock` - an auto-generated file that records exact versions of your dependencies
+- `node_modules` - all the project dependencies (not checked into .git)
+
+CocoaPods work on a very similar way:
+
+- `ios/Podfile` - list of dependencies
+- `ios/Podfile.lock` - an auto-generated file that records exact versions of your dependencies
+- `ios/Pods` - all the project dependencies (not checked into .git)
+
+## Running the iOS app (via the terminal)
+
+### Start packager
+
+In one tab, start the metro bundler
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+### Run the app via the cli
+
+In another tab, build the native app
+
+```bash
+yarn ios
+# or
+npm run ios
+```
+
+## Running the iOS app (via Xcode)
+
+While you can run your app from the cli, it is often better to build using Xcode as you get more control over the build. It is also very handy when changing native code or debugging build errors.
+
+### Start packager
+
+First open the terminal and start the metro bundler:
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+### Run the app via Xcode
+
+Open Xcode, choose "Open a project or file" and open the `ios/MoodTracker.xcworkspace` file. You can also select the whole `ios` directory and Xcode will automatically open the workspace file.
+
+:::danger
+When opening your project in Xcode, ensure you openen `.xcworkspace` and not the `.xcodeproj` file. Although both will open in Xcode, the project file does not recognize Pods and so you won't be able to run your app.
+:::
+
+
+Now at the very top of the window you will see `MoodTracker > [some device name]`. Click on the "MoodTracker" to choose which simulator to run the project on. After you've chosen your preferred target, click on the "Play" icon to run your app.
+
+:::info Checkpoint 🔗
+[**Initial Commit** 6050f9243310497cbfb82c324f8ee10b1bafa686](https://github.com/kadikraman/mood-tracker/commit/6050f9243310497cbfb82c324f8ee10b1bafa686)
+:::
+
+<img
+  src={useBaseUrl("/img/new-project/ios.png")}
+  alt="New Project iOS"
+  width="50%"
+/>

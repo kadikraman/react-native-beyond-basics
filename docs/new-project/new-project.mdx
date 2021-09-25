@@ -1,0 +1,41 @@
+---
+sidebar_position: 1
+title: 'Creating a new project with TypeScript'
+description: 'We use the React Native TypeScript template to create a new project'
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# New Project
+
+Let's start off by creating a new React Native project.
+
+We'll be using plain React Native, and there will be no option for using Expo. This is to give you a feel for building mobile apps without the help of the Expo managed workflow. Even if you choose to build your project in Expo, you may end up ejecting and having to manage the builds yourself, e.g. if you wanted to add [subscriptions](https://docs.expo.dev/versions/latest/sdk/in-app-purchases/) to your app. So this is just good practice.
+
+This means that you will be building the actual native app(s) on your device. So if you didn't previously, you will now have to set up your local environment. Check out the [React Native CLI Quickstart](https://reactnative.dev/docs/environment-setup) page in the React Native docs and ensure you have followed the setup instructions up to (but not including) "Creating a new application".
+
+## Creating a new application
+
+To create a new React Native project, open your terminal and run:
+
+```bash
+npx react-native init MoodTracker --template react-native-template-typescript
+```
+
+This will create a new react native project called "MoodTracker" using a react native [TypeScript](https://github.com/react-native-community/react-native-template-typescript) template.
+
+Now before you do anything else, navigate into the `MoodTracker` repository, initialize a new Git repository and commit the initial template:
+
+```bash
+cd MoodTracker
+git init
+git branch -m main
+git add --all
+git commit -m "Initial commit"
+```
+
+It is generally a good practice to do this even if you never plan to share your project with anyone. Aim to commit your changes whenever you reach a point where you're happy with your progress. This ensures you can easily see and revert any new changes and you'll always have a solid point to go back to if things get lopsided.
+
+:::tip
+You can use a Git GUI like [SourceTree](https://www.sourcetreeapp.com/) and [Fork](https://git-fork.com/) alongside or instead of the command line cli. This can make tracking changes (especially diffs) a whole lot easier.
+:::
