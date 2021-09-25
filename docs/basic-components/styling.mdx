@@ -1,0 +1,123 @@
+---
+sidebar_position: 2
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Styling
+
+Styling in React Native is done using inline styles.
+
+Use the `StyleSheet` from `react-native` to wrap the emoji list in a container with a title saying "How are you right now?" and a call to action to "Choose" and emoji.
+
+```tsx title="src/components/PressableArea.tsx"
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+const moodOptions = [
+  { emoji: "😄", description: "amazing" },
+  { emoji: "😊", description: "great" },
+  { emoji: "🙂", description: "alright" },
+  { emoji: "🙁", description: "sad" },
+  { emoji: "😔", description: "miserable" },
+];
+
+type MoodOptionType = typeof moodOptions[number];
+
+export const MoodPicker = () => {
+  const [selected, setSelected] = React.useState<MoodOptionType>();
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>How are you right now?</Text>
+      <View style={styles.emojiList}>
+        {moodOptions.map((option) => (
+          <View key={option.emoji}>
+            <Pressable
+              onPress={() => setSelected(option)}
+              style={[
+                styles.moodItem,
+                option.emoji === selected?.emoji ? styles.selected : undefined,
+              ]}
+            >
+              <Text style={styles.emojiText}>{option.emoji}</Text>
+            </Pressable>
+            <Text style={styles.descriptionText}>
+              {option.emoji === selected?.emoji
+                ? option.description
+                : undefined}
+            </Text>
+          </View>
+        ))}
+      </View>
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Choose</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  emojiText: {
+    fontSize: 24,
+  },
+  container: {
+    backgroundColor: "rgba(0,0,0,0.2)",
+    margin: 10,
+    borderRadius: 10,
+    padding: 20,
+  },
+  emojiList: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  moodItem: {
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selected: {
+    borderWidth: 2,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    borderColor: "#fff",
+    borderRadius: 25,
+  },
+  descriptionText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 10,
+    textAlign: "center",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: 20,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  button: {
+    alignSelf: "center",
+    borderRadius: 100,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    padding: 10,
+    minWidth: 150,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+```
+
+:::info Checkpoint 🔗
+TODO!
+[**Add emoji list container** 383ada7c1511b557b108242ab9371139bd381af6](https://github.com/kadikraman/mood-tracker/commit/383ada7c1511b557b108242ab9371139bd381af6)
+:::
+
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-3.png")}
+  alt="Mood Picker iOS"
+  width="50%"
+/>

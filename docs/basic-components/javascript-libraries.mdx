@@ -1,0 +1,109 @@
+---
+sidebar_position: 5
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# JavaScript Libraries
+
+One of the benefits of React Native is that since we're using JavaScript, we're able to leverage the vast amount of JavaScript community libraries for our project. Not all JavaScript libraries will work on React Native, for instance libraries that rely on the browser environment and interact with the browse window or CSS would have no place in React Native. But there are vast amounts of utility libraries that are compatible.
+
+Let's use a JavaScript library to format the date in our history.
+
+I like to use [date-fns](https://date-fns.org/) which includes a lot of handy date-related utility functions, including a [format](https://date-fns.org/v2.24.0/docs/format) function.
+
+To install the library, open your terminal and run:
+
+```bash
+yarn add date-fns
+# or
+npm install date-fns
+```
+
+Unlike the navigation library we installed earlier, this library is JavaScript only, meaning there's no need for us to install pods or even rebuild the app. It will be available immediately.
+
+:::tip
+When installing libraries, you have to run `pod install` and rebuild your project _only_ if the library includes native code. Plain JavaScript libraries don't include native code and so don't require a rebuild.
+:::
+
+Let's make our dates follow the following format: `29 Sep, 2021 at 9:45am`.
+
+You can use the [format docs](https://date-fns.org/v2.24.0/docs/format) as a reference.
+
+```ts
+import format from "date-fns/format";
+
+//
+
+format(new Date(item.timestamp), "dd MMM, yyyy 'at' h:mmaaa");
+
+//
+```
+
+Finally, let's pull the `MoodItemRow` into a separate component and style it accordingly:
+
+```jsx title="src/components/MoodItemRow.tsx"
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import format from "date-fns/format";
+import { MoodOptionWithTimestamp } from "../types";
+
+type MoodItemRowProps = {
+  item: MoodOptionWithTimestamp,
+};
+
+export const MoodItemRow: React.FC<MoodItemRowProps> = ({ item }) => {
+  return (
+    <View style={styles.moodItem}>
+      <View style={styles.iconAndDescription}>
+        <Text style={styles.moodValue}>{item.moodOption.emoji}</Text>
+        <Text style={styles.moodDescription}>
+          {item.moodOption.description}
+        </Text>
+      </View>
+      <Text style={styles.moodDate}>
+        {format(new Date(item.timestamp), "dd MMM, yyyy 'at' h:mmaaa")}
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  moodValue: {
+    textAlign: "center",
+    fontSize: 40,
+    marginRight: 10,
+  },
+  moodDate: {
+    textAlign: "center",
+    color: "#87677B",
+  },
+  moodItem: {
+    backgroundColor: "white",
+    marginBottom: 10,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  moodDescription: {
+    fontSize: 18,
+    color: "#454C73",
+    fontWeight: "bold",
+  },
+  iconAndDescription: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
+```
+
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-5.png")}
+  alt="Mood Picker"
+  width="500px"
+/>
+
+## Checkpoint 🔗
+
+[**Display previously selected moods** dae7d8143f79692bb36a08dd00e978398c8b2de4](https://github.com/kadikraman/mood-tracker/commit/dae7d8143f79692bb36a08dd00e978398c8b2de4)

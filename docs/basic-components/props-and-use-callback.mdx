@@ -1,0 +1,144 @@
+---
+sidebar_position: 4
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Props and useCallback
+
+```tsx title="src/components/MoodPicker.tsx"
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+const moodOptions = [
+  { emoji: "😄", description: "amazing" },
+  { emoji: "😊", description: "great" },
+  { emoji: "🙂", description: "alright" },
+  { emoji: "🙁", description: "sad" },
+  { emoji: "😔", description: "miserable" },
+];
+
+type MoodOptionType = typeof moodOptions[number];
+
+type MoodPickerProps = {
+  onAddMood: (newMood: MoodOptionType) => void;
+};
+
+export const MoodPicker: React.FC<MoodPickerProps> = ({ onAddMood }) => {
+  const [selected, setSelected] = React.useState<MoodOptionType>();
+  const [hasAdded, setHasAdded] = React.useState(false);
+
+  const handleAddMood = React.useCallback(() => {
+    if (selected) {
+      setHasAdded(true);
+      onAddMood(selected);
+      setSelected(undefined);
+    }
+  }, [onAddMood, selected]);
+
+  if (hasAdded) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Thank you!</Text>
+        <Pressable style={styles.button} onPress={() => setHasAdded(false)}>
+          <Text style={styles.buttonText}>Add another</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>How are you right now?</Text>
+      <View style={styles.emojiList}>
+        {moodOptions.map((option) => (
+          <View key={option.emoji}>
+            <Pressable
+              onPress={() => setSelected(option)}
+              style={[
+                styles.moodItem,
+                option.emoji === selected?.emoji ? styles.selected : undefined,
+              ]}
+            >
+              <Text style={styles.emojiText}>{option.emoji}</Text>
+            </Pressable>
+            <Text style={styles.descriptionText}>
+              {option.emoji === selected?.emoji
+                ? option.description
+                : undefined}
+            </Text>
+          </View>
+        ))}
+      </View>
+      <Pressable style={styles.button} onPress={handleAddMood}>
+        <Text style={styles.buttonText}>Choose</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  emojiText: {
+    fontSize: 24,
+  },
+  container: {
+    backgroundColor: "rgba(0,0,0,0.2)",
+    margin: 10,
+    borderRadius: 10,
+    padding: 20,
+  },
+  emojiList: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  moodItem: {
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selected: {
+    borderWidth: 2,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    borderColor: "#fff",
+    borderRadius: 25,
+  },
+  descriptionText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 10,
+    textAlign: "center",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: 20,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  button: {
+    alignSelf: "center",
+    borderRadius: 100,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    padding: 10,
+    minWidth: 150,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+```
+
+:::info Checkpoint 🔗
+TODO!
+
+[**Display previously selected moods** 383ada7c1511b557b108242ab9371139bd381af6](https://github.com/kadikraman/mood-tracker/commit/9fdfc26494b436b248b5369f9bc4bfa77942ffcc)
+:::
+
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-4.png")}
+  alt="Mood Picker iOS"
+  width="50%"
+/>

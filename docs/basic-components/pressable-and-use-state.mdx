@@ -1,0 +1,119 @@
+---
+sidebar_position: 2
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+# Pressable and useState
+
+`Pressable` is a relatively new [component](https://reactnative.dev/docs/pressable), introduced in React Native 0.63. It is a more versatile alternative to the `TouchableOpacity` / `TouchableHighlight` / `TouchableWithoutFeedback` we're already familiar with. The Touchable components will be deprecated in future versions of React Native, so it is recommended to use `Pressable` instead.
+
+The [Pressable](https://reactnative.dev/docs/pressable) component gives you fine grained control over the pressed state. Unlike `TouchableOpacity`, `Pressable` does not have any styles applied for the pressed state, but if you wanted, you could achieve the same effect by applying the pressed style yourself:
+
+```tsx title="src/components/PressableArea.tsx"
+import * as React from "react";
+import { Pressable, PressableProps } from "react-native";
+
+export const PressableArea: React.FC<PressableProps> = ({
+  children,
+  style,
+  ...rest
+}) => {
+  return (
+    <Pressable
+      {...rest}
+      style={(args) => {
+        const appliedStyle = typeof style === "function" ? style(args) : style;
+        if (args.pressed) {
+          return [appliedStyle, { opacity: 0.9 }];
+        }
+        return appliedStyle;
+      }}
+    >
+      {children}
+    </Pressable>
+  );
+};
+```
+
+`useState` is one of the the core [React Hooks](https://reactjs.org/docs/hooks-intro.html) we'll be using to store the selected value.
+
+Now let's wrap each of the emoji in a `Pressable` and use a `useState` to store the currently selected option.
+
+```js title="src/components/MoodPicker.tsx"
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+
+const moodOptions = [
+  { emoji: '😄', description: 'amazing' },
+  { emoji: '😊', description: 'great' },
+  { emoji: '🙂', description: 'alright' },
+  { emoji: '🙁', description: 'sad' },
+  { emoji: '😔', description: 'miserable' },
+];
+
+type MoodOptionType = typeof moodOptions[number];
+
+export const MoodPicker = () => {
+  const [selected, setSelected] = React.useState<MoodOptionType>();
+
+  return (
+    <View style={styles.emojiList}>
+      {moodOptions.map(option => (
+        <View key={option.emoji}>
+          <Pressable
+            onPress={() => setSelected(option)}
+            style={[
+              styles.moodItem,
+              option.emoji === selected?.emoji ? styles.selected : undefined,
+            ]}>
+            <Text style={styles.emojiText}>{option.emoji}</Text>
+          </Pressable>
+          <Text style={styles.descriptionText}>{option.description}</Text>
+        </View>
+      ))}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  emojiText: {
+    fontSize: 24,
+  },
+  emojiList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  moodItem: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selected: {
+    borderWidth: 2,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderColor: '#fff',
+    borderRadius: 25,
+  },
+  descriptionText: {
+    color: '#000',
+    fontWeight: 'bold',
+    fontSize: 10,
+    textAlign: 'center',
+  },
+});
+
+```
+
+:::info Checkpoint 🔗
+TODO!
+[**Enable selecting emoji** c6a8bf11b647b02487d89e544e2a9185663d4e05](https://github.com/kadikraman/mood-tracker/commit/c6a8bf11b647b02487d89e544e2a9185663d4e05)
+:::
+
+<img
+  src={useBaseUrl("/img/mood-picker/exercise-2.png")}
+  alt="Mood Picker iOS"
+  width="50%"
+/>
