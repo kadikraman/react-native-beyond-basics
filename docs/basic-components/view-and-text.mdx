@@ -1,12 +1,12 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # View and Text
 
-Hopefully, you are already be quite familiar with `View` and `Text`:
+Hopefully, at this point you'll already be quite familiar with `View` and `Text`:
 
 - `View` is a container to use for styling and positioning the elements within. Similar to `div` in web development.
 - `Text` is used to display text.
@@ -15,11 +15,11 @@ Let's use these components to display a emoji in a horizontal list.
 
 ```js
 const moodOptions = [
-  { emoji: '😄', description: 'amazing' },
-  { emoji: '😊', description: 'great' },
-  { emoji: '🙂', description: 'alright' },
-  { emoji: '🙁', description: 'sad' },
-  { emoji: '😔', description: 'miserable' },
+  { emoji: '🧑‍💻', description: 'studious' },
+  { emoji: '🤔', description: 'pensive' },
+  { emoji: '😊', description: 'happy' },
+  { emoji: '🥳', description: 'celebratory' },
+  { emoji: '😤', description: 'frustrated' },
 ];
 ```
 
@@ -28,7 +28,7 @@ To do this, let's create a `components` directory in `src`, next to `screens`. T
 Let's create a new file called `MoodPicker.tsx`.
 
 ```tsx title="src/components/MoodPicker.tsx"
-import * as React from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 
 export const MoodPicker: React.FC = () => {
@@ -44,13 +44,15 @@ And let's update `Home.screen.tsx` to display it:
 
 ```diff title="src/screens/Home.screen.tsx"
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+-import { StyleSheet, View, Text } from 'react-native';
++import { StyleSheet, View } from 'react-native';
 +import { MoodPicker } from '../components/MoodPicker';
+
 
 export const Home: React.FC = () => {
   return (
     <View style={styles.container}>
--      <Text>Home Tab</Text>
+-      <Text>Home</Text>
 +      <MoodPicker />
     </View>
   );
@@ -59,8 +61,8 @@ export const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
++   justifyContent: 'center',
+
   },
 });
 
@@ -68,56 +70,54 @@ const styles = StyleSheet.create({
 
 Now let's update the `MoodPicker` to display our list of emoji:
 
-```diff
+```tsx title="src/components/MoodPicker.tsx"
 import React from 'react';
-+import { StyleSheet, Text, View } from 'react-native';
--import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from 'react-native';
 
-+const moodOptions = [
-+  { emoji: '😄', description: 'amazing' },
-+  { emoji: '😊', description: 'great' },
-+  { emoji: '🙂', description: 'alright' },
-+  { emoji: '🙁', description: 'sad' },
-+  { emoji: '😔', description: 'miserable' },
-+];
+const moodOptions = [
+  { emoji: '🧑‍💻', description: 'studious' },
+  { emoji: '🤔', description: 'pensive' },
+  { emoji: '😊', description: 'happy' },
+  { emoji: '🥳', description: 'celebratory' },
+  { emoji: '😤', description: 'frustrated' },
+];
 
-export const MoodPicker = () => {
+export const MoodPicker: React.FC = () => {
   return (
-+    <View style={styles.emojiList}>
-+      {moodOptions.map(option => (
-+        <Text style={styles.emojiText} key={option.emoji}>
-+          {option.emoji}
-+        </Text>
-+      ))}
-+    </View>
--    <View>
--      <Text>MoodPicker</Text>
--    </View>
+    <View style={styles.moodList}>
+      {moodOptions.map((option) => (
+        <Text key={option.emoji} style={styles.moodText}>
+          {option.emoji}
+        </Text>
+      ))}
+    </View>
   );
 };
 
-+const styles = StyleSheet.create({
-+  emojiText: {
-+    fontSize: 24,
-+  },
-+  emojiList: {
-+    flexDirection: 'row',
-+    justifyContent: 'space-between',
-+    padding: 20,
-+  },
-+});
-
+const styles = StyleSheet.create({
+  moodText: {
+    fontSize: 24,
+  },
+  moodList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+});
 ```
 
-You'll also need to remove `alignItems: 'center',` from the stylesheet in `Home.screen.tsx` for the emoji to get spaced evenly.
-
 :::info Checkpoint 🔗
-TODO!
-[**Display MoodPicker emoji options** 4c05e7aafeaf82621ffd57e8c463d2c898df83fb](https://github.com/kadikraman/mood-tracker/commit/4c05e7aafeaf82621ffd57e8c463d2c898df83fb)
+[**Show a list of emoji** 10eaf11bcd7e9173b91be028b818e7a044fa592c](https://github.com/kadikraman/MoodTracker/commit/10eaf11bcd7e9173b91be028b818e7a044fa592c)
 :::
 
 <img
-  src={useBaseUrl('/img/mood-picker/exercise-1.png')}
-  alt="Mood Picker iOS"
+  src={useBaseUrl('/img/mood-picker/ios-exercise-1.png')}
+  alt="iOS emoji list"
+  width="50%"
+/>
+
+<img
+  src={useBaseUrl('/img/mood-picker/android-exercise-1.png')}
+  alt="Android emoji list"
   width="50%"
 />

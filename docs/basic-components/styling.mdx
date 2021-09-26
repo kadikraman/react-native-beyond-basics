@@ -1,123 +1,40 @@
 ---
-sidebar_position: 2
+sidebar_position: 4
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Styling
 
-Styling in React Native is done using inline styles.
+Styling in React Native is done using inline styles which makes things both easier and harder. Easier because you'll know your styles will never conflict with each other as is often the case with CSS. But harder since there's no built in way to share styles.
 
-Use the `StyleSheet` from `react-native` to wrap the emoji list in a container with a title saying "How are you right now?" and a call to action to "Choose" and emoji.
+One common approach is to create a `theme` file somewhere in the codebase and use it to store constants such as colors, spacing, fonts and any UI elements you tend to use frequently.
 
-```tsx title="src/components/PressableArea.tsx"
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+Add a new file to your `src` directory: `theme.ts`. Let's pull all our current colour values into this theme file.
 
-const moodOptions = [
-  { emoji: '😄', description: 'amazing' },
-  { emoji: '😊', description: 'great' },
-  { emoji: '🙂', description: 'alright' },
-  { emoji: '🙁', description: 'sad' },
-  { emoji: '😔', description: 'miserable' },
-];
-
-type MoodOptionType = typeof moodOptions[number];
-
-export const MoodPicker = () => {
-  const [selected, setSelected] = React.useState<MoodOptionType>();
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>How are you right now?</Text>
-      <View style={styles.emojiList}>
-        {moodOptions.map((option) => (
-          <View key={option.emoji}>
-            <Pressable
-              onPress={() => setSelected(option)}
-              style={[
-                styles.moodItem,
-                option.emoji === selected?.emoji ? styles.selected : undefined,
-              ]}
-            >
-              <Text style={styles.emojiText}>{option.emoji}</Text>
-            </Pressable>
-            <Text style={styles.descriptionText}>
-              {option.emoji === selected?.emoji
-                ? option.description
-                : undefined}
-            </Text>
-          </View>
-        ))}
-      </View>
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>Choose</Text>
-      </Pressable>
-    </View>
-  );
+```ts
+export const theme = {
+  colorPurple: '#454C73',
+  colorWhite: '#fff',
 };
-
-const styles = StyleSheet.create({
-  emojiText: {
-    fontSize: 24,
-  },
-  container: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    margin: 10,
-    borderRadius: 10,
-    padding: 20,
-  },
-  emojiList: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  moodItem: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selected: {
-    borderWidth: 2,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderColor: '#fff',
-    borderRadius: 25,
-  },
-  descriptionText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 10,
-    textAlign: 'center',
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  button: {
-    alignSelf: 'center',
-    borderRadius: 100,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 10,
-    minWidth: 150,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
 ```
 
+Now whenever you need to use a colour in your styles, import theme into your component and use the theme value. This allows us to swap out colours globally and ensure we always have a good overview of all the colours used in our application.
+
+Next, let's wrap the emoji list in a container, add a title saying "How are you right now?", and a call to action to "Choose" your current mood
+
 :::info Checkpoint 🔗
-TODO!
-[**Add emoji list container** 383ada7c1511b557b108242ab9371139bd381af6](https://github.com/kadikraman/mood-tracker/commit/383ada7c1511b557b108242ab9371139bd381af6)
+[**Style the mood picker** 72ecbf9126e73855ece539021e950303f0182b37](https://github.com/kadikraman/mood-tracker/commit/72ecbf9126e73855ece539021e950303f0182b37)
 :::
 
 <img
-  src={useBaseUrl('/img/mood-picker/exercise-3.png')}
-  alt="Mood Picker iOS"
+  src={useBaseUrl('/img/mood-picker/ios-exercise-3.png')}
+  alt="iOS styling"
+  width="50%"
+/>
+
+<img
+  src={useBaseUrl('/img/mood-picker/android-exercise-3.png')}
+  alt="Android styling"
   width="50%"
 />

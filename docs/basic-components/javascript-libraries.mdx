@@ -1,12 +1,12 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # JavaScript Libraries
 
-One of the benefits of React Native is that since we're using JavaScript, we're able to leverage the vast amount of JavaScript community libraries for our project. Not all JavaScript libraries will work on React Native, for instance libraries that rely on the browser environment and interact with the browse window or CSS would have no place in React Native. But there are vast amounts of utility libraries that are compatible.
+One of the benefits of React Native is that since we're using JavaScript, we're able to leverage the vast amount of JavaScript community libraries for our project. Not all JavaScript libraries will work on React Native, for instance libraries that rely on the browser environment and interact with the browser window or CSS would have no place in React Native. But there are vast amounts of utility libraries that are compatible.
 
 Let's use a JavaScript library to format the date in our history.
 
@@ -40,13 +40,20 @@ format(new Date(item.timestamp), "dd MMM, yyyy 'at' h:mmaaa");
 //
 ```
 
-Finally, let's pull the `MoodItemRow` into a separate component and style it accordingly:
+We also have a new colour to use for styling, let's add it to our theme file:
+
+```ts title="src/theme.ts"
+colorLavender: '#87677B',
+```
+
+Let's pull the `MoodItemRow` into a separate component and style it accordingly:
 
 ```jsx title="src/components/MoodItemRow.tsx"
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import format from 'date-fns/format';
 import { MoodOptionWithTimestamp } from '../types';
+import { theme } from '../theme';
 
 type MoodItemRowProps = {
   item: MoodOptionWithTimestamp,
@@ -56,10 +63,8 @@ export const MoodItemRow: React.FC<MoodItemRowProps> = ({ item }) => {
   return (
     <View style={styles.moodItem}>
       <View style={styles.iconAndDescription}>
-        <Text style={styles.moodValue}>{item.moodOption.emoji}</Text>
-        <Text style={styles.moodDescription}>
-          {item.moodOption.description}
-        </Text>
+        <Text style={styles.moodValue}>{item.mood.emoji}</Text>
+        <Text style={styles.moodDescription}>{item.mood.description}</Text>
       </View>
       <Text style={styles.moodDate}>
         {format(new Date(item.timestamp), "dd MMM, yyyy 'at' h:mmaaa")}
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
   },
   moodDate: {
     textAlign: 'center',
-    color: '#87677B',
+    color: theme.colorLavender,
   },
   moodItem: {
     backgroundColor: 'white',
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
   },
   moodDescription: {
     fontSize: 18,
-    color: '#454C73',
+    color: theme.colorPurple,
     fontWeight: 'bold',
   },
   iconAndDescription: {
@@ -98,12 +103,31 @@ const styles = StyleSheet.create({
 });
 ```
 
+We'll also need to update the `Home.screen` to use the new component:
+
+```diff title="src/screens/Home.screen.tsx"
++import { MoodItemRow } from '../components/MoodItemRow';
+
+
+-        <Text key={item.timestamp}>
+-          {item.mood.emoji} {new Date(item.timestamp).toString()}
+-        </Text>
++        <MoodItemRow item={item} key={item.timestamp} />
+
+```
+
+:::info Checkpoint 🔗
+[**Style the mood list** b2a2148424a371eeb7e562053a7957ccb3e7aa51](https://github.com/kadikraman/MoodTracker/commit/b2a2148424a371eeb7e562053a7957ccb3e7aa51)
+:::
+
 <img
-  src={useBaseUrl('/img/mood-picker/exercise-5.png')}
-  alt="Mood Picker"
-  width="500px"
+  src={useBaseUrl('/img/mood-picker/ios-exercise-5.png')}
+  alt="iOS mood list"
+  width="50%"
 />
 
-## Checkpoint 🔗
-
-[**Display previously selected moods** dae7d8143f79692bb36a08dd00e978398c8b2de4](https://github.com/kadikraman/mood-tracker/commit/dae7d8143f79692bb36a08dd00e978398c8b2de4)
+<img
+  src={useBaseUrl('/img/mood-picker/android-exercise-5.png')}
+  alt="Android mood list"
+  width="50%"
+/>

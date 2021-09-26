@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -10,8 +10,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 The [Pressable](https://reactnative.dev/docs/pressable) component gives you fine grained control over the pressed state. Unlike `TouchableOpacity`, `Pressable` does not have any styles applied for the pressed state, but if you wanted, you could achieve the same effect by applying the pressed style yourself:
 
+<details><summary>Example component: Pressable styled as TouchableOpacity</summary>
+<p>
+
 ```tsx title="src/components/PressableArea.tsx"
-import * as React from 'react';
+import React from 'react';
 import { Pressable, PressableProps } from 'react-native';
 
 export const PressableArea: React.FC<PressableProps> = ({
@@ -36,84 +39,185 @@ export const PressableArea: React.FC<PressableProps> = ({
 };
 ```
 
+</p>
+</details>
+
 `useState` is one of the the core [React Hooks](https://reactjs.org/docs/hooks-intro.html) we'll be using to store the selected value.
 
-Now let's wrap each of the emoji in a `Pressable` and use a `useState` to store the currently selected option.
+Let's start by creating a TypeScript type for the emoji option.
 
-```js title="src/components/MoodPicker.tsx"
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+Create a new file in the `src` directory and call it `types.ts` - this will hold all the shared types for our app.
 
-const moodOptions = [
-  { emoji: '😄', description: 'amazing' },
-  { emoji: '😊', description: 'great' },
-  { emoji: '🙂', description: 'alright' },
-  { emoji: '🙁', description: 'sad' },
-  { emoji: '😔', description: 'miserable' },
-];
+Open the file and add a type for the mood option:
 
-type MoodOptionType = typeof moodOptions[number];
-
-export const MoodPicker = () => {
-  const [selected, setSelected] = React.useState<MoodOptionType>();
-
-  return (
-    <View style={styles.emojiList}>
-      {moodOptions.map(option => (
-        <View key={option.emoji}>
-          <Pressable
-            onPress={() => setSelected(option)}
-            style={[
-              styles.moodItem,
-              option.emoji === selected?.emoji ? styles.selected : undefined,
-            ]}>
-            <Text style={styles.emojiText}>{option.emoji}</Text>
-          </Pressable>
-          <Text style={styles.descriptionText}>{option.description}</Text>
-        </View>
-      ))}
-    </View>
-  );
+```ts title="src/types.ts"
+export type MoodOptionType = {
+  emoji: string;
+  description: string;
 };
+```
 
-const styles = StyleSheet.create({
-  emojiText: {
-    fontSize: 24,
-  },
-  emojiList: {
-    flexDirection: 'row',
+Now let's import this type in `MoodPicker`:
+
+```diff title="src/components/MoodPicker.tsx"
+ import React from 'react';
+-import { View, Text, StyleSheet } from 'react-native';
++import { View, Text, StyleSheet, Pressable } from 'react-native';
++import { MoodOptionType } from '../types';
+
+-const moodOptions = [
++const moodOptions: MoodOptionType[] = [
+   { emoji: '🧑‍💻', description: 'studious' },
+   { emoji: '🤔', description: 'pensive' },
+   { emoji: '😊', description: 'happy' },
+
+```
+
+and let's create a `useState` variable to store the mood option in:
+
+```ts
+const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>();
+```
+
+Notice we've added the option type in `<>` and if we hover over `selectedMood`, TypeScript will tell us that this value is wither of type `MoodOptionType` or `undefined` (since we don't give it an initial value).
+
+Next let's wrap each of the emoji in a `Pressable` and use a `useState` to store the currently selected option:
+
+```diff title="src/components/MoodPicker.tsx"
+ import React from 'react';
+-import { View, Text, StyleSheet } from 'react-native';
++import { View, Text, StyleSheet, Pressable } from 'react-native';
+ import { MoodOptionType } from '../types';
+
+ const moodOptions: MoodOptionType[] = [
+
+```
+
+```diff title="src/components/MoodPicker.tsx"
+   return (
+     <View style={styles.moodList}>
+       {moodOptions.map(option => (
+-        <Text key={option.emoji} style={styles.moodText}>
+-          {option.emoji}
+-        </Text>
++        <Pressable onPress={() => setSelectedMood(option)} key={option.emoji}>
++          <Text style={styles.moodText}>{option.emoji}</Text>
++        </Pressable>
+       ))}
+     </View>
+   );
+```
+
+Let's give the currently selected mood a highlighted background so we could tell which mood is selected:
+
+```diff title="src/components/MoodPicker.tsx"
+   return (
+     <View style={styles.moodList}>
+       {moodOptions.map(option => (
+-        <Text key={option.emoji} style={styles.moodText}>
+-          {option.emoji}
+-        </Text>
++        <Pressable
++          onPress={() => setSelectedMood(option)}
++          key={option.emoji}
++          style={[
++            styles.moodItem,
++            option.emoji === selectedMood?.emoji
++              ? styles.selectedMoodItem
++              : undefined,
++          ]}>
++          <Text style={styles.moodText}>{option.emoji}</Text>
++        </Pressable>
+       ))}
+     </View>
+   );
+```
+
+```diff title="src/components/MoodPicker.tsx"
     justifyContent: 'space-between',
     padding: 20,
   },
-  moodItem: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selected: {
-    borderWidth: 2,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderColor: '#fff',
-    borderRadius: 25,
-  },
-  descriptionText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 10,
-    textAlign: 'center',
-  },
++  moodItem: {
++    width: 60,
++    height: 60,
++    justifyContent: 'center',
++    alignItems: 'center',
++    borderRadius: 30,
++    marginBottom: 5,
++  },
++  selectedMoodItem: {
++    borderWidth: 2,
++    backgroundColor: '#454C73',
++    borderColor: '#fff',
++  },
 });
 
 ```
 
+And finally, we'll add the description text for the selected item:
+
+```diff title="src/components/MoodPicker.tsx"
+   return (
+     <View style={styles.moodList}>
+       {moodOptions.map(option => (
+-        <Pressable
+-          onPress={() => setSelectedMood(option)}
+-          key={option.emoji}
+-          style={[
+-            styles.moodItem,
+-            option.emoji === selectedMood?.emoji
+-              ? styles.selectedMoodItem
+-              : undefined,
+-          ]}>
+-          <Text style={styles.moodText}>{option.emoji}</Text>
+-        </Pressable>
++        <View>
++          <Pressable
++            onPress={() => setSelectedMood(option)}
++            key={option.emoji}
++            style={[
++              styles.moodItem,
++              option.emoji === selectedMood?.emoji
++                ? styles.selectedMoodItem
++                : undefined,
++            ]}>
++            <Text style={styles.moodText}>{option.emoji}</Text>
++          </Pressable>
++          <Text style={styles.descriptionText}>
++            {selectedMood?.emoji === option.emoji ? option.description : ' '}
++          </Text>
++        </View>
+       ))}
+     </View>
+   );
+
+```
+
+```diff title="src/components/MoodPicker.tsx"
+    backgroundColor: '#454C73',
+    borderColor: '#fff',
+  },
++  descriptionText: {
++    color: '#454C73',
++    fontWeight: 'bold',
++    fontSize: 10,
++    textAlign: 'center',
++  },
+});
+```
+
 :::info Checkpoint 🔗
-TODO!
-[**Enable selecting emoji** c6a8bf11b647b02487d89e544e2a9185663d4e05](https://github.com/kadikraman/mood-tracker/commit/c6a8bf11b647b02487d89e544e2a9185663d4e05)
+[**Select a mood** 2f64a2cee840bd5b95144ad33c11d940076cf7a3](https://github.com/kadikraman/MoodTracker/commit/2f64a2cee840bd5b95144ad33c11d940076cf7a3)
 :::
 
 <img
-  src={useBaseUrl('/img/mood-picker/exercise-2.png')}
-  alt="Mood Picker iOS"
+  src={useBaseUrl('/img/mood-picker/ios-exercise-2.png')}
+  alt="iOS select mood"
+  width="50%"
+/>
+
+<img
+  src={useBaseUrl('/img/mood-picker/android-exercise-2.png')}
+  alt="Android select mood"
   width="50%"
 />

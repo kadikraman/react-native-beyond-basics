@@ -1,144 +1,111 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Props and useCallback
 
+Recall that we can pass props down to child components, e.g.
+
+```tsx
+<User name="Mary">
+```
+
+```tsx
+type UserProps = {
+  name: string;
+};
+
+const User: React.FC<UserProps> = ({ name }) => {
+  return <Text>{name}</Text>;
+};
+```
+
+And `useCallback` is a react hook for memoizing interactions within a React component.
+
+When we save our mood options, we'll want to also record their timestamp. Let's create a new type for the mood option with the timestamp. Open `types.ts` and add:
+
+```ts title="src/types.ts"
+export type MoodOptionWithTimestamp = {
+  mood: MoodOptionType;
+  timestamp: number;
+};
+```
+
+Now open `Home.screen.tsx` and add a useState variable to store out `moodList`:
+
+```tsx title="src/screens/Home.screen.tsx"
+import { MoodOptionType, MoodOptionWithTimestamp } from '../types';
+const [moodList, setMoodList] = React.useState<MoodOptionWithTimestamp[]>([]);
+```
+
+Next, we'll add a useCallback that takes a mood option, adds a timestamp to it and appends it to the list of moods:
+
+```ts title="src/screens/Home.screen.tsx"
+const handleSelectMood = React.useCallback((mood: MoodOptionType) => {
+  setMoodList((current) => [...current, { mood, timestamp: Date.now() }]);
+}, []);
+```
+
+Now let's pass it the callback as a prop to the `MoodPicker` component:
+
+```ts title="src/screens/Home.screen.tsx"
+<MoodPicker onSelect={handleSelectMood} />
+```
+
+In the `MoodPicker` component, let's add a type for the new prop:
+
 ```tsx title="src/components/MoodPicker.tsx"
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-
-const moodOptions = [
-  { emoji: '😄', description: 'amazing' },
-  { emoji: '😊', description: 'great' },
-  { emoji: '🙂', description: 'alright' },
-  { emoji: '🙁', description: 'sad' },
-  { emoji: '😔', description: 'miserable' },
-];
-
-type MoodOptionType = typeof moodOptions[number];
-
 type MoodPickerProps = {
-  onAddMood: (newMood: MoodOptionType) => void;
+  onSelect: (mood: MoodOptionType) => void;
 };
 
-export const MoodPicker: React.FC<MoodPickerProps> = ({ onAddMood }) => {
-  const [selected, setSelected] = React.useState<MoodOptionType>();
-  const [hasAdded, setHasAdded] = React.useState(false);
+export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelect }) => {
+```
 
-  const handleAddMood = React.useCallback(() => {
-    if (selected) {
-      setHasAdded(true);
-      onAddMood(selected);
-      setSelected(undefined);
-    }
-  }, [onAddMood, selected]);
+And let's create a callback function that adds the calls `onSelect` with the currently selected mood:
 
-  if (hasAdded) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Thank you!</Text>
-        <Pressable style={styles.button} onPress={() => setHasAdded(false)}>
-          <Text style={styles.buttonText}>Add another</Text>
-        </Pressable>
-      </View>
-    );
+```tsx title="src/components/MoodPicker.tsx"
+const handleSelect = React.useCallback(() => {
+  if (selectedMood) {
+    onSelect(selectedMood);
+    setSelectedMood(undefined);
   }
+}, [onSelect, selectedMood]);
+```
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>How are you right now?</Text>
-      <View style={styles.emojiList}>
-        {moodOptions.map((option) => (
-          <View key={option.emoji}>
-            <Pressable
-              onPress={() => setSelected(option)}
-              style={[
-                styles.moodItem,
-                option.emoji === selected?.emoji ? styles.selected : undefined,
-              ]}
-            >
-              <Text style={styles.emojiText}>{option.emoji}</Text>
-            </Pressable>
-            <Text style={styles.descriptionText}>
-              {option.emoji === selected?.emoji
-                ? option.description
-                : undefined}
-            </Text>
-          </View>
-        ))}
-      </View>
-      <Pressable style={styles.button} onPress={handleAddMood}>
-        <Text style={styles.buttonText}>Choose</Text>
-      </Pressable>
-    </View>
-  );
-};
+And let's call it `onPress` on the "Choose" button:
 
-const styles = StyleSheet.create({
-  emojiText: {
-    fontSize: 24,
-  },
-  container: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    margin: 10,
-    borderRadius: 10,
-    padding: 20,
-  },
-  emojiList: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  moodItem: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selected: {
-    borderWidth: 2,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderColor: '#fff',
-    borderRadius: 25,
-  },
-  descriptionText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 10,
-    textAlign: 'center',
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  button: {
-    alignSelf: 'center',
-    borderRadius: 100,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 10,
-    minWidth: 150,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+```tsx title="src/components/MoodPicker.tsx"
+<Pressable style={styles.button} onPress={handleSelect}>
+```
+
+Now back in `Home.screen.tsx`, we'll also want to list out the current mood list:
+
+```diff title="src/screens/Home.screen.tsx"
+<View style={styles.container}>
+  <MoodPicker onSelect={handleSelectMood} />
++  {moodList.map((item) => (
++    <Text key={item.timestamp}>
++     {item.mood.emoji} {new Date(item.timestamp).toString()}
++    </Text>
++  ))}
+</View>
 ```
 
 :::info Checkpoint 🔗
-TODO!
-
-[**Display previously selected moods** 383ada7c1511b557b108242ab9371139bd381af6](https://github.com/kadikraman/mood-tracker/commit/9fdfc26494b436b248b5369f9bc4bfa77942ffcc)
+[**Display list of selected moods** 50407bd3642550a356eacd94215eeab4cd6649ac](https://github.com/kadikraman/mood-tracker/commit/50407bd3642550a356eacd94215eeab4cd6649ac)
 :::
 
 <img
-  src={useBaseUrl('/img/mood-picker/exercise-4.png')}
-  alt="Mood Picker iOS"
+  src={useBaseUrl('/img/mood-picker/ios-exercise-4.png')}
+  alt="iOS mood list"
+  width="50%"
+/>
+
+<img
+  src={useBaseUrl('/img/mood-picker/android-exercise-4.png')}
+  alt="Android mood list"
   width="50%"
 />

@@ -6,10 +6,10 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Solution
 
-Add another screen for the Analytics tab:
+Add screen for the Analytics tab:
 
 ```tsx title="src/screens/Analytics.screen.tsx"
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 export const Analytics: React.FC = () => {
@@ -23,8 +23,6 @@ export const Analytics: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 ```
@@ -37,7 +35,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from './Home.screen';
 import { History } from './History.screen';
 +import { Analytics } from './Analytics.screen';
-
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -54,16 +51,5 @@ export const BottomTabsNavigator: React.FC = () => {
 ```
 
 :::info Checkpoint 🔗
-TODO!
+[**Add analytics tab** e05fd75d0e0685b75c12b2d41a62fc63768982e1](https://github.com/kadikraman/MoodTracker/commit/e05fd75d0e0685b75c12b2d41a62fc63768982e1)
 :::
-
-<img
-  src={useBaseUrl('/img/navigation/ios.png')}
-  alt="iOS navigation"
-  width="50%"
-/>
-<img
-  src={useBaseUrl('/img/navigation/android.png')}
-  alt="Android navigation"
-  width="50%"
-/>
