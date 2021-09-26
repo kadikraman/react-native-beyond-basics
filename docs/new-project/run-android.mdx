@@ -12,7 +12,33 @@ There are two ways to build an Android app - you can use the react native cli on
 
 Unlike with iOS where we have to install our native dependencies ourselves, the Android build and dependencies are managed using [Gradle](https://gradle.org/) and they are installed automatically, so there is no equivalent `yarn install` / `pod install` step for Android.
 
+## Running the Android app (via Android Studio)
+
+### Start packager
+
+First open the terminal and start the metro bundler:
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+### Run the App via Android Studio
+
+Open Android Studio, choose "Open Existing project" (or just "Open" in the latest version of Android Studio), and open the `/android` folder.
+
+Now it'll take a little while for the editor to finish configuring the project. You can see the latest logs at the bottom right corner of the editor.
+
+If you haven't configured a virtual device yet, you can do so now: click on the ADV Manager icon at the top of the IDE (it's a phone with the Android logo on it) and choose "Create Virtual Device". From here you can configure the exact device you want to use. I recommend choosing the latest device with the latest version of the Android SDK.
+
+Now choose which device you want to run your app on at the top of the IDE, to the left of the "play" icon. Once you're happy, click on the "play" icon to build the project.
+
 ## Running the Android app (via the terminal)
+
+Before running the android app via the terminal, make sure you have an android emulator running or a device plugged in and ready for usb debugging.
 
 ### Start packager
 
@@ -35,32 +61,6 @@ yarn android
 # or
 npm run android
 ```
-
-## Running the Android app (via Android Studio)
-
-### Start packager
-
-First open the terminal and start the metro bundler:
-
-```bash
-yarn start
-# or
-npm start
-```
-
-Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
-
-### Run the App via Android Studio
-
-Open Android Studio, choose "Open Existing project" and open the `/android` folder.
-
-If you haven't configured a virtual device yet, you can do so now: click on the ADV Manager icon at the top of the IDE (it's a prone with the Android logo on it) and choose "Create Virtual Device". From here you can configure the exact device you want to use.
-
-Now choose which device you want to run your app on at the top of the IDE, to the left of the "play" icon. Once you're happy, click on the "play" icon to build the project.
-
-:::info Checkpoint 🔗
-[**Initial Commit** 6050f9243310497cbfb82c324f8ee10b1bafa686](https://github.com/kadikraman/mood-tracker/commit/6050f9243310497cbfb82c324f8ee10b1bafa686)
-:::
 
 <img
   src={useBaseUrl('/img/new-project/android.png')}

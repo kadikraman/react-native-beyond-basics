@@ -6,7 +6,7 @@ description: 'Build your iOS app using the React Native cli or Xcode'
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-:::note
+:::info
 To build the iOS app, you will need to use an Apple Mac. Unfortunately there is no way around it. This is because the Xcode and its build tools are only available on computers running macOS.
 :::
 
@@ -45,6 +45,76 @@ CocoaPods work on a very similar way:
 - `ios/Podfile.lock` - an auto-generated file that records exact versions of your dependencies
 - `ios/Pods` - all the project dependencies (not checked into .git)
 
+## Running the iOS app (via Xcode)
+
+While you can run your app from the cli, it is often better to build using Xcode as you get more control over the build. It is also very handy when changing native code or debugging build errors.
+
+### Start packager
+
+First open the terminal and start the metro bundler:
+
+```bash
+yarn start
+# or
+npm start
+```
+
+Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
+
+### Run the app via Xcode
+
+Open Xcode (open spotlight search with `cmd` + `space` and type in "xcode"), choose "Open a project or file" and open the `ios/MoodTracker.xcworkspace` file. You can also select the whole `ios` directory and Xcode will automatically open the workspace file.
+
+:::danger
+When opening your project in Xcode, ensure you openen `.xcworkspace` and not the `.xcodeproj` file. Although both will open in Xcode, the project file does not recognize Pods and so you won't be able to run your app.
+:::
+
+Now at the very top of the window you will see `MoodTracker > [some device name]`. Click on the "MoodTracker" to choose which simulator to run the project on. After you've chosen your preferred target, click on the "Play" icon to run your app.
+
+### Debugging build errors
+
+You may get the following build error when running the app:
+
+<img
+  src={useBaseUrl('/img/new-project/ios-build-error.png')}
+  alt="iOS build error"
+/>
+
+This would be because the recently release Xcode 13 supports Swift by default, but the TypeScript template project doesn't include a Swift file.
+
+To fix this, click on the folder icon to see your project structure -> right click on the project folder -> choose "New File".
+
+<img
+  src={useBaseUrl('/img/new-project/ios-new-file.png')}
+  alt="iOS add new file"
+  width="400"
+/>
+
+From here, choose "new Swift file"
+
+<img
+  src={useBaseUrl('/img/new-project/ios-new-swift-file.png')}
+  alt="iOS new swift file"
+/>
+
+Name it anything you want. I named mine "dummy" for a dummy file.
+
+After you hit create, you should see this popup that asks you whether you want to add the Objective C bridging header.
+
+Choose "Create Bridging Header".
+
+<img
+  src={useBaseUrl('/img/new-project/ios-bridging-header.png')}
+  alt="iOS bridging header"
+  width="300"
+/>
+
+And finally rebuild your project.
+
+:::info Checkpoint 🔗
+[**Add a dummy swift file to iOS** c7b8e12aac674c5acac5d2bdebde48bd2bb6d01a](https://github.com/kadikraman/MoodTracker/commit/c7b8e12aac674c5acac5d2bdebde48bd2bb6d01a)
+:::
+
 ## Running the iOS app (via the terminal)
 
 ### Start packager
@@ -68,36 +138,6 @@ yarn ios
 # or
 npm run ios
 ```
-
-## Running the iOS app (via Xcode)
-
-While you can run your app from the cli, it is often better to build using Xcode as you get more control over the build. It is also very handy when changing native code or debugging build errors.
-
-### Start packager
-
-First open the terminal and start the metro bundler:
-
-```bash
-yarn start
-# or
-npm start
-```
-
-Technically this is optional - if you don't do this yourself, react native will open a new terminal window and do it for you, but I prefer the control of doing this manually.
-
-### Run the app via Xcode
-
-Open Xcode, choose "Open a project or file" and open the `ios/MoodTracker.xcworkspace` file. You can also select the whole `ios` directory and Xcode will automatically open the workspace file.
-
-:::danger
-When opening your project in Xcode, ensure you openen `.xcworkspace` and not the `.xcodeproj` file. Although both will open in Xcode, the project file does not recognize Pods and so you won't be able to run your app.
-:::
-
-Now at the very top of the window you will see `MoodTracker > [some device name]`. Click on the "MoodTracker" to choose which simulator to run the project on. After you've chosen your preferred target, click on the "Play" icon to run your app.
-
-:::info Checkpoint 🔗
-[**Initial Commit** 6050f9243310497cbfb82c324f8ee10b1bafa686](https://github.com/kadikraman/mood-tracker/commit/6050f9243310497cbfb82c324f8ee10b1bafa686)
-:::
 
 <img
   src={useBaseUrl('/img/new-project/ios.png')}
