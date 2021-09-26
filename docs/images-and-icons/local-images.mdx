@@ -6,54 +6,75 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Local Images
 
-Let's spice up our app with some images!
-
-## Local images
+There are two ways to add images to your app - you can wither include them in your app bundle, or load them via a url. Local images are included in the app bundle.
 
 Create an `/assets` folder inside your project's `/src` directory. This is a place to keep all your non-code files (images, icons, fonts etc).
 
-Then add an `/images` folder inside `/assets` to store all your app images.
+Right click -> "Save Image As", and save the image in your `/assets` folder (Image from [flaticon](https://www.flaticon.com/free-icon/butterflies_4713806)).
 
-Right click -> "Save Image As", and save the image in your `/images` folder.
+<img src={useBaseUrl('/img/images/butterflies.png')} alt="Butterflies image" />
 
-<img src={useBaseUrl('/img/images/ying-yang.png')} alt="Ying Yang image" />
+Open `MoodPicker.tsx` and at the top of the file, add a constant for the image source. In React Native, you need to use `require` to get the path for a local image.
 
-Open `HomeTab.screen.tsx` and at the top of the file, add the image source. In React Native, you need to use `require` to get the path for a local image.
+```tsx title="src/components/MoodPicker.tsx"
+const imageSrc = require('../../assets/butterflies.png');
 
-```diff
-import React from 'react';
--import { StyleSheet, View } from 'react-native';
-+import { StyleSheet, View, Image } from 'react-native';
-import { useAppContext } from '~src/App.provider';
-import { MoodPicker } from '~src/components/MoodPicker';
-
-+const imageSrc = require('~src/assets/images/ying-yang.png');
-
-export const HomeTab = () => {
-  const { handleAddMood } = useAppContext();
-
-  return (
-    <View style={styles.container}>
-+      <Image source={imageSrc} style={styles.image} />
-      <MoodPicker onAddMood={handleAddMood} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-+  image: {
-+    alignSelf: 'center',
-+    marginBottom: 20,
-+  },
-});
-
+<Image source={imageSrc} />;
 ```
 
 And voila, you have rendered an image!
+
+Let's add a thank you page for then the user has selected a mood, and a call to action for "choose another mood":
+
+```diff title="src/components/MoodPicker.tsx"
+
+export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelect }) => {
+  const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>();
++  const [hasSelected, setHasSelected] = React.useState(false);
+
+  const handleSelect = React.useCallback(() => {
+    if (selectedMood) {
+      onSelect(selectedMood);
+      setSelectedMood(undefined);
++      setHasSelected(true);
+    }
+  }, [onSelect, selectedMood]);
+
+
++  if (hasSelected) {
++    return (
++      <View style={styles.container}>
++        <Image source={imageSrc} style={styles.image} />
++        <Pressable style={styles.button} onPress={() => setHasSelected(false)}>
++          <Text style={styles.buttonText}>Back</Text>
++        </Pressable>
++      </View>
++    );
++  }
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>How are you right now?</Text>
+
+```
+
+Let's give the container a fixed height to ensure it doesn't change size between selections, and let's add a style for the image to center it within the container:
+
+```diff title="src/components/MoodPicker.tsx"
+container: {
+  borderWidth: 2,
+  borderColor: theme.colorPurple,
+  margin: 10,
+  borderRadius: 10,
+  padding: 20,
++  justifyContent: 'space-between',
++  height: 230,
+},
++image: {
++  alignSelf: 'center',
++},
+```
 
 ### Adapting to Screen Sizes
 
@@ -67,12 +88,18 @@ To make things more complicated, in the mobile world you need to support all kin
 
 As a result, when including `.png` or `.jpeg` images in mobile application, it is standard practice to include the same image in 3 sizes to account for the different screen resolutions.
 
-Here are the 2x and 3x versions of the same ying yang image. Download and add them to the same `/assets` directory.
+Here are the 2x and 3x versions of the same butterfly image. Download and add them to the same `/assets` directory.
 
-<img src={useBaseUrl('/img/images/ying-yang@2x.png')} alt="Ying Yang image" />
-<img src={useBaseUrl('/img/images/ying-yang@3x.png')} alt="Ying Yang image" />
+<img
+  src={useBaseUrl('/img/images/butterflies@2x.png')}
+  alt="Butterflies image"
+/>
+<img
+  src={useBaseUrl('/img/images/butterflies@3x.png')}
+  alt="Butterflies image"
+/>
 
-That's it! You don't actually have to do anything else here. React Native will determine the how large to make the image from the `cactus.png` and will automatically select the `2x` and `3x` files based on the pixel density of the current device.
+That's it! You don't actually have to do anything else here. React Native will determine the how large to make the image from the `butterflies.png` and will automatically select the `2x` and `3x` files based on the pixel density of the current device.
 
 ### Sizing images
 
@@ -93,8 +120,7 @@ width: 300,
 In this case you'll notice that the image gets cropped which may or may not what you want. In our case, cropping doesn't look the best. We can use the [resizeMode](https://reactnative.dev/docs/image#resizemode) prop on the image component to tell React Native how we want to handle image sizing. In the above case, `resizeMode="contain"` comes in handy, as it ensures that given the `300x100pt` window we have for the image, we maintain the aspect ratio of the image and keep it "contained" within it.
 
 :::info Checkpoint 🔗
-TODO!
-[**Add local image** 442cf524f2c41a6f839875d2cf6d9b32ee5cb138](https://github.com/kadikraman/mood-tracker/commit/442cf524f2c41a6f839875d2cf6d9b32ee5cb138)
+[**Show a local image** 1728ac9b2b0eb743a47104af72ed1816be8885b4](https://github.com/kadikraman/MoodTracker/commit/1728ac9b2b0eb743a47104af72ed1816be8885b4)
 :::
 
 <img

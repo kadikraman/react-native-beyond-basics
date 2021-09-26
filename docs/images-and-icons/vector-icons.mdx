@@ -30,11 +30,11 @@ Then, install the iOS native dependencies:
 cd ios && pod install && cd ..
 ```
 
-And finally, rebuild your app from XCode or Android Studio.
+And finally, rebuild your app from XCode / Android Studio / terminal.
 
 ## Adding an .svg icon
 
-First, create a `Icons.tsx` component in your `/components` directory.
+Let's, create a `Icons.tsx` component in your `/components` directory.
 
 Take this `svg` file:
 
@@ -53,10 +53,22 @@ and convert it into a React component. To do this:
 
 It should end up looking something like this:
 
-```tsx
+```tsx title="src/components/Icons.tsx"
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 
+export const HomeIcon: React.FC = () => {
+  return (
+    <Svg width={40} height={40} viewBox="0 1 511 511.999" fill="teal">
+      <Path d="M498.7 222.695c-.016-.011-.028-.027-.04-.039L289.805 13.81C280.902 4.902 269.066 0 256.477 0c-12.59 0-24.426 4.902-33.332 13.809L14.398 222.55c-.07.07-.144.144-.21.215-18.282 18.386-18.25 48.218.09 66.558 8.378 8.383 19.44 13.235 31.273 13.746.484.047.969.07 1.457.07h8.32v153.696c0 30.418 24.75 55.164 55.168 55.164h81.711c8.285 0 15-6.719 15-15V376.5c0-13.879 11.293-25.168 25.172-25.168h48.195c13.88 0 25.168 11.29 25.168 25.168V497c0 8.281 6.715 15 15 15h81.711c30.422 0 55.168-24.746 55.168-55.164V303.14h7.719c12.586 0 24.422-4.903 33.332-13.813 18.36-18.367 18.367-48.254.027-66.633zm-21.243 45.422a17.03 17.03 0 01-12.117 5.024H442.62c-8.285 0-15 6.714-15 15v168.695c0 13.875-11.289 25.164-25.168 25.164h-66.71V376.5c0-30.418-24.747-55.168-55.169-55.168H232.38c-30.422 0-55.172 24.75-55.172 55.168V482h-66.71c-13.876 0-25.169-11.29-25.169-25.164V288.14c0-8.286-6.715-15-15-15H48a13.9 13.9 0 00-.703-.032c-4.469-.078-8.66-1.851-11.8-4.996-6.68-6.68-6.68-17.55 0-24.234.003 0 .003-.004.007-.008l.012-.012L244.363 35.02A17.003 17.003 0 01256.477 30c4.574 0 8.875 1.781 12.113 5.02l208.8 208.796.098.094c6.645 6.692 6.633 17.54-.031 24.207zm0 0" />
+    </Svg>
+  );
+};
+```
+
+Finally, in order so support arbitrary colors of the icon, pass the color in as a prop:
+
+```tsx title="src/components/Icons.tsx"
 type IconProps = {
   color?: string;
   size?: number;
@@ -67,27 +79,8 @@ export const HomeIcon: React.FC<IconProps> = ({
   size = 40,
 }) => {
   return (
-    <Svg height={size} width={size} viewBox="0 1 511 511.999" fill={color}>
-      <Path d="M498.7 222.695c-.016-.011-.028-.027-.04-.039L289.805 13.81C280.902 4.902 269.066 0 256.477 0c-12.59 0-24.426 4.902-33.332 13.809L14.398 222.55c-.07.07-.144.144-.21.215-18.282 18.386-18.25 48.218.09 66.558 8.378 8.383 19.44 13.235 31.273 13.746.484.047.969.07 1.457.07h8.32v153.696c0 30.418 24.75 55.164 55.168 55.164h81.711c8.285 0 15-6.719 15-15V376.5c0-13.879 11.293-25.168 25.172-25.168h48.195c13.88 0 25.168 11.29 25.168 25.168V497c0 8.281 6.715 15 15 15h81.711c30.422 0 55.168-24.746 55.168-55.164V303.14h7.719c12.586 0 24.422-4.903 33.332-13.813 18.36-18.367 18.367-48.254.027-66.633zm-21.243 45.422a17.03 17.03 0 01-12.117 5.024H442.62c-8.285 0-15 6.714-15 15v168.695c0 13.875-11.289 25.164-25.168 25.164h-66.71V376.5c0-30.418-24.747-55.168-55.169-55.168H232.38c-30.422 0-55.172 24.75-55.172 55.168V482h-66.71c-13.876 0-25.169-11.29-25.169-25.164V288.14c0-8.286-6.715-15-15-15H48a13.9 13.9 0 00-.703-.032c-4.469-.078-8.66-1.851-11.8-4.996-6.68-6.68-6.68-17.55 0-24.234.003 0 .003-.004.007-.008l.012-.012L244.363 35.02A17.003 17.003 0 01256.477 30c4.574 0 8.875 1.781 12.113 5.02l208.8 208.796.098.094c6.645 6.692 6.633 17.54-.031 24.207zm0 0" />
-    </Svg>
-  );
-};
-```
-
-Finally, in order so support arbitrary colors of the icon, pass the color in as a prop:
-
-```tsx
-type IconProps = {
-  color?: string;
-  size?: number;
-};
-
-export const HomeIcon: React.FC<IconProps> = ({
-  color = 'teal',
-  size = 40,
-}) => {
- ---
-}
+    <Svg width={size} height={size} viewBox="0 1 511 511.999" fill={color}>
+---
 ```
 
 ## Use the icon in the bottom tab
@@ -98,7 +91,7 @@ Open `BottomTabs.navigator.tsx` and use the `screenOptions` prop to return the H
 
 Start by just rendering out the route name:
 
-```js
+```tsx
 import { Text } from 'react-native';
 
 <BottomTabs.Navigator
@@ -111,7 +104,7 @@ import { Text } from 'react-native';
 
 Next, render the correct icon based on the route selected:
 
-```js
+```tsx title="src/screens/BottomTabs.navigator.tsx"
 import { HomeIcon } from '../components/Icons';
 
 <BottomTabs.Navigator
@@ -136,7 +129,7 @@ import { HomeIcon } from '../components/Icons';
 
 Finally, pass through the `color` and `size` args to the icon:
 
-```diff
+```diff title="src/screens/BottomTabs.navigator.tsx"
 <BottomTabs.Navigator
   screenOptions={({ route }) => ({
     tabBarIcon: ({ color, size }) => {
@@ -158,14 +151,26 @@ Finally, pass through the `color` and `size` args to the icon:
   })}>
 ```
 
-To customise the color of the tab bar icon, use `tabBarActiveTintColor` and `tabBarInactiveTintColor`:
+To customise the color of the tab bar icon, use `tabBarActiveTintColor` and `tabBarInactiveTintColor`.
 
-```js
-tabBarActiveTintColor: '#1D84B5',
-tabBarInactiveTintColor: '#8E9AAF',
+Let's add two new colours to our `theme.ts`:
+
+```ts title="src/theme.ts"
+colorBlue: '#1D84B5',
+colorGrey: '#8E9AAF',
 ```
 
-Let's hide the tab bar label with:
+And let's use them for the tint colours in `BottomTabs.navigator.tsx`
+
+```tsx title="src/screens/BottomTabs.navigator.tsx"
+<BottomTabs.Navigator
+  screenOptions={({ route }) => ({
+    tabBarActiveTintColor: theme.colorBlue,
+    tabBarInactiveTintColor: theme.colorGrey,
+    tabBarIcon: ({ color, size }) => {
+```
+
+Let's also hide the tab bar label with:
 
 ```js
 tabBarShowLabel: false,
@@ -194,17 +199,16 @@ While we're here, let's also update the titles of the tabs:
 ```
 
 :::info Checkpoint 🔗
-TODO!
-[**Use vector icons for bottom tabs** 07908e87de8a1951e0eec12c9d676e4c8463eed7](https://github.com/kadikraman/mood-tracker/commit/985a0801f485ed9a8f4e711ca8bad55cef6d51b6)
+[**Use a vector icon for the home tab** 51529ed7153b3b4796229e8c2f6aa8db6a96911d](https://github.com/kadikraman/MoodTracker/commit/51529ed7153b3b4796229e8c2f6aa8db6a96911d)
 :::
 
 <img
-  src={useBaseUrl('/img/vector-icons/ios.png')}
+  src={useBaseUrl('/img/vector-icons/ios-one.png')}
   alt="iOS bottom tabs"
   width="50%"
 />
 <img
-  src={useBaseUrl('/img/vector-icons/android.png')}
+  src={useBaseUrl('/img/vector-icons/android-one.png')}
   alt="Android bottom tabs"
   width="50%"
 />

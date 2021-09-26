@@ -36,22 +36,22 @@ A new context is created using the `createContext` function where we pass in the
 
 A Provider is a component that wraps component tree that should have access to context. The object passed in as the `value` to the provider will contain all the data that the child components will have access to.
 
-```python
-import * as React from "react";
+```tsx title="src/App.provider.tsx"
+import React from 'react';
 
 type AppContextType = {
-  greeting: string,
+  greeting: string;
 };
 
 const defaultValue = {
-  greeting: "",
+  greeting: '',
 };
 
 const AppContext = React.createContext<AppContextType>(defaultValue);
 
 export const AppProvider: React.FC = ({ children }) => {
   return (
-    <AppContext.Provider value={{ greeting: "Hello" }}>
+    <AppContext.Provider value={{ greeting: 'Hello' }}>
       {children}
     </AppContext.Provider>
   );
@@ -87,29 +87,35 @@ export const App: React.FC = () => {
 To access your context, you can use `useContext` hook. It's usually handy to expose the context hook separately from your provider. Add the following to your `App.provider.tsx`:
 
 ```js
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = () => React.useContext(AppContext);
 ```
 
-Now you'll be able to use the same context values from anywhere in your app, e.g. `HistoryTab.screen.tsx`:
+Now you'll be able to use the same context values from anywhere in your app, e.g. `History.screen.tsx`:
 
-```diff
-import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
-+import { useAppContext } from "../App.provider";
+```diff title="src/screens/History.screen.tsx"
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
++import { useAppContext } from '../App.provider';
 
-export const HistoryTab = () => {
+
+export const History: React.FC = () => {
 +  const appContext = useAppContext();
 
   return (
     <View style={styles.container}>
-      <Text>History Tab</Text>
+      <Text>History</Text>
 +      <Text>{appContext.greeting}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 ```
 
 :::info Checkpoint 🔗
-TODO!
-[**Set Up App Context** df7f6074124b0916edef708974bad43734eae5ff](https://github.com/kadikraman/mood-tracker/commit/df7f6074124b0916edef708974bad43734eae5ff)
+[**Set up app context** be6a79ae93c2095bc8f4510d109913b692b9f146](https://github.com/kadikraman/mood-tracker/commit/be6a79ae93c2095bc8f4510d109913b692b9f146)
 :::

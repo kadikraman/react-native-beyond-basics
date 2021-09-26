@@ -6,104 +6,105 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Solution
 
-```ts title="src/App/provider.tsx"
-import React from 'react';
-import { MoodOption, MoodOptionWithTimestamp } from './types';
+First, we'll need to move the `moodList` and the `handleSelectMood` to the `App.provider.tsx` and expose them from context instead.
 
-type AppContextType = {
-  moodList: MoodOptionWithTimestamp[];
-  handleAddMood: (mood: MoodOption) => void;
-};
+```diff title="src/App.provider.tsx"
+ import React from 'react';
++import { MoodOptionType, MoodOptionWithTimestamp } from './types';
 
-const defaultValue = {
-  moodList: [] as MoodOptionWithTimestamp[],
-  handleAddMood: () => {},
-};
+ type AppContextType = {
+-  greeting: string;
++  moodList: MoodOptionWithTimestamp[];
++  handleSelectMood: (mood: MoodOptionType) => void;
+ };
 
-const AppContext = React.createContext<AppContextType>(defaultValue);
+ const defaultValue = {
+-  greeting: '',
++  moodList: [],
++  handleSelectMood: () => {},
+ };
 
-export const AppProvider: React.FC = ({ children }) => {
-  const [moodList, setMoodList] = React.useState<MoodOptionWithTimestamp[]>([]);
+ const AppContext = React.createContext<AppContextType>(defaultValue);
 
-  const handleAddMood = React.useCallback((newMood) => {
-    setMoodList((current) => [
-      ...current,
-      { moodOption: newMood, timestamp: Date.now() },
-    ]);
-  }, []);
-
-  return (
-    <AppContext.Provider value={{ moodList, handleAddMood }}>
-      {children}
-    </AppContext.Provider>
-  );
-};
-
-export const useAppContext = () => React.useContext(AppContext);
+ export const AppProvider: React.FC = ({ children }) => {
++  const [moodList, setMoodList] = React.useState<MoodOptionWithTimestamp[]>([]);
++
++  const handleSelectMood = React.useCallback((mood: MoodOptionType) => {
++    setMoodList(current => [...current, { mood, timestamp: Date.now() }]);
++  }, []);
++
+   return (
+-    <AppContext.Provider value={{ greeting: 'Hello' }}>
++    <AppContext.Provider value={{ moodList, handleSelectMood }}>
+       {children}
+     </AppContext.Provider>
+   );
 ```
 
-```ts title="src/screens/Home.tsx"
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { MoodPicker } from '../components/MoodPicker';
-import { useAppContext } from '../App.provider';
+Next, we can remove them from `Home.screen.tsx` and read them from context:
 
-export const Home = () => {
-  const appContext = useAppContext();
+```diff title="src/screens/Home.screen.tsx"
+ import React from 'react';
+ import { StyleSheet, View } from 'react-native';
+-import { MoodItemRow } from '../components/MoodItemRow';
++import { useAppContext } from '../App.provider';
+ import { MoodPicker } from '../components/MoodPicker';
+-import { MoodOptionType, MoodOptionWithTimestamp } from '../types';
 
-  return (
-    <View style={styles.container}>
-      <MoodPicker onAddMood={appContext.handleAddMood} />
-    </View>
-  );
-};
+ export const Home: React.FC = () => {
+-  const [moodList, setMoodList] = React.useState<MoodOptionWithTimestamp[]>([]);
+-
+-  const handleSelectMood = React.useCallback((mood: MoodOptionType) => {
+-    setMoodList(current => [...current, { mood, timestamp: Date.now() }]);
+-  }, []);
++  const appContext = useAppContext();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  emoji: {
-    textAlign: 'center',
-  },
-});
+   return (
+     <View style={styles.container}>
+-      <MoodPicker onSelect={handleSelectMood} />
+-      {moodList.map(item => (
+-        <MoodItemRow item={item} key={item.timestamp} />
+-      ))}
++      <MoodPicker onSelect={appContext.handleSelectMood} />
+     </View>
+   );
+ };
 ```
 
-```ts title="src/screens/History.tsx"
-import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { useAppContext } from '../App.provider';
-import { MoodItemRow } from '../components/MoodItemRow';
+And finally we can display the past moods from the History tab:
 
-export const History: React.FC = () => {
-  const appContext = useAppContext();
-  return (
-    <ScrollView style={styles.container}>
-      {appContext.moodList.map((mood) => (
-        <MoodItemRow item={mood} key={mood.timestamp} />
-      ))}
-    </ScrollView>
-  );
-};
+```diff title="src/screens/History.screen.tsx"
+ import React from 'react';
+-import { StyleSheet, View, Text } from 'react-native';
++import { ScrollView } from 'react-native';
+ import { useAppContext } from '../App.provider';
++import { MoodItemRow } from '../components/MoodItemRow';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+
+ export const History: React.FC = () => {
+   const appContext = useAppContext();
+
+   return (
+-    <View style={styles.container}>
+-      <Text>History</Text>
+-      <Text>{appContext.greeting}</Text>
+-    </View>
++    <ScrollView>
++      {appContext.moodList.map(item => (
++        <MoodItemRow item={item} key={item.timestamp} />
++      ))}
++    </ScrollView>
+   );
+ };
+-
+-const styles = StyleSheet.create({
+-  container: {
+-    flex: 1,
+-  },
+-});
+
 ```
 
 :::info Checkpoint 🔗
-[**Move mood list to AppContext** f0b4ca4cba8299faee8ee23fd3852129cf1556c5](https://github.com/kadikraman/mood-tracker/commit/f0b4ca4cba8299faee8ee23fd3852129cf1556c5)
+[**Move mood list to app context** dd9c7138caaac2d307885b54c9d6c8bd31aa5bd2](https://github.com/kadikraman/MoodTracker/commit/dd9c7138caaac2d307885b54c9d6c8bd31aa5bd2)
 :::
-
-<img
-  src={useBaseUrl('/img/react-context/ios.png')}
-  alt="React Context iOS"
-  width="50%"
-/>
-<img
-  src={useBaseUrl('/img/react-context/android.png')}
-  alt="React Context Android"
-  width="50%"
-/>

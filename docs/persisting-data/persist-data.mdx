@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Async Storage
 
-Now we have have a nice way to input and store the log of our past moods. However, all our data is stored in-memory. As a result when we refresh the app, all the data will disappear. That's not going to work for a real app. We'll need a way to have all out past moods saved on the device.
+Now we have have a nice way to input and store the log of our past moods. However, all our data is stored in-memory. As a result when we refresh the app, all the data will disappear. That's not going to work for a real app. We'll need a way to have all our past moods saved on the device.
 
 ## Async Storage
 
@@ -83,12 +83,9 @@ React.useEffect(() => {
 And finally, whenever a mood is updated, we want to also sync this in out Async Storage. For this, let's update our `handleAddMood` callback to also save the new value to async storage.
 
 ```js
-const handleAddMood = React.useCallback((newMood: MoodOption) => {
+const handleSelectMood = React.useCallback((mood: MoodOptionType) => {
   setMoodList((current) => {
-    const newValue = [
-      ...current,
-      { timestamp: Date.now(), moodOption: newMood },
-    ];
+    const newValue = [...current, { mood, timestamp: Date.now() }];
     setAppData({ moods: newValue });
     return newValue;
   });
@@ -98,5 +95,5 @@ const handleAddMood = React.useCallback((newMood: MoodOption) => {
 Now when you add new moods to your list and refresh the app, you'll see that the data is persisted across the app launch.
 
 :::info Checkpoint 🔗
-[**Persist data across app launches** 7e534d255db4be7aea75de5b7afb2cf0391b31ab](https://github.com/kadikraman/mood-tracker/commit/7e534d255db4be7aea75de5b7afb2cf0391b31ab)
+[**Persist data across app launches** 2195d951da4f2933f9d0eb053593a74998531af7](https://github.com/kadikraman/MoodTracker/commit/2195d951da4f2933f9d0eb053593a74998531af7)
 :::
