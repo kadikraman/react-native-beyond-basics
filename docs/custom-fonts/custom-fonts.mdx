@@ -6,13 +6,38 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Custom Fonts
 
-Most apps you might build for work or for client will use a custom font instead of the default one. Let's see how to add a custom font to your app.
+If you're building apps for clients, they will more often than not have a custom font for you to use. Let's see how to add custom fonts to your app.
 
-For free fonts, check out [Google Fonts](https://fonts.google.com/).
+For free fonts to use in your app, check out [Google Fonts](https://fonts.google.com/).
 
-I'm going to choose [Kalam](https://fonts.google.com/specimen/Kalam)
+I've chosen [Kalam](https://fonts.google.com/specimen/Kalam) for this exercise. It is a Handwriting font, so it'll be really distinctive.
 
-Note that this font includes 3 styles: light, regular and bold. So far we have used "light" and "regular" in the app so your chosen font must include both styles.
+Feel free to choose a different font, but note that this font includes 3 styles: light, regular and bold. So far we have used "regular" and "bold" in the app so if you choose a different font, is must include both styles.
+
+:::tip
+
+One difficulty with fonts in React Native is that iOS and Android treat fonts differently. On Android, the `fontFamily` you use in your styles will just use the name of the file.
+
+iOS apps however use the PostScript name of the font meaning that if your file name is different from the PostScript, your font will load on Android, but not on iOS. To check the PostScript name, double-click on the `.tff` file on a Mac
+
+<img
+  src={useBaseUrl('/img/custom-fonts/ios-alert.png')}
+  alt="Install font alert"
+  width="600"
+/>
+
+Choose install font, then choose your new font and click on the i (information) icon at the top:
+
+<img
+  src={useBaseUrl('/img/custom-fonts/ios-postscript.png')}
+  alt="Install font alert"
+/>
+
+You can see the PostScript name of the font at the top.
+
+For React Native, always ensure your font files are named after the PostScript name to ensure they work on both iOS and Android.
+
+:::
 
 Once you've chosen your font, download it and unzip it.
 
@@ -24,7 +49,7 @@ Inside it, add a link to the fonts directory.
 
 ```js
 module.exports = {
-  assets: ['./src/assets/fonts'],
+  assets: ['./assets/fonts'],
 };
 ```
 
@@ -40,31 +65,33 @@ Finally, rebuild the app from XCode / Android Studio.
 
 ## Using custom fonts
 
-To use the new FontFamily, pass it in as a style on a Text component, e.g.
-
-```js
-fontFamily: 'Kalam-Bold',
-```
-
 Unlike the web, you won't be able to apply a font globally, so each individual `Text` element will need the font family style applied to it.
+
+Let's start by adding the new fonts family to our `theme.ts`:
+
+```ts title="src/theme.ts"
+fontFamilyBold: 'Kalam-Bold',
+fontFamilyRegular: 'Kalam-Regular',
+fontFamilyLight: 'Kalam-Light',
+```
 
 To add the font family to the screen titles, use `headerTitleStyle` on `screenOptions` in `BottomTabs.navigator.tsx`.
 
 ```js
-headerTitleStyle: { fontFamily: 'Kalam-Bold' },
+headerTitleStyle: { fontFamily: theme.fontFamilyBold },
 ```
 
-## Checkpoint 🔗
-
-[**Add a custom font** 4b88f65f5246a2b86e4f0b7f9400fc409e5449f9](https://github.com/kadikraman/mood-tracker/commit/4b88f65f5246a2b86e4f0b7f9400fc409e5449f9)
+:::info Checkpoint 🔗
+[**Add a custom font** 86e7c7470e2223f1b0fc7cf5f8d51b2f214b44ba](https://github.com/kadikraman/MoodTracker/commit/86e7c7470e2223f1b0fc7cf5f8d51b2f214b44ba)
+:::
 
 <img
-  src={useBaseUrl('/img/custom-fonts/ios.png')}
+  src={useBaseUrl('/img/custom-fonts/ios-title.png')}
   alt="iOS custom font"
   width="50%"
 />
 <img
-  src={useBaseUrl('/img/custom-fonts/android.png')}
+  src={useBaseUrl('/img/custom-fonts/android-title.png')}
   alt="Android custom font"
   width="50%"
 />

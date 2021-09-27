@@ -1,0 +1,109 @@
+---
+sidebar_position: 1
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Layout Animation
+
+There are two ways to animate your UI in React Native: you can either define whe exact animation yourself, or you can let [LayoutAnimation](https://reactnative.dev/docs/layoutanimation) do all the work for you.
+
+[LayoutAnimation](https://reactnative.dev/docs/layoutanimation) is incredibly powerful, although not very flexible. It works by somewhat magically animation the _next_ UI update from after it's triggered, using the given animation configuration. The downside is that other than configuring the speed of the animation, you'll have no control over it. You can't choose to animate just part of the screen. So in most cases you'll end up building your own custom animations without LayoutAnimation. It's a whole lot better than no animation at all though, so it can be nice to use that instead of a fine grained animation as a first pass.
+
+## Add delete mood functionality
+
+First open `App.provider.tsx` and expose a function that lets you delete a given mood:
+
+```ts title="src/App.provider.tsx"
+const handleDeleteMood = React.useCallback((mood: MoodOptionWithTimestamp) => {
+  setMoodList((current) => {
+    const newValue = current.filter(
+      (item) => item.timestamp !== mood.timestamp
+    );
+    setAppData({ moods: newValue });
+    return newValue;
+  });
+}, []);
+```
+
+Now in `MoodItemRow`, add a "delete" button that calls this function via context:
+
+```tsx title="src/components/MoodItemRow.tsx"
+import { Pressable } from 'react-native';
+import { useAppContext } from '../App.provider';
+
+const appContext = useAppContext();
+
+---
+
+<Pressable hitSlop={16} onPress={() => appContext.handleDeleteMood(item)}>
+  <Text style={styles.deleteText}>Delete</Text>
+</Pressable>;
+
+---
+
+deleteText: {
+  color: theme.colorBlue,
+  fontFamily: theme.fontFamilyLight,
+},
+```
+
+:::info Checkpoint 🔗
+[**Enable deleting past moods** 446690b59eb6281638e1b589140bc1700a9a9ebb](https://github.com/kadikraman/MoodTracker/commit/446690b59eb6281638e1b589140bc1700a9a9ebb)
+:::
+
+## Animate the list when an item gets removed
+
+LayoutAnimation is enabled by default on iOS, but it's still experimental on Android. In order to enable LayoutAnimation on Android, open `App.tsx` and add the following:
+
+```js title="src/App.tsx"
+import { Platform, UIManager } from 'react-native';
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+```
+
+Now to animate the list, open `MoodItemRow` and
+
+1. pull the onPress function out to a callback
+2. call `LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);` before the delete function
+
+Note - it actually doesn't matter whether you put the `LayoutAnimation.configureNext` call before or after the `handleDeleteMood` call. It will always apply to the next UI update.
+
+```tsx title="src/components/MoodItemRow.tsx"
+const handlePress = React.useCallback(() => {
+  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  appContext.handleDeleteMood(item);
+}, [appContext, item]);
+```
+
+Finally you might have noticed that when adding new mood items, new rows get added to the bottom of our list, not the top. In this case it would make more sense for the new entries to be added to the top instead. Thankfully we can easily fix this:
+
+Open `History.screen` and call `slice().reverse()` on the mood list before mapping over it:
+
+```diff title="src/screens/History.screen.tsx"
+-      {appContext.moodList.map(item => (
++      {appContext.moodList.slice().reverse().map(item => (
+```
+
+:::danger
+Remember `reverse()` alone mutates the original array which can cause unintended consequences.
+
+This is why we call `slice()` on the array first to create a copy of it.
+:::
+
+:::info Checkpoint 🔗
+[**Use LayoutAnimation to animate removing item from list** 577d2cd0d9d156488e4eb37f886f563403484d86](https://github.com/kadikraman/MoodTracker/commit/577d2cd0d9d156488e4eb37f886f563403484d86)
+:::
+
+<div>
+  <video width="100%" controls>
+    <source
+      src={useBaseUrl('/img/animation/delete-animation.mp4')}
+      type="video/mp4"
+    />
+  </video>
+</div>

@@ -1,7 +1,215 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Reanimated 2
 
-Use it to disable the "Choose" button and animate when enabled
+If you need more fine-grained control over your animations, you'll have to configure them yourself.
+
+Now, React Native comes with an [Animated](https://reactnative.dev/docs/animated) API which you can use out of the box, _however_ that's not what we're going to use for this course.
+
+For this course we will instead use [Reanimated 2](https://docs.swmansion.com/react-native-reanimated/docs).
+
+:::note Story time!
+Reanimated 1 was originally built to address some performance issues of React Native's built in API, and it was designed to mimic the Animated API exactly.
+
+The recently released Reanimated 2 however is the real game changer: it completely moves away from Animated's unintuitive declarative API and exposes a series of hooks you can use to animate your components instead. It is much less code and much easier to understand if you're already familiar with React and React hooks!
+
+Personally, I only started liking animations in React Native after I started using Reanimated 2. I hope you will as well!
+
+:::
+
+## Install Reanimated 2
+
+Follow the [installation docs](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation) to install Reanimated 2. At the time of writing this is still in beta so we'll have to use the `@next` tag, but the documentation site will have the latest instructions for the future.
+
+### Install Reanimated
+
+First, install the reanimated library from npm:
+
+```bash
+yarn add react-native-reanimated@2.3.0-beta.1
+# or
+npm install yarn add react-native-reanimated@2.3.0-beta.1
+```
+
+Add the Reanimated plugin to your `babel.config.js`:
+
+```diff title="babel.config.js"
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
++  plugins: ['react-native-reanimated/plugin'],
+};
+
+```
+
+Finally, restart the metro bundler by stopping the JavaScrip process and running `yarn start` or `npm run start` again.
+
+### Android only
+
+1. Turn on Hermes engine by editing `android/app/build.gradle`
+
+```
+project.ext.react = [
+  enableHermes: true // <- here | clean and rebuild if changing
+]
+```
+
+2. Plug Reanimated in `MainApplication.java`
+
+```
+import com.facebook.react.bridge.JSIModulePackage; // <- add
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+...
+private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+...
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
+    }
+
+    @Override
+    protected JSIModulePackage getJSIModulePackage() {
+      return new ReanimatedJSIModulePackage(); // <- add
+    }
+  };
+...
+```
+
+### iOS only
+
+Install the native dependencies:
+
+```bash
+cd ios && pod install && cd ..
+```
+
+### Rebuild the app
+
+Finally, rebuild the app from XCode / Android Studio / CLI
+
+Make sure you also restart your metro bundler by closing the process and running:
+
+```bash
+yarn start --reset-cache
+# or
+npm run start --reset-cache
+```
+
+### Debugging
+
+If you see an error like this:
+
+<img
+  src={useBaseUrl('/img/animation/error.png')}
+  alt="Error after installing library"
+  width="500"
+/>
+
+this means the babel plugin isn't added correctly.
+
+1. Ensure you've added `react-native-reanimated/plugin` to your `babel.config.js`
+2. Ensure it's the last one in the plugins list
+3. Restart the metro bundler without cache
+
+```bash
+yarn start --reset-cache
+# or
+npm run start --reset-cache
+```
+
+:::info Checkpoint 🔗
+[**Use Install reanimated 2** 3881cd921ccfa9a99471864e1a5c9aa35a1646e0](https://github.com/kadikraman/MoodTracker/commit/3881cd921ccfa9a99471864e1a5c9aa35a1646e0)
+:::
+
+## `useAnimatedStyle` and `withTiming`
+
+Reanimated 2 has a lot of interesting features, but some of the ones you'll end up using the most often are [useAnimatedStyle](https://docs.swmansion.com/react-native-reanimated/docs/api/hooks/useAnimatedStyle) and [withTiming](https://docs.swmansion.com/react-native-reanimated/docs/api/animations/withTiming).
+
+`useAnimatedStyle` will let you apply an animated style to a component, and `withTiming` is one of the transition functions that starts a time-based animation. Best to see this by example! Let's open our `MoodPicker` and update it so the "Choose" button shows a disabled state then no option is selected.
+
+First, we'll need to convert our `Pressable` into a component what can accept animated styles.
+
+:::danger
+Only Reanimated components can use animated styles! If your animation isn't working, make sure the component using the style is a Reanimated component.
+:::
+
+```ts
+import Reanimated from 'react-native-reanimated';
+
+const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
+```
+
+Next, let's define an animated style that will set the button opacity to 0.5 when the button is disabled and 1 otherwise:
+
+```tsx
+import Reanimated, { useAnimatedStyle } from 'react-native-reanimated';
+
+const buttonStyle = useAnimatedStyle(
+  () => ({
+    opacity: selectedMood ? 1 : 0.5,
+  }),
+  [selectedMood]
+);
+```
+
+:::warn
+Don't forget to add `selectedMood` to the dependency array for the `useAnimatedStyle` hook.
+:::
+
+Let's add this as the second array in our button styles:
+
+```tsx
+-      <Pressable style={styles.button} onPress={handleSelect}>
++      <ReanimatedPressable
++        style={[styles.button, buttonStyle]}
++        onPress={handleSelect}>
+         <Text style={styles.buttonText}>Choose</Text>
+-      </Pressable>
++      </ReanimatedPressable>
+```
+
+Now this toggles between opacity `1` and `0.5`, but doesn't animate. This is where we pull in `withTiming` - this will start the animation to gradually move from `0.5` to `1` and vice versa. All we need to do is wrap the new value in a `withTiming`:
+
+```tsx
+import { withTiming } from 'react-native-reanimated';
+
+const buttonStyle = useAnimatedStyle(
+  () => ({
+    opacity: selectedMood ? withTiming(1) : withTiming(0.5),
+  }),
+  [selectedMood]
+);
+```
+
+We can animate more than one style at a time. Let's also animate the scale so that the button is smaller then it's disabled:
+
+```tsx
+const buttonStyle = useAnimatedStyle(
+  () => ({
+    opacity: selectedMood ? withTiming(1) : withTiming(0.5),
+    transform: [{ scale: selectedMood ? withTiming(1) : 0.8 }],
+  }),
+  [selectedMood]
+);
+```
+
+:::danger
+At the time of writing, there is a bug on Android where applying `withTiming(0.8)` will cause the app to crash on load, which is why we're not applying the transition to the initial value. This will be fixed in future versions of Reanimated 2.
+:::
+
+:::info Checkpoint 🔗
+[**Animate button style** 675ef6d7911556857e3e56acb22f1ab6770753ad](https://github.com/kadikraman/MoodTracker/commit/675ef6d7911556857e3e56acb22f1ab6770753ad)
+:::
+
+<div>
+  <video width="100%" controls>
+    <source
+      src={useBaseUrl('/img/animation/button-animation.mp4')}
+      type="video/mp4"
+    />
+  </video>
+</div>
