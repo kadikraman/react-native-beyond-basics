@@ -15,31 +15,47 @@ Open Xcode and find `LaunchScreen.storyboard` from the sidebar. This is the curr
   alt="XCode Storyboard"
 />
 
+## Add images
+
 Open `Images.xcassets` and add a new Image Set called `SplashImage`.
 
-Notice we need to add 3 versions of the image. Let's use the Ying Yang image from before:
+Notice we need to add 3 versions of the image. Let's use the Butterflies from before:
 
-<img src={useBaseUrl('/img/images/ying-yang@3x.png')} alt="Ying Yang image" />
-<img src={useBaseUrl('/img/images/ying-yang@2x.png')} alt="Ying Yang image" />
-<img src={useBaseUrl('/img/images/ying-yang.png')} alt="Ying Yang image" />
+<img
+  src={useBaseUrl('/img/images/butterflies@3x.png')}
+  alt="Butterflies image 3x"
+/>
+<img
+  src={useBaseUrl('/img/images/butterflies@2x.png')}
+  alt="Butterflies image 2x"
+/>
+<img src={useBaseUrl('/img/images/butterflies.png')} alt="Butterflies image" />
 
-To add this to the Splash Screen, open the `LaunchScreen.storyboard` again and click on + on the top right corner of Xcode.
+Download these and drag and drop them to the correct slots.
+
+## Design the splash screen
+
+Now let's remove the existing text elements from the splash screen by clicking on them and hitting backspace.
+
+To add our butterfly icon to the Splash Screen, open the `LaunchScreen.storyboard` and click on + on the top right corner of Xcode.
 
 Search for `ImageView` and drag it to the center of your splash screen page.
 
-Click on the `ImageView` and choose the Image asset you just creates from the right menu.
+Click on the `ImageView` and choose the Image asset you just created from the right menu.
 
-Click on the `View` on the left, and set the background to the blue of our main background image using the colour picker tool.
+Click on the `View` on the left, and set the background to our blue theme colour: `#1D84B5` using the colour picker tool.
 
-To ensure that the image is always centered in our container, choose the SplashImage from the tree view and click on the little bar chart icon on the bottom right of the toolbar, check "Center Horizontally in container" and "Center Vertically in container", and add both constraints.
+Now move the image so it is centered in your container horizontally and vertically.
 
-Rebuild the app from Xcode.
+To ensure that the image is always centered in our container, select the image and then click on the triangle icon on the top menu. Under Autoresizing change the window with the arrows, so it looks like in the screenshot below. All outer arrows should be deselected and all inner arrows selected.
 
 <img
   src={useBaseUrl('/img/splash-screen/xcode-end.png')}
   alt="XCode Storyboard"
 />
 
-## Checkpoint 🔗
+Rebuild the app from Xcode.
 
-[**Add iOS splash screen** 86a64cabe2c604714034a9314dd3392eaafc222f](https://github.com/kadikraman/mood-tracker/commit/86a64cabe2c604714034a9314dd3392eaafc222f)
+:::info Checkpoint 🔗
+[**Add iOS splash screen** bf32672ef9b602466046bbc8008f2f1c35387503](https://github.com/kadikraman/MoodTracker/commit/bf32672ef9b602466046bbc8008f2f1c35387503)
+:::

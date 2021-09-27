@@ -1,34 +1,38 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # iOS
 
-To add an app icon to iOS, you need a `1024 x 1024px` image. Feel free to create your own, or use this:
+An App Icon is a unique image added to every mobile application. It's displayed on the App Store as well as the home screen.
 
-<img src={useBaseUrl('/img/app-icons/app-icon.png')} width="200" />
+App icons should be as simple as possible and contain no text so they would look as good as possible even on small screens.
+
+You can design your own icon using [Figma](https://www.figma.com/), [Sketch](https://www.sketch.com/) any other preferred design tool.
+
+To add an app icon to iOS, you need a `1024 x 1024px` image.
+
+In the interest of speed, I've created an app icon for us to use:
+
+<img src={useBaseUrl('/img/app-icons/icon.png')} width="200" />
 
 Next, open your project in Xcode, and on the file tree on the left navigate to folder -> MoodTracker -> MoodTracker -> Images.scassets -> AppIcon
 
-<img src={useBaseUrl('/img/app-icons/xcode-app-icon.png')} width="1000" />
+<img src={useBaseUrl('/img/app-icons/xcode-app-icon.png')} width="100%" />
 
 You can see that the App Icon placeholder is already there and it also shows you what size icons are required.
 
 We could of course manually export our icon using all these sizes, but a faster way is to use a tool for it.
 
-Download [Iconizer](https://raphaelhanneken.com/iconizer/) and export the app icon for iPhone:
+I usually use [Iconizer](https://raphaelhanneken.com/iconizer/) which is a free tool for creating iOS icons for all the required sizes.
 
-<img src={useBaseUrl('/img/app-icons/iconizer.png')} width="600" />
+In the interest of speed, I've already created the icon set for us to use. You can download it here // TODO
 
-When Prompted for a name, call the icon set `AppIcon`.
+After you've downloaded and unzipped the icon set, go back to Xcode and delete the AppIcon template by clicking on it and clicking the minus button below and drag and drop the whole AppIcon folder to the Images section in XCode.
 
-Now go back to Xcode and delete the AppIcon template by clicking on it and clicking the minus button below.
-
-Finally, drag and drop the whole AppIcon folder to the Images section in XCode.
-
-<img src={useBaseUrl('/img/app-icons/xcode-app-icon-done.png')} width="1000" />
+<img src={useBaseUrl('/img/app-icons/xcode-app-icon-done.png')} width="100%" />
 
 Note you can also drag and drop the images manually if need be.
 
@@ -37,6 +41,10 @@ Now, close your iOS simulator completely by right clicking on the simulator icon
 While we're already in Xcode, let's also update the app name. Under "Display Name", you can update the name on the home screen, e.g. "Mood"
 
 Finally, rebuild the app from XCode.
+
+:::info Checkpoint 🔗
+[**Add iOS app icon** ea03ac16ca4f9c119e502d2dfab26bb2d8b01008](https://github.com/kadikraman/MoodTracker/commit/ea03ac16ca4f9c119e502d2dfab26bb2d8b01008)
+:::
 
 <img
   src={useBaseUrl('/img/app-icons/ios.png')}

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 For Android, we only need the image icon. If you have designed your own icon, export the image separately without the background. Otherwise feel free to use this:
 
-<img src={useBaseUrl('/img/app-icons/attitude.png')} width="200" />
+<img src={useBaseUrl('/img/app-icons/butterflies.png')} width="200" />
 
 Open Android Studio and find app -> res -> mipmap -> ic_launcher
 
@@ -24,9 +24,9 @@ Let's overwrite the existing app icon. Keep the Icon Type as "Launcher Icons" an
 
 In the Foreground Layer tab, select the asset patch to be the icon we've just downloaded.
 
-In the Scaling section, select "Yes" under Trim, and resize the icon to fit comfortable within the icon area.
+In the Scaling section, select "Yes" under Trim, and use the slider to resize the icon to fit comfortable within the icon area.
 
-In the "Background Layer" tab, under "Source Asset", choose "Color" for the "Asset Type" and set the background to white.
+In the "Background Layer" tab, under "Source Asset", choose "Color" for the "Asset Type" and set the background to our blue theme colour: `#1D84B5`.
 
 You should end up with something like this:
 
@@ -41,12 +41,12 @@ To change the App Name, open `android/app/src/main/res/values/strings.xml` and u
 
 Finally, rebuild the app from Android Studio.
 
+:::info Checkpoint 🔗
+[**Add android app icon** 03a29e88c509f48eff9bf1365c90e892f7457548](https://github.com/kadikraman/MoodTracker/commit/03a29e88c509f48eff9bf1365c90e892f7457548)
+:::
+
 <img
   src={useBaseUrl('/img/app-icons/android.png')}
   alt="App icon Android"
   width="500px"
 />
-
-## Checkpoint 🔗
-
-[**Add App Icons** 7d170889d1054d9e3d5dc6fc5b3092bf80879afb](https://github.com/kadikraman/mood-tracker/commit/7d170889d1054d9e3d5dc6fc5b3092bf80879afb)
