@@ -1,0 +1,84 @@
+---
+sidebar_position: 2
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+# Pie Chart Solution
+
+First, let's install Victory Native:
+
+```bash
+yarn add victory-native
+# or
+npm install victory-native
+```
+
+Victory Native has a dependency on [React Native SVG](https://github.com/react-native-svg/react-native-svg), but we already have that installed from the icons section.
+
+Victory itself doesn't have any additional native dependencies, so we don't need to rebuild the app this time.
+
+Looking at the documentation for [Victory Pie](https://formidable.com/open-source/victory/docs/victory-pie/), we need to pass it an array objects that have two keys: `x` for the label and `y` for the count.
+
+```
+{ x: "Cats", y: 35 },
+{ x: "Dogs", y: 40 },
+{ x: "Birds", y: 55 }
+```
+
+Our data doesn't look like this, so we'll need to do convert it. If you want to use lodash for the data manipulation, install it now with:
+
+```bash
+yarn add lodash
+# or
+npm install lodash
+```
+
+You'll notice that lodash doesn't come with TypeScript types by default, but there are [community-maintained types](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash) for it which we can install with:
+
+```bash
+yarn add @types/lodash --dev
+# or
+npm i --save-dev @types/lodash
+```
+
+Open the `Analytics.screen` and get the `moodList` from our app context:
+
+```tsx title="src/screens/Analytics.screen.tsx"
+import { useAppContext } from '../App.provider';
+
+---
+
+const appContext = useAppContext();
+```
+
+Now, lodash has a handy function called `groupBy` which takes in two arguments: an array and a math to the value you want to group by, and it returns an object where the keys are the value that you used for grouping, and the value is the array of the items in that group.
+
+Then we can call `Object.entries` on this object and map to the data format we're looking for.
+
+```tsx title="src/screens/Analytics.screen.tsx"
+const data = Object.entries(groupBy(appContext.moodList, 'mood.emoji')).map(
+  ([key, value]) => ({
+    x: key,
+    y: value.length,
+  })
+);
+```
+
+Now we can pass that data into our Victory Pie:
+
+```tsx
+import { VictoryPie } from 'victory-native';
+
+---
+
+<VictoryPie
+  data={data}
+/>
+```
+
+You can then use the properties available in the documentation to tweak the pie chart to your liking, or to match the suggested solution!
+
+:::info Checkpoint 🔗
+[**Add a pie chart** 75ba6b1dff009ec0ebc6f653f6085fe5eb03c7b6](https://github.com/kadikraman/MoodTracker/commit/75ba6b1dff009ec0ebc6f653f6085fe5eb03c7b6)
+:::
