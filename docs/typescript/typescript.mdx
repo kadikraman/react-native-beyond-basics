@@ -49,7 +49,7 @@ const add = (a, b) => a + b;
 
 Since JavaScript is not type safe, there is really nothing preventing (or even warning you) from passing in strings, objects or even functions, which could cause unintended side-effects.
 
-In typescript, we can communicate the intent of this functions by declaring types for the arguments and the return type:
+With TypeScript, we can communicate the intent of these functions by declaring types for the arguments and the return type:
 
 ```ts title="add.ts"
 const add = (a: number, b: number): number => a + b;

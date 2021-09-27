@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Navigation
 
-React Native does not come with navigation out of the box, so in order to add navigation into out app, we'll need to install a navigation library. For this project, we'll be using [React Navigation v6](https://reactnavigation.org/docs/getting-started/).
+React Native does not come with navigation out of the box, so in order to add navigation into our app, we'll need to install a navigation library. For this project, we'll be using [React Navigation v6](https://reactnavigation.org/docs/getting-started/).
 
 ## Install the navigation library
 
@@ -40,9 +40,7 @@ import android.os.Bundle;
 Since this library includes native code, we'll also need to install the native dependencies:
 
 ```bash
-cd ios
-pod install
-cd ..
+cd ios && pod install && cd ..
 ```
 
 Finally, rebuild your iOS or android app from the terminal / Xcode / Android Studio.
@@ -58,10 +56,6 @@ We're mostly going to use the TypeScript template as is, but there are two small
 ## Update project structure
 
 If you completed the into React Native course, then you should already be familiar with the Stack Navigator. In this project, we want to use tab-based navigation, so we're going to use the [Bottom Tab Navigator](https://reactnavigation.org/docs/bottom-tab-navigator) instead. We already installed `@react-navigation/bottom-tabs` in the install step above, so we can already use it in our project.
-
-The layout we're looking for looks like this:
-
-<img src={useBaseUrl('/img/navigation/navigation.png')} alt="Navigation" />
 
 First, let's create a new `src` directory at the root of your project. This is where all our code is going to live.
 

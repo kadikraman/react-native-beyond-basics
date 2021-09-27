@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Layout Animation
 
-There are two ways to animate your UI in React Native: you can either define whe exact animation yourself, or you can let [LayoutAnimation](https://reactnative.dev/docs/layoutanimation) do all the work for you.
+There are two ways to animate your UI in React Native: you can either define the exact animation yourself, or you can let [LayoutAnimation](https://reactnative.dev/docs/layoutanimation) do all the work for you.
 
 [LayoutAnimation](https://reactnative.dev/docs/layoutanimation) is incredibly powerful, although not very flexible. It works by somewhat magically animation the _next_ UI update from after it's triggered, using the given animation configuration. The downside is that other than configuring the speed of the animation, you'll have no control over it. You can't choose to animate just part of the screen. So in most cases you'll end up building your own custom animations without LayoutAnimation. It's a whole lot better than no animation at all though, so it can be nice to use that instead of a fine grained animation as a first pass.
 

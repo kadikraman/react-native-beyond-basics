@@ -6,11 +6,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Local Images
 
-There are two ways to add images to your app - you can wither include them in your app bundle, or load them via a url. Local images are included in the app bundle.
+There are two ways to add images to your app - you can either include them in your app bundle, or load them via a url. Local images are the ones included in the app bundle.
 
-Create an `/assets` folder inside your project's `/src` directory. This is a place to keep all your non-code files (images, icons, fonts etc).
+First, let's create an `/assets` folder inside your project's `/src` directory. This is a place to keep all your non-code files (images, icons, fonts etc).
 
-Right click -> "Save Image As", and save the image in your `/assets` folder (Image from [flaticon](https://www.flaticon.com/free-icon/butterflies_4713806)).
+Right click -> "Save Image As", and save the image in your `/assets` folder (Image from [FlatIcon](https://www.flaticon.com/free-icon/butterflies_4713806)).
 
 <img src={useBaseUrl('/img/images/butterflies.png')} alt="Butterflies image" />
 
@@ -78,7 +78,7 @@ container: {
 
 ### Adapting to Screen Sizes
 
-You would have noticed that when doing styling in React Native, we don't really use "pixels" or "ems" or "rems", but just "points". This is because the "points" are relative depending on the screen size.
+You would have noticed that when doing styling in React Native, we don't really use "pixels" or "ems" or "rems", but just "display points". This is because the "points" are relative depending on the screen size.
 
 The [pixel density](https://en.wikipedia.org/wiki/Pixel_density) of a screen denotes how many pixels a screen has per a inch or cm. What it comes down to is this: `width: 10` in React Native _is not_ the same as `width: "10px"` on the web. It actually means `width: (10 * pixel_density)px`.
 
