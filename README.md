@@ -1,6 +1,8 @@
-# Intermediate React Native Course
+# [Intermediate React Native Course](https://frontendmasters.com/courses/intermediate-react-native/)
 
 Welcome to my Intermediate React Native course, I hope you'll enjoy it! See the course website [here](https://kadikraman.github.io/react-native-beyond-basics/).
+
+If you'd like to follow along with videos for the course, you can watch my [Intermediate React Native Course](https://frontendmasters.com/courses/intermediate-react-native/) on Frontend Masters.
 
 ## About the course
 
